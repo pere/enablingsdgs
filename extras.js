@@ -31,10 +31,10 @@ function attach_events_initial_dom() {
 
     console.log(options)
 
-    $('.sdg_cards_container').busyLoad("show", {
-        spinner: "accordion",
-        background: "#101010"
-    });
+    // $('.sdg_cards_container').busyLoad("show", {
+    //     spinner: "accordion",
+    //     background: "#101010"
+    // });
     $('#intro_modal').modal({
         dismissible: false, // Modal can be dismissed by clicking outside of the modal
         opacity: .9, // Opacity of modal background
