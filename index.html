@@ -1,0 +1,3929 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="UTF-8">
+    <script src="./jquery-3.3.1.min.js"></script>
+    <script src="./sdg_info.js"></script>
+    <link rel="stylesheet" href="./css/sdg_new.css"></link>
+    <link rel="stylesheet" href="./css/busy_load.css"></link>
+    <!-- <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"/ > -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+    <script src="./jquery-ui.js"></script>
+    <script src="./materialize.js"></script>
+    <link rel="stylesheet" href="./css/materialize.min.css">
+    <script src="./html2canvas.js"></script>
+    <script src="./satchart.js"></script>
+    <script src="./d3_v5.min.js"></script>
+
+
+    <script src="./busy_load_app.js"></script>
+
+
+    <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
+    <!-- <script src="https://d3js.org/d3v5.v5.js"></script> -->
+
+
+    <!-- <script src="./d3-multi-styles.js"></script> -->
+
+    <script src="./popper.min.js"></script>
+
+
+    <script src="./colorbrewer.v1.min.js"></script>
+
+</head>
+
+<body>
+    <div id="intro_modal" class="modal">
+        <div class="modal-content">
+            <h5>Enabling Sustainable Development Goals</h5>
+            <p>Explore the SDG framework and its interlinkages, visualize synergies and trade-offs to better understand the complexity of interactions and develop a profound knowledge base for your future decisions</p>
+            <a class="waves-effect waves-light btn index">Create your matrix</a>
+            <a class="waves-effect waves-light btn index_sat">Explore results</a>
+        </div>
+    </div>
+
+    <div id="print_modal" class="modal">
+        <div class="modal-content">
+            <h5>Printing satellite graph</h5>
+            <p>We are processing your printing request. In a few seconds your browser should download an image containing the sallite graph</p>
+            <p>Please wait...</p>
+        </div>
+    </div>
+
+    <div class="wrapper">
+        <ul id="slide-out" class="side-nav">
+            <div>
+                <ul class="collapsible" data-collapsible="accordion"></ul>
+            </div>
+            <div class="input-field col s4 m6"> <select multiple class="icons"> <option value="wisehd" disabled selected>Add Goals or Targets and build your matrix</option> </select></div>
+        </ul>
+    </div>
+
+    <div class="sdg_container">
+        <!--
+<div class="busy-load-container" id="t2pm6zuduu5spszszip1n" style="position: absolute; top: 0px; left: 0px; background: rgb(16, 16, 16); color: rgb(255, 255, 255); display: flex; align-items: center; justify-content: center; width: 100%; height: 100%; z-index: 9999;">
+ <div class="busy-load-container-item" style="background: none; display: flex; justify-content: center; align-items: center; flex-direction: row-reverse;">
+      <div class="spinner-accordion busy-load-spinner-css busy-load-spinner" style="max-height: 50px; max-width: 50px; min-height: 20px; min-width: 20px;">
+          <div class="rect1" style="background-color: rgb(255, 255, 255);"></div>
+          <div class="rect2" style="background-color: rgb(255, 255, 255);"></div>
+          <div class="rect3" style="background-color: rgb(255, 255, 255);"></div>
+          <div class="rect4" style="background-color: rgb(255, 255, 255);"></div>
+          <div class="rect5" style="background-color: rgb(255, 255, 255);"></div>
+        </div>
+  </div>
+</div>  -->
+        <nav>
+            <div class="nav-wrapper white darken-4">
+                <a href="" class="brand-logo left"><img src="./img/sdgs_logo_60.png"></a>
+                <a href="" class="brand-logo center hide-on-med-and-down">Enabling SDGs</a>
+                <ul id="nav-mobile">
+                    <li><a href="#" data-activates="slide-out" class="sidenav_trigger btn-floating btn-small waves-effect waves-light blues-grey lighten-1"><i class="material-icons">apps</i></a>
+                    </li>
+
+                    <ul id="dropdown_legend" class="dropdown-content">
+                        <li>
+                            <div id="legend_tooltip"></div>
+                        </li>
+                    </ul>
+                    <li>
+                        <a href="#" class="btn-floating btn-small waves-effect waves-light blues-grey lighten-1 dropdown-button  dropdown_legend_btn" data-activates="dropdown_legend"><i class="material-icons md-light">layers</i></a>
+                    </li>
+
+                    <!--  <li><a href="#" class="sidenav_trigger btn-floating btn-small waves-effect waves-light blues-grey lighten-1"><i class="material-icons attach_csv">attachment</i></a>
+                </li> -->
+                    <ul id="dropdown_config" class="dropdown-content">
+                        <li>
+                            <div class='dropdown_config_div'>
+                                <p>General tool settings</p>
+                                <form id="dropdown_config_form" action="#">
+                                    <p>
+                                        <input type="checkbox" id="opt_click" />
+                                        <label for="opt_click">Get info only if a card is clicked</label>
+                                    </p>
+                                </form>
+                            </div>
+                        </li>
+                    </ul>
+
+                    <li> <a href="#" class="btn-floating btn-small waves-effect waves-light blues-grey lighten-1 waves-effect waves-light dropdown-button btn dropdown_config_btn" data-activates="dropdown_config"><i class="material-icons md-light">settings</i></a></li>
+                    <li> <a href="#" class="btn download_button"><i class="material-icons md-light">file_download</i></a></li>
+                    <!-- <li><a class="attach_csv waves-effect waves-light btn off">Colombian dataset</a>
+                </li>
+                -->
+
+                </ul>
+                <ul class="right hide-on-med-and-down">
+                    <li><a href="https://lucageo.github.io/sdg_home/">PROJECT</a></li>
+                    <li><a href="https://lucageo.github.io/sdg_home/#learn">LEARN</a></li>
+                    <li><a href="#">SDGS</a></li>
+                    <li><a href="#">EVENTS</a></li>
+                    <li><a href="#">WHO WE ARE</a></li>
+                    <li>
+                        <nav class="white">
+                        </nav>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        <div class='row' id="info">
+            <div style='display: none' class="col s3">
+                <div class="form-goal  targets_by_text">
+                    <input type="text" required="required" />
+                    <label for="input" class="control-label">Search targets by text</label><i class="bar"></i>
+                </div>
+                <div id="goals_list">
+                </div>
+            </div>
+        </div>
+        <div id="sdg_cards_container">
+            <div class="row"></div>
+            <div style="display:none;" class="row chart_container">
+                <div id="chart" class="left col s8">
+                    <div class='svg-container'></div>
+                </div>
+                <div id="right_container" class="left col s4">
+                    <div id="graph"></div>
+                    <div class="right_container_cards">
+
+
+                        <ul class="collapsible ul_satellite" data-collapsible="accordion">
+                            <li>
+                                <div class="collapsible-header">
+                                    <div class="card horizontal">
+                                        <div class="card-image"> <i class="material-icons md-light">share</i></div>
+                                        <div class="card-stacked">
+                                            <div class="card-content">
+                                                <div>Satellite</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="collapsible-body white">
+                                    <div id='satellite_selects_opt'>
+                                        <div class='col s8'>
+                                            <form action="#">
+                                                <span>
+                                    <input name="group1" type="radio" id="from_id" checked/>
+                                    <label for="from_id">From target</label>
+
+
+                                  </span>
+                                                <span>
+                                    <input name="group1" type="radio" id="to_id" />
+                                    <label for="to_id">To target</label>
+                                  </span>
+                                            </form>
+                                        </div>
+
+                                        <div class='col s4'>
+                                            <a class="waves-effect waves-light btn initial_off off">Apply</a>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="satellite_options input-field col s12">
+
+                                        <select>
+                                   
+                                    
+                                  </select>
+                                        <div class="print_div"><i class="material-icons md-light print">local_printshop</i></div>
+
+
+
+                                    </div>
+
+
+                                    <div id="vis-container"></div>
+
+                                </div>
+                            </li>
+                        </ul>
+
+                        <ul class="collapsible ul_stats" data-collapsible="accordion">
+                            <li class="goal_stats_container">
+                                <div class="collapsible-header">
+                                    <div class="card horizontal">
+                                        <div class="card-image"> <i class="material-icons md-light">equalizer</i></div>
+                                        <div class="card-stacked">
+                                            <div class="card-content">
+                                                <div>Statistics</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="collapsible-body white">
+                                    <ul>
+                                        <li>
+                                            <div class="row progress_test card-panel">
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                        </ul>
+
+
+                        <ul class="collapsible ul_tables" data-collapsible="accordion">
+                            <li class="goal_table_container">
+                                <div class="collapsible-header">
+                                    <div class="card horizontal">
+                                        <div class="card-image"> <i class="material-icons md-light">equalizer</i></div>
+                                        <div class="card-stacked">
+                                            <div class="card-content">
+                                                <div>Table</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="collapsible-body white">
+                                    <ul>
+                                        <!-- <li>
+                                    <div class="row tables card-panel">
+                                      <ul></ul>
+                                    </div>
+                                  </li> -->
+                                    </ul>
+                                </div>
+                            </li>
+                        </ul>
+
+                    </div>
+
+                    <div id="sel_info_matrix"></div>
+                </div>
+
+                <div class='col s5' style="display: none;" id="chart_info"></div>
+            </div>
+            <!-- chart_container -->
+        </div>
+        <!-- sdg_cards_container -->
+        <a href="#" id='lnkDwnldLnk' download></a>
+
+
+    </div>
+    <!-- end of sdg_container -->
+    <style type="text/css">
+        .sdg_cards_container {
+            display: none;
+        }
+        
+        .fixed_col_row {
+            font-size: 1.3em!important;
+            fill: #ff9800!important;
+        }
+        
+        .right_container_cards .collapsible-header {
+            padding: 0rem!important;
+        }
+        
+        .right_container_cards .card {
+            margin: 0rem 0 0rem 0!important;
+        }
+    </style>
+
+    <script type="text/javascript">
+        var select_triggered = false;
+        var app = {};
+        var app_data = {
+            entered_data: {
+                ids: [],
+                values: []
+            }
+        }
+
+        var xmouse, ymouse;
+
+
+        colors = colorbrewer.RdYlGn[7]; // alternatively colorbrewer.YlGnBu[9]
+
+
+
+        var structural_data = {
+            goals_obj: [],
+            all_targets: [],
+            colors_obj: {
+                total_records: 0,
+                data: [{
+                    legend_val: -3,
+                    counts: 0,
+                    percent_val: 0,
+                    color: "#d73027",
+                    legend_text: "Strongly restricting"
+                }, {
+                    legend_val: -2,
+                    counts: 0,
+                    percent_val: 0,
+                    color: "#fc8d59",
+                    legend_text: "Moderately restricting"
+                }, {
+                    legend_val: -1,
+                    counts: 0,
+                    percent_val: 0,
+                    color: "#feb900",
+                    legend_text: "Weakly restricting"
+                }, {
+                    legend_val: 0,
+                    counts: 0,
+                    percent_val: 0,
+                    color: "#f4de00",
+                    legend_text: "No influence"
+                }, {
+                    legend_val: 1,
+                    counts: 0,
+                    percent_val: 0,
+                    color: "#90c889",
+                    legend_text: "Weakly promoting"
+                }, {
+                    legend_val: 2,
+                    counts: 0,
+                    percent_val: 0,
+                    color: "#21b44e",
+                    legend_text: "Moderately promoting"
+                }, {
+                    legend_val: 3,
+                    counts: 0,
+                    percent_val: 0,
+                    color: "#02682a",
+                    legend_text: "Strongly promoting"
+                }]
+            }
+        };
+
+        var dynamic_data = {
+            //all goals that contain at least a target active (lateral checkbox)
+            selected_goals_arr: [],
+            pushed_vis_targets: []
+
+        }
+
+
+
+
+        var all_t_val = [];
+
+
+        var from_ids_arr = [];
+
+
+        var new_params = {};
+
+
+        var chart = {};
+        var options = {
+            config: {
+                opt_right: true,
+                opt_click: false,
+                from_csv: false,
+                satellites: false
+            }
+        };
+
+
+        var sdg_params = {};
+        var sel_from_sidenav = false;
+        var clicked_card = false;
+        var clicked_card_data = null;
+
+        var selected_targets_arr = [];
+        var goal_stats = [];
+        var unique_id_arr = {
+            ids: [],
+            values: []
+        }
+        var objects = [];
+        $(document).ready(function() {
+            attach_events_initial_dom();
+
+
+
+
+
+            /*$('#intro_modal .btn').eq(1).click();
+			            setTimeout(function()
+			            {
+			            	  $('.card-action:first a').trigger('click')
+			                    $('.sidenav_trigger').trigger('click');
+			                   $('.checkbox_all_goal:first').trigger('click')
+			       		 },1000)*/
+
+
+
+
+
+
+            var orig_fadeOut = $.fn.fadeOut;
+
+            $.fn.fadeOut = function() {
+                $(this).trigger('fadeOut');
+                if ($(this).hasClass('.card_toast.blues')) {
+                    console.log('applyging fadeout from triggering on CARD TOAST');
+                    clicked_card = false;
+                    clicked_card_data = null;
+                }
+
+                orig_fadeOut.apply(this, arguments);
+            };
+
+            $('.dropdown_legend_btn').hide();
+
+            app.do_updates_on_select = function(data) {
+                var goal = data.goal;
+                var val = data.value;
+
+                setTimeout(function() {
+
+                    var this_from_id = data.from_id.replace('.', '_');
+                    var container_lis = $('.li_goal_container.class_' + goal + ' .collapsible-body > ul li.li_' + this_from_id).find('tbody tr[data_val="' + data.data + '"]');
+                    var mat_sel = container_lis.find('select');
+                    var prev_sel_val = parseInt(mat_sel.find('option:selected')[0].value);
+
+
+                    // container_lis.find('select option:selected')
+                    container_lis.find('select option:selected').removeAttr('selected');
+                    container_lis.find('select option[value="' + val + '"]').attr('selected', true)
+                        //alert('on select ' + container_lis.find('select option:selected')[0].value)
+
+                    mat_sel.material_select();
+                    mat_sel.unbind('change')
+
+
+                    mat_sel.on('change', function(e) {
+                        //previous value, as new, is null
+                        app.associate_ev_mat_select(null, e, data, mat_sel, mat_sel)
+                    });
+
+
+                    //we apply the select change, only for changing select params
+                    //mat_sel.trigger('change');
+                    // visible_cards.transition().duration(550).style('opacity',1);                           
+
+                    // var this_from_id = data.from_id.replace('.', '_')
+
+                    // var container_lis = $('.li_goal_container.class_' + goal + ' .collapsible-body > ul li.li_' + this_from_id).find('tbody tr[data_val="' + data.data + '"]');
+
+                    container_lis.find('.sel_table_value').css("background-color", app.sel_color({
+                        value: val
+                    }).color)
+
+                    container_lis.find('.sel_table_value').text(app.sel_color({
+                        value: val
+                    }).legend_text);
+                    console.log(container_lis.find('select'))
+
+                }, 700)
+            }
+
+            app.associate_ev_mat_select = function(prev_sel_val, e, data, select_target, origin) {
+                    console.log(arguments)
+                    console.info(e)
+                    var params = {};
+                    params.prev_sel_val = prev_sel_val;
+
+                    var val = parseInt(select_target.find('option:selected')[0].value);
+                    console.info(val);
+                    var goal = data.goal;
+
+                    var cards = svg.selectAll(".link");
+                    var visible_cards = cards.filter(function(d) {
+                            return d.visualized == true;
+                        })
+                        //visible_cards.style('opacity', 0.8)
+
+                    var prev_card_val;
+                    console.log($('svg rect').length)
+
+                    var sel = visible_cards.filter(function(card) {
+                        if (data.data == card.data) {
+                            console.info(card)
+                                // prev_card_val = card.value;
+                            return this
+                        }
+
+                    });
+                    console.info(sel)
+
+                    sel.style('opacity', 1).classed('just_changed');
+
+
+                    /*
+                                                	if (origin.is('select'))
+                                                {                            */
+                    //function update_rect ()
+                    // if ((event.originalEvent.isTrusted === false && event.originalEvent.isPrimary !== undefined) || event.originalEvent.isPrimary === false) {
+                    if (select_triggered == false) {
+                        console.info('NOT being triggered the select, apply fill')
+                            //true for $(element).trigger('click');
+                            //check trigger or not trigger!!!
+                        sel.style('fill', function(d) {
+                            //necessary?
+
+                            d.visualized = true;
+                            console.info(d.value)
+                            console.info(prev_card_val)
+                            d.value = val;
+
+                            if (prev_card_val == null) {
+                                var action = 'add';
+                            } else {
+                                if (d.value !== prev_card_val) {
+                                    var action = 'update'
+                                } else {
+                                    var action = 'nothing';
+                                }
+                            }
+
+                            //alert(action)
+
+                            //app.check_update(val, prev_card_val, clicked_card_data, d, goal);
+
+
+                            //(action, data, prev_card_val)
+                            // app.update_progress_bars(action, d, prev_card_val);
+
+                            return app.sel_color({
+                                value: val
+                            }).color;
+                        });
+                    } else {
+                        console.log('select is being triggered from rect, just apply stats')
+                    }
+
+                    params.prev_card_val = prev_card_val;
+                    app.do_updates_on_select(data);
+                    //             d.value = val;
+                    //             params.value = d.value;
+                    //             params.data = d;
+
+                }
+                //rev_card_val,clicked_card_data
+                // app.check_update = function(new_card_val, prev_card_val, data, filtered_data, goal) {
+                //     console.warn(arguments)
+                //     console.log(window)
+                //     console.log(app)
+                //     console.info(new_params)
+                //     console.log(app_data.entered_data)
+
+            //     return app.sel_color(filtered_data).color;
+            // }
+
+            function delete_card_info(clicked_card_data) {
+                var target = $('.toast .delete_card_icon');
+                var prev_card_val = parseInt(clicked_card_data.value);
+                target.hide();
+                $('.toast_slide_text').hide();
+                console.info(clicked_card_data)
+
+                // ?????????????
+                clicked_card_data.with_data = false;
+                // clicked_card_data.visualized=false;
+
+                var filtered = d3v5.selectAll('.link').filter(function(d) {
+
+                    if (d.data == clicked_card_data.data) {
+                        return this;
+                    }
+                });
+                filtered.style("fill", function(d) {
+
+                    //we apply later, have to keep in memory the value to be removed
+                    //d.value=null;
+
+                    clicked_card_data = d;
+                    console.info(d)
+
+                    $('.card_val_title').css('color', function() {
+
+
+                        return "#c6c4c4";
+                    }).text(function() {
+                        return 'No value assigned';
+                    });
+
+                    var pos = unique_id_arr.ids.indexOf(d.data);
+
+
+                    for (var p in unique_id_arr) {
+                        unique_id_arr[p].splice(pos, 1);
+                    }
+                    console.log(clicked_card_data)
+
+
+
+                    //yLabels are HORIZONTAL. we have to count the SUM_COLS
+                    d3v5.selectAll(".yLabels_counter").filter(function(d) {
+                            console.info(d)
+                            if (d.id == clicked_card_data.to_id) {
+                                d.sum_col = d.sum_col - (prev_card_val)
+                                    //d.sum_col=d.sum_col;
+                                    //d.col_number=col_number;
+                                return this;
+                            }
+                            console.info(d)
+                        })
+                        .text(function(d) {
+                            //if ()
+                            return d.sum_col;
+                        });
+
+
+
+                    var x_sel_labels = d3v5.selectAll(".xLabels_counter").filter(function(d) {
+                            console.info(d)
+                            if (d.id == clicked_card_data.from_id) {
+                                d.sum_rows = d.sum_rows - (prev_card_val)
+
+                                return this;
+                            }
+                            console.info(d)
+                        })
+                        .text(function(d) {
+                            //if ()
+                            return d.sum_rows;
+                        })
+
+                    //to remove table
+                    // to update progressing tabs
+
+                    //WE ARE ON delete_card_info!
+                    $.when(app.tabulate_clicked(clicked_card_data, 'remove')).then(function(result) {
+
+                        d.value = null;
+                        console.info(d)
+                        $('.edit-icon').show();
+                        if (colors_obj.total_records > 0) {
+                            $('.goal_stats_container,.goal_table_container').fadeIn();
+                        } else {
+                            $('.goal_stats_container,.goal_table_container').fadeOut();
+                        }
+
+
+                    })
+                    return "#c6c4c4";
+                })
+            } // END fx delete_card_info
+
+
+
+
+
+
+            function stripHTML(text) {
+                var regex = /(<([^>]+)>)/ig;
+                return text.replace(regex, "");
+            }
+
+            function generate_select(data, row) {
+
+                //data from selected_card
+                //row from table generation
+                var obj = app.sel_color(data.value);
+
+                var html = '<div data_val="' + row.data + '" class="input-field"> <select><option value="" disabled>Choose your option</option>';
+
+
+
+                for (var p in structural_data.colors_obj.data) {
+
+                    var t = structural_data.colors_obj.data[p];
+
+                    if (parseInt(data.value) == parseInt(t.legend_val)) {
+                        html += '<option selected style="color:' + t.color + ';font-weight:bold;" value="' + t.legend_val + '">' + t.legend_text + '</option>';
+                    } else {
+                        html += '<option style="color:' + t.color + ';" value="' + t.legend_val + '">' + t.legend_text + '</option>';
+                    }
+                }
+                html += '</select></div>';
+                //console.info(html)
+                return html;
+
+
+
+            }
+
+
+
+
+
+
+
+            app.sel_color_update = function(d) {
+
+                if (d.value === null) {
+                    // console.info('nulll at the beginning')
+                    return {
+                        legend_val: null,
+                        color: "#c6c4c4"
+                    }
+                } else {
+                    var colors_obj = structural_data.colors_obj;
+                    //var colors_obj={total_records:0,data:[{legend_val:-3,counts:0,percent_val:0,color:"#d73027",legend_text:"Strongly restricting"},
+                    var _sel = colors_obj.data.filter(function(info) {
+                        //console.warn(info)
+                        //{legend_val: 2, color: "#91cf60"}
+
+                        /*
+                        column: "1.a"
+                            data: "1.b-1.a"
+                            goal: 1
+                            row: "1.b",
+                            value:null
+                            */
+                        /*      console.log(info)
+                              console.log(d)*/
+
+                        if (info.legend_val == d.value) {
+                            if (options.config.from_csv) {
+                                colors_obj.total_records++;
+                                info.counts++;
+
+                                if (goal_stats.length == 0) {
+                                    goal_stats.push({
+                                        'goal': d.goal,
+                                        'count': 0
+                                    });
+                                } else {
+                                    var goal_arr = goal_stats.map(function(x) {
+                                        return x.goal;
+                                    });
+
+                                    var pos = goal_arr.indexOf(d.goal);
+                                    if (pos == -1) {
+                                        goal_stats.push({
+                                            'goal': d.goal,
+                                            'count': 1
+                                        });
+                                    } else {
+
+                                        goal_stats[pos].count++;
+                                    }
+                                }
+                                //end if config_csv                                                       
+
+                            }
+                            return info;
+                        }
+                    })[0]
+
+
+                    return _sel
+                }
+            }
+
+            app.sel_color = function(d) {
+
+                if (d.value === null) {
+                    // console.info('nulll at the beginning')
+                    return {
+                        legend_val: null,
+                        color: "#c6c4c4"
+                    }
+                } else {
+
+                    //var colors_obj={total_records:0,data:[{legend_val:-3,counts:0,percent_val:0,color:"#d73027",legend_text:"Strongly restricting"},
+                    var _sel = structural_data.colors_obj.data.filter(function(info) {
+
+                        if (info.legend_val == d.value) {
+                            // if (options.config.from_csv)
+                            // {
+                            //   colors_obj.total_records++;
+                            //   info.counts++;
+                            // }
+                            return info;
+                        }
+                    })[0]
+
+
+                    return _sel
+                }
+            }
+
+
+
+
+
+
+            /*
+            from_ids_arr = objects.map(function(d, i) {
+                    return d.from_id;
+                });
+                new_params.from_ids_arr = from_ids_arr;
+            */
+
+            //collects ALL links 
+            app.get_targets = function(visualized) {
+
+                    console.info(new_params)
+                        //  debugger;
+
+                    var gridSize = chart.gridSize;
+                    //if(typeof selected_goals_arr=='undefined')
+                    $('.checkbox_all_goal').find(':checked')
+
+                    // var pushed_vis_targets = dynamic_data.pushed_vis_targets;
+                    var pushed_vis_targets = []
+
+                    if (options.config.from_csv == false) {
+                        // dynamic_data.selected_goals_arr = $('.side-nav .input-field select').val()
+                        //     .map(function(d) {
+                        //         return d - 1;
+                        //     });
+                        $('.side-nav .collapsible-body ul li input:checked').each(
+                                function() {
+                                    pushed_vis_targets.push($(this).attr('id').split('_')[1])
+                                })
+                            // var t_ids=dynamic_data.pushed_vis_targets.map(function(d)
+                            // {
+                            //     return t.id;
+                            // })
+                    } else {
+                        var selected_goals_arr = [];
+                        var pushed_vis_targets = [];
+
+                        $('.side-nav .collapsible-body ul li input:checked').each(
+                            function() {
+                                pushed_vis_targets.push($(this).attr('id').split('_')[1])
+                            })
+                    }
+                    console.info(pushed_vis_targets)
+
+                    //defined on adding/removing
+
+                    var these_targets = [];
+                    var these_targets_data = [];
+                    console.log(dynamic_data)
+
+
+
+                    //goals_obj contains ALL info refereing GOALS and TARGETS for creating the chart
+                    structural_data.goals_obj.forEach(function(d, i) {
+
+                        console.warn('goal active ' + d.id)
+
+                        d['targets'].forEach(function(d2, i2) {
+                            //console.warn(d2.id)
+                            if (options.config.from_csv == true) {
+
+                                var position = dynamic_data.pushed_vis_targets.indexOf(d2.id);
+
+
+                                if (position !== -1) {
+                                    //PUSHING TARGETS AND GOALS FROM .CSV 
+                                    these_targets.push(d2);
+
+                                    if (selected_goals_arr.indexOf(d.id) == -1) {
+                                        selected_goals_arr.push(d.id)
+                                    }
+                                    // Array.prototype.push.apply(these_targets_data,d2);
+                                }
+                            } else {
+
+                                //we push all possible combinations!!!
+                                if (pushed_vis_targets.indexOf(d2.id) !== -1) {
+
+                                    these_targets.push(d2)
+                                        //Array.prototype.push.apply(these_targets, v);
+                                }
+
+                            }
+
+                        })
+
+                        //    Array.prototype.push.apply(these_targets, d.targets);
+
+                        // these_targets.push(d.targets)
+                    })
+
+                    // debugger;
+
+                    //ALL combinations of targets from the selected groups
+                    console.log(these_targets)
+
+                    //just the selected targets that we hv on the CSV!
+
+                    // if (options.config.from_csv == true) {
+                    //     chart.buckets = these_targets_data.length;
+                    //     buckets = these_targets_data.length;
+
+                    //     var targets_to_plot = these_targets_data;
+                    // } else {
+                    //     chart.buckets = these_targets.length;
+                    //     buckets = these_targets.length;
+
+                    //     var targets_to_plot = these_targets;
+                    // }
+
+                    chart.buckets = these_targets.length;
+                    buckets = these_targets.length;
+
+                    var targets_to_plot = these_targets;
+
+
+                    if (window.innerHeight > 800 && window.innerWidth > 1600)
+                        width_px = 780;
+
+                    if (window.innerHeight > 800 && window.innerWidth < 1600)
+                        width_px = 700;
+
+                    if (window.innerHeight < 800 && window.innerHeight > 700) {
+                        width_px = 650;
+                    } else {
+
+                        if (window.innerHeight < 700)
+                            width_px = 650;
+                    }
+
+
+                    //alert(width_px)
+                    //width_px=$('#chart').width();
+
+                    chart.width_px = width_px;
+
+
+                    //   width_px=window.innerHeight-250;
+                    //5_3_text
+                    //var width_px=parseInt($('#chart').width());
+
+                    margin = {
+                            top: 20,
+                            right: 40,
+                            bottom: 40,
+                            left: 20
+                        },
+                        width = width_px - margin.left - margin.right,
+                        height = width_px - margin.top - margin.bottom;
+
+                    var gridSize = Math.floor(width / chart.buckets)
+
+                    var selected_links = [];
+                    console.log(unique_id_arr)
+
+                    targets_to_plot.forEach(function(info, row) {
+                        //     console.log(info)
+                        var arr = [];
+                        for (var column in targets_to_plot) {
+
+                            var to_cross = these_targets[column];
+
+                            if (row == 0) {
+                                //1 1 ...
+                                var unique_id = info.id + '-' + targets_to_plot[column].id;
+
+                                var _t = {
+                                    data: unique_id, //2-2 2-2
+                                    visualized: visualized,
+                                    title: info.description + ' <hr>' + to_cross.description,
+                                    from_title: info.description,
+                                    to_title: to_cross.description,
+                                    from_id: info.id,
+                                    to_id: to_cross.id,
+                                    // goal:these_targets[column].goal,
+                                    goal: info.sdgnum,
+                                    value: info.value,
+                                    row: info.id,
+                                    column: to_cross.id,
+                                    x: (column) * gridSize,
+                                    y: 0
+                                }
+
+                                if (info.id == to_cross.id) // || info.id==these_targets[column].id)
+                                {
+                                    _t.same_targets = true;
+                                    _t.visualized = true;
+                                } else {
+                                    _t.same_targets = false;
+                                    _t.visualized = true;
+                                }
+
+                                if (options.config.from_csv == false) {
+                                    // unique_id_arr.ids=new_params.all_t_val.map(function(d)
+                                    //      {
+                                    //        return d.data;
+                                    //      });
+
+                                    //var pos = pushed_vis_targets.indexOf(unique_id);
+                                    var pos = unique_id_arr.ids.indexOf(unique_id);
+                                    //everytime we add/remove a target, be sure is on
+                                    //
+                                    if (pos == -1) {
+                                        _t.value = null;
+                                        // _t.visualized=true;
+
+                                    } else {
+                                        // _t.visualized=true;
+
+                                        _t.value = unique_id_arr.values[pos];
+                                    }
+                                } else {
+                                    var pos = app_data.entered_data.ids.indexOf(unique_id)
+                                    console.log(pos + ' for val ' + unique_id)
+                                    console.info(app_data.entered_data.values[pos])
+                                    if (pos !== -1)
+                                        _t.value = app_data.entered_data.values[pos];
+
+
+
+                                }
+
+
+                                arr.push(_t)
+
+
+                            } else {
+                                var unique_id = info.id + '-' + targets_to_plot[column].id;
+                                var _t = {
+                                    data: unique_id,
+                                    visualized: visualized,
+                                    title: info.description + ' <hr>' + to_cross.description,
+                                    from_title: info.description,
+                                    to_title: to_cross.description,
+                                    from_id: info.id,
+                                    to_id: to_cross.id,
+                                    // goal:these_targets[column].goal,
+                                    goal: info.sdgnum,
+
+                                    row: info.id,
+                                    column: to_cross.id,
+                                    x: (column) * gridSize,
+                                    y: (row) * gridSize,
+                                };
+
+
+                                //IT HAS SENSE??
+                                if (info.id == to_cross.id) {
+                                    _t.same_targets = true;
+                                    _t.visualized = true;
+                                } else {
+                                    _t.same_targets = false;
+                                    _t.visualized = true;
+                                }
+
+                                if (options.config.from_csv == false) {
+                                    var pos = unique_id_arr.ids.indexOf(unique_id);
+
+                                    if (pos == -1) {
+                                        _t.value = null;
+                                        // _t.visualized=true;
+
+                                    } else {
+                                        // _t.visualized=true;
+
+                                        _t.value = unique_id_arr.values[pos];
+                                    }
+                                } else {
+                                    //_t.value = targets_to_plot.value;
+                                    var pos = app_data.entered_data.ids.indexOf(unique_id)
+                                    if (pos !== -1) {
+                                        _t.value = app_data.entered_data.values[pos];
+                                        console.info(app_data.entered_data.values[pos])
+                                    }
+
+                                }
+                                arr.push(_t)
+
+                            }
+
+
+                        }
+                        Array.prototype.push.apply(selected_links, arr);
+
+                    })
+                    console.info(selected_links)
+
+                    //new_params.goals_obj = goals_obj;
+                    new_params.all_t_val = all_t_val;
+                    return {
+                        links: selected_links,
+                        targets: targets_to_plot
+                    }
+                } // ./get_targets
+
+
+            var get_first_data_promise_data = get_first_data_promise();
+
+
+
+            get_first_data_promise_data.done(function(data) {
+
+                    $('.card').click(function(e) {
+
+                        var target = $(e.target);
+                        if ($(this).hasClass('goal_card_sel'))
+                            return false;
+
+                        if (target.parent().hasClass('card-action')) {
+
+
+                            var goal_class = $(this).find('.card-sdg-goal').attr('class').split(' ')[1];
+                            //card-goal-1
+                            var goal = goal_class.split('-')[2];
+                            //card-goal-1
+
+                            /*  if (pos==-1)
+                                        selected_goals_arr.push(goal)
+                              else
+                                return false;*/
+
+                            $(this).addClass('goal_card_sel');
+
+
+                            $('#dropdown1 li').eq(0).after('<li class="dropdown_li_' + goal + '"><a href="#!">Goal ' + goal + '</a></li>')
+
+                            var count = Number($('.dropdown-button .badge').text()) + 1;
+                            $('.dropdown-button .badge').text(count);
+
+
+
+                            //Materialize.toast('Group <b>'+goal+'</b> has been added to the list', 1500);
+                            if ($('.goal_toast').length > 0) {
+                                $('.goal_toast').fadeOut();
+                                $('.goal_toast').remove();
+                            }
+
+
+                            var $toastContent = $('<span>Goal ' + goal + ' has been added</span>')
+
+                            Materialize.toast($toastContent, 300, 'goal_toast black');
+
+                            $('.goal_toast.black').parent().addClass('goal_toast_container').removeClass('card_toast_container').show();
+
+
+                            $('.side-nav .input-field select').find('option[value="' + goal + '"]').hide();
+
+
+
+                            var sidenav_html = '<li class="li_goal_container ' + goal + '"><div class="collapsible-header nav_bar_' + goal + '"><div class="card horizontal"><div class="card-image"> <img class="responsive-img" style="width:70px" src="./img/sdg' + goal + '.png"></div><div class="card-stacked"><div class="card-content"><div class="card-sdg-goal card-goal-' + goal + '"> Goal ' + goal + '</div></div></div></div></div><div class="collapsible-body"> <div><input type="checkbox" class="checkbox_all_goal" id="check_all_goal_' + goal + '"><label for="check_all_goal_' + goal + '">Add all targets</label><span><i class="material-icons all_goals_vis_icon on">visibility_on</i></span></div><ul>';
+
+                            if ($('.right_container_cards .li_goal_container.class' + goal).length == 0) {
+                                var right_container_cards_html = '<li class="li_goal_container class_' + goal + '"><div class="collapsible-header nav_bar_' + goal + '"><div class="card horizontal"><div class="card-image"> <img class="responsive-img" style="width:70px" src="./img/sdg' + goal + '.png"></div><div class="card-stacked"><div class="card-content"><div class="card-sdg-goal card-goal-' + goal + '"> Goal ' + goal + '</div><span class="card_count"></span><!--<i class="material-icons transform-icon">transform</i>--></div></div></div></div><div class="collapsible-body"><ul></ul> </div></li>';
+
+                                console.log(right_container_cards_html);
+
+
+                                $('.right_container_cards .goal_table_container .tables ul').append(right_container_cards_html)
+
+                            }
+
+                            for (var p in sdgs) {
+                                if (sdgs[p].sdg_num == goal) {
+                                    var this_goal = sdgs[p];
+                                    this_goal.targets.forEach(function(info) {
+
+                                        var this_li = '<li><div><b>Target ' + info.targetcode + '</b> <input type="checkbox" id="check_' + info.targetcode + '"><label for="check_' + info.targetcode + '"></label></div><span class="target_checkbox_span">' + info.targetname + '</span></li>';
+
+                                        sidenav_html += this_li;
+
+                                    })
+                                }
+                            }
+
+                            sidenav_html += ' </ul></div></li>';
+
+                            $('.side-nav ul.collapsible').append(sidenav_html);
+
+                            $('.side-nav ul.collapsible').find('.toast_target').remove();
+
+                            setTimeout(function() {
+
+                                console.warn('.li_goal_container.' + goal + ' .collapsible-body')
+                                var t = $('.li_goal_container.' + goal + ' .collapsible-body').find('.all_goals_vis_icon')
+                                console.info(t)
+                                    //all_goals_vis_icon')
+
+                                t.attr('data-tooltip', function() {
+                                    console.warn($(this))
+                                    if ($(this).hasClass('on')) {
+                                        return 'Hide non active targets';
+                                    } else {
+                                        return 'Show also non active targets';
+                                    }
+                                });
+
+                                t.tooltip({
+                                    delay: 50,
+                                    delayOut: 5000000,
+                                    position: 'top',
+                                    html: true
+                                });
+                            }, 700)
+
+                            //if ($('.sdg_cards_container').is(':visible'))
+                            //     $('.sidenav_trigger').trigger('click')
+
+                            if (sel_from_sidenav == false) {
+
+                                console.log('triggering click not from sidenav but from landing page')
+                                $('.select-dropdown').find('li').eq(goal).find('input').prop('checked', true).trigger('click');
+                            }
+                        }
+                    });
+
+
+
+                }).fail(function() {
+                    alert('some error')
+                }) //a function name
+                //register a function to call if aysnc function fails:
+                //geolocationPromise.fail(setErrorMessage);
+                // body...
+
+
+
+            // function update_chart
+            var legend_progress = d3v5.select('.progress_test');
+            var legend_progress_div = legend_progress.selectAll('div')
+
+            .data(structural_data.colors_obj.data, function(d) {
+                console.log(d)
+                return d.legend_val;
+            }).enter();
+
+
+
+            legend_progress_div.append("div") //attr('class','col s3')
+                .attr('data-val', function(d) {
+                    return d.levend_val;
+                })
+
+            .html(function(d) {
+                    return '<div class="row"> <span class="progress_category col s9">' + d.legend_text + ' </span> <span class="progress_num_rec col s3 right-align">' + d.counts + '</span></div><div percent_val=' + d.percent_val + ' data-val=' + d.legend_val + ' class="progress"><div style="width:0%;background-color: ' + d.color + ';" class="determinate"></div></div>'
+                })
+                .on('mouseover', function(d) {
+                    /*    console.info($(this))
+                        console.warn($(this).find('.progress').attr('data-val'))*/
+                    //console.log($(this).find('.progress div:first').css('width','70%'))
+
+                })
+                .on('mouseout', function(d) {
+                    // console.warn(d)
+                })
+                // x.enter()
+            legend_progress_div.exit().remove();
+
+
+            app.create_chart = function() {
+
+                if (window.innerHeight > 800 && window.innerWidth > 1600)
+                    width_px = 780;
+
+                if (window.innerHeight > 800 && window.innerWidth < 1600)
+                    width_px = 700;
+
+                if (window.innerHeight < 800 && window.innerHeight > 700)
+                    width_px = 650;
+                //width_px=$('#chart').width();
+
+                /*
+                        if (window.innerHeight>900)
+                       width_px=880;
+
+                    if (window.innerHeight<900 && window.innerHeight>800)
+                       width_px=750;
+
+                     if (window.innerHeight<800 && window.innerHeight>700)
+                       width_px=650;
+
+                     if (window.innerHeight<700)// && window.innerHeight>700)
+                       width_px=600;
+                     */
+
+                chart.width_px = width_px;
+
+
+                //   width_px=window.innerHeight-250;
+                //5_3_text
+                //var width_px=parseInt($('#chart').width());
+
+                margin = {
+                        top: 20,
+                        right: 40,
+                        bottom: 40,
+                        left: 20
+                    },
+                    width = width_px - margin.left - margin.right,
+                    height = width_px - margin.top - margin.bottom;
+
+
+
+                gridSize = Math.floor(width / chart.buckets),
+                    //legendElementWidth = gridSize;
+                    legendElementWidth = 30
+
+                chart.gridSize = gridSize;
+
+                var w = width_px + margin.left + margin.right + 20;
+                var h = width_px + margin.top + margin.bottom;
+
+
+                $('.svg-container').height(840);
+                $('.svg-container').width(w);
+
+                // alert($('.svg-container').css('height'))
+
+
+
+
+                svg = d3v5.select(".svg-container").append("svg")
+                    //responsive SVG needs these 2 attributes and no width and height attr
+                    .attr("preserveAspectRatio", "xMinYMin meet")
+
+                //viewBox makes matrix unavailable for printing with html2canvas
+                /*
+                The viewBox attribute defines the position and dimension, in user space, of an SVG viewport.
+
+                  The value of the viewBox attribute is a list of four numbers min-x, min-y, width and height, separated by whitespace and/or a comma,
+                 which specify a rectangle in user space which is mapped to the bounds of the viewport established for the associated element.
+                */
+                .attr("viewBox", '0 0 ' + w + ' ' + h + '')
+                    //class to make it responsive
+                    .classed("svg-content-responsive", true)
+                    .attr("width", width + margin.left + margin.right)
+                    .attr("height", height + margin.top + margin.bottom)
+                    .append("g")
+                    .classed('g_matrix', true)
+
+                .attr("transform", "translate(" + (margin.left + 25) + "," + margin.top + ")");
+                console.warn($('.svg-content-responsive').css('height'))
+            }
+
+            app.create_legend = function() {
+
+
+                var legendElementWidth = 30;
+
+                var legend_svg = d3v5.select("#legend_tooltip").append("svg")
+
+                //.attr("width", legendElementWidth+170)
+                .attr("width", 200)
+                    //.attr("height",legendElementWidth*8)
+                    .attr("height", 240)
+
+                var legend = legend_svg.selectAll(".legend")
+                    .data(structural_data.colors_obj.data, function(d) {
+                        return d.legend_val;
+                    })
+
+                .enter()
+
+                .append("g")
+                    .attr("class", "legend")
+
+
+                legend.append("rect")
+                    .attr("x", function(d, i) {
+
+                        return 0 * i;
+                    })
+                    //.attr("x",0)
+                    .attr("y", function(d, i) {
+                        return legendElementWidth * i;
+                    })
+                    .attr("width", legendElementWidth)
+                    .attr("height", legendElementWidth)
+                    .style("fill", function(d, i) {
+                        //console.info(d3v5.select(this))
+                        return d.color;
+                    })
+                    .attr("value", function(d) {
+                        return d.legend_val;
+                    })
+                    .on('mouseover', function(d) {
+                        console.info(d) //0,-1...
+
+                        var cards = d3v5.selectAll('.link');
+                        cards.transition().duration(150).style('opacity', 0.2);
+
+                        var sel = cards.filter(function(data) {
+                            return (data.visualized == true && parseInt(data.value) == parseInt(d.legend_val));
+                        });
+                        console.info(sel)
+
+                        sel.transition().duration(350).style('opacity', 1);
+                        //reverse().
+
+                    })
+                    .on('mouseout', function(d) {
+
+                        var cards = d3v5.selectAll('.link');
+                        var sel = cards.filter(function(data) {
+                            return (data.visualized == true) // && parseInt(data.value)==parseInt(d.legend_val);
+                        });
+
+                        sel.transition().duration(50).style('opacity', 1);
+                    })
+
+                legend.append("text")
+                    .attr("class", "Montserrat")
+                    .html(function(d) {
+                        // console.warn(d.legend_text)
+                        return d.legend_text; //+'<b>test</b>';
+                    })
+                    .attr("x", function(d, i) {
+                        return legendElementWidth + 20;
+                    })
+                    //.attr("x",0)
+                    .attr("y", function(d, i) {
+                        return ((legendElementWidth * i) + (legendElementWidth / 2));
+                    })
+
+                //.appendHTML('<b>test</b>')
+                // legend.exit().remove();
+            }
+
+            //function remove
+
+            function add_all_goal(goal) {
+
+                options.config.from_csv = false;
+                sdg_params.sel_info = app.get_targets(false);
+                var plot_labels = sdg_params.sel_info['targets'];
+
+
+                console.warn(sdg_params)
+                var hidden_links = [];
+
+                var plot_links = sdg_params.sel_info['links'].filter(function(d) {
+                    d.visualized = true;
+                    return d;
+                    //selected_targets_arr contains targets selected on the select individually
+                    /*if (selected_targets_arr.indexOf(d.from_id)!==-1)
+                    {
+                          d.visualized=true;
+                          return d;
+                    }
+                    else
+                    {
+                      d.visualized=false;
+                      hidden_links.push(d);
+                      return d;
+                    }*/
+
+                });
+                var params = {}
+
+                params.to_plot = {
+                    links: plot_links,
+                    targets: plot_labels,
+                    hidden_links: hidden_links
+                }
+                console.log(params)
+
+                if ($("#chart svg").length > 0) {
+
+                    // $("#chart svg:first").remove();
+                    // create_chart()
+
+                    app.heatmap(params.to_plot, true);
+
+
+
+
+
+                } else {
+                    alert('from zero')
+                    app.create_chart();
+
+                    app.heatmap(params.to_plot, true);
+
+
+                    console.warn($('.svg-container').css('height') + ' ssss')
+
+                    console.info($('.yLabels_counter:last').attr('transform'));
+                    console.info($('.yLabels_counter:last').attr('x'));
+                    console.info($('.yLabels_counter:last').attr('y'));
+
+                    if ($('#legend_tooltip svg').length == 0)
+                        app.create_legend();
+
+                    //creating tables
+                    // $('#sdg_cards_container .row').eq(1).hide();
+
+                    setTimeout(function() {
+                            $('#sdg_cards_container .row').eq(1).show();
+                        }, 600)
+                        //$('.tables_container
+
+                }
+
+            }
+
+
+            function get_first_data_promise() {
+
+                var deferred = $.Deferred(); //use the jQuery Deferred object
+                var side_nav_options = '';
+                sdgs.forEach(function(d, i) {
+                        // d.targets=[];
+                        var this_goal = {
+                            'id': d.sdg_num,
+                            active: null,
+                            targets: []
+                        };
+                        //
+                        side_nav_options += '<option value="' + d.sdg_num + '" data-icon="./img/sdg' + d.sdg_num + '.png"> Goal ' + d.sdg_num + '</option>';
+                        if (i >= 0 && i < 30) {
+
+
+                            $('#sdg_cards_container .row').eq(0).append('<div class="col l2 xl2 s6 m6">  <div class="card hoverable"><div class="card-image"> <img src="./img/sdg' + d.sdg_num + '.png"></div><div class="card-stacked"><div class="card-content"><div class="card-sdg-goal card-goal-' + d.sdg_num + '"> Goal ' + d.sdg_num + '</div> <div id ="card-sdg-name"> <span class="more card-sdg-name">' + d.sdg_name + '</span></div><div id = "targets_count"><b>' + d.targets_count + '</b> targets</div><div class="card-action"> <a href="#">Add</a></div></div></div></div></div>');
+
+                        }
+
+                        d.targets.forEach(function(t, i) {
+                            //  console.info(t)
+                            t.id = d.sdg_num;
+                            t.value = 2;
+                            structural_data.all_targets.push(t)
+
+                            this_goal.targets.push({
+                                value: 2,
+                                id: t.targetcode,
+                                description: t.targetname,
+                                sdgnum: t.sdgnum
+                            });
+
+                            //<button class="mdc-fab" aria-label="Favorite"><span class="mdc-fab__icon material-icons">favorite</span></button>
+                        });
+
+                        structural_data.goals_obj.push(this_goal);
+
+
+                    }) // ./foreach
+
+                $('.side-nav .input-field select').append(side_nav_options)
+
+
+
+                if (structural_data.goals_obj.length > 0)
+                //.resolve links up with .done outside of the async function:
+                    deferred.resolve(structural_data.goals_obj); //triggers whatever is registered via .done
+                else
+                    deferred.reject(structural_data.goals_obj); //triggers whatever is registered via .done
+
+
+                return deferred.promise(); //the Promise object, which has methods .done and .fail, allowing registering callback functions
+            }
+
+
+
+            //   get_first_data_promise();
+
+            // $('.dropdown-button').dropdown();
+            // $('.side-nav').sidenav();
+
+
+
+            $('.side-nav .collapsible').on('click', function(e) {
+
+                var target = $(e.target);
+                if (target.hasClass('material-icons')) {
+                    if (target.hasClass('all_goals_vis_icon')) {
+
+                        if (target.hasClass('on')) {
+                            console.log(target)
+
+                            target.parents().closest('.collapsible-body').find('ul > li').hide()
+
+                            target.parents().closest('.collapsible-body').find('ul > li').each(function() {
+                                if ($(this).find('input:checked').length > 0)
+                                    $(this).show();
+                            });
+                            target.removeClass('on').addClass('off');
+                            target.html('visibility_off');
+                        } else {
+
+                            target.parents().closest('.collapsible-body').find('ul > li').show();
+                            target.removeClass('off').addClass('on');
+                            target.html('visibility_on');
+                        }
+                    }
+                }
+                //<i class="material-icons all_goals_vis_icon off">visibility_off</i>
+
+
+
+                //target.parent().addClass('yellow')
+                if ($(e.target).is('input:checkbox')) {
+
+                    console.log(target)
+                    console.log(target.parents())
+                    console.log(target.parents().closest('.select-wrapper'))
+
+
+
+
+                    // console.info(e.hasOwnProperty('originalEvent'))
+                    // if (e.hasOwnProperty('originalEvent') == false) {
+
+                    //     return false;
+                    // }
+
+                    console.warn('clicking sidenav checkbox')
+
+                    //  var selected_goals_arr=$('.side-nav .input-field select').val();
+
+                    // var this_li.closest('.li_goal_container')
+                    //('.collapsible-header .card-sdg-goal').attr('class').split(' ')[1].split('-')[2];
+
+
+                    if (target.attr('class') == 'checkbox_all_goal') {
+
+                        var this_li = target.closest('li');
+                        //check_all_goal_3
+                        var goal = parseInt(target.attr('id').split('_')[3]);
+
+
+                        // var this_li = $(".side-nav .li_goal_container." + goal);
+
+                        // this_li.find('.collapsible-body :checkbox').not('.checkbox_all_goal').each(function(i, checkbox) {
+                        //     $(checkbox).prop('checked', true);
+                        //     var id = $(checkbox).attr('id').split('check_')[1];
+
+                        //     if (selected_targets_arr.indexOf(id) == -1)
+                        //         selected_targets_arr.push(id);
+
+                        // })
+
+
+                        //target.prop('checked')
+                        if (target.prop('checked')) {
+
+                            target.prop('checked', true);
+
+                            this_li.find('.collapsible-body :checkbox').prop('checked', true);
+
+                            // var pos = selected_goals_arr.indexOf(goal);
+
+                            // if (pos == -1)
+                            //     selected_goals_arr.push(goal);
+
+                            //  console.info(this_li.find('.collapsible-body :checkbox').not('.checkbox_all_goal'))
+
+
+                            // var pos = dynamic_data.selected_goals_arr.indexOf(goal);
+
+                            // if (pos == -1) {
+                            //     dynamic_data.selected_goals_arr.push(goal);
+                            //     for (var p in structural_data.goals_obj) {
+                            //         if (structural_data.goals_obj[p].id == goal) {
+                            //             structural_data.goals_obj[p].targets.forEach(function(d) {
+                            //                 dynamic_data.pushed_vis_targets.push(d)
+                            //             })
+                            //         }
+                            //     }
+                            // }
+
+                        } else {
+                            if (target.prop('checked') == false || target.prop('temp_checked') == true) {
+                                //
+                                target.prop('checked', false);
+                                // console.log('checed all, lets de-check all')
+
+
+
+                                this_li.find('.collapsible-body :checkbox').prop('checked', false);
+
+                                // var pos = selected_goals_arr.indexOf(goal);
+                                // selected_goals_arr.splice(pos, 1);
+
+                                target.removeProp('temp_checked');
+                            }
+
+
+                        }
+
+                        dynamic_data.selected_goals_arr = $('.side-nav .input-field select').val()
+                            .map(function(d) {
+                                return d - 1;
+                            });
+                        $('.side-nav .collapsible-body ul li input:checked').each(
+                            function() {
+                                var pos = dynamic_data.pushed_vis_targets.indexOf($(this).attr('id').split('_')[1])
+                                if (pos == -1)
+                                    dynamic_data.pushed_vis_targets.push($(this).attr('id').split('_')[1]);
+                            })
+
+
+
+                        // if($('.side-nav input:checked').length>0)
+                        if (dynamic_data.selected_goals_arr.length > 0) {
+
+                            /*  if (selected_goals_arr.indexOf(goal)!==-1)
+                              {
+                                return false;
+                              }
+                              else
+                              {
+                                selected_goals_arr.push(goal);
+                              }*/
+                            $('#sdg_cards_container .row:first,.sdg_container h5:first').hide();
+                            $('#sdg_cards_container .row').eq(1).show();
+
+                            console.log(dynamic_data.selected_goals_arr)
+                                // get_individual_target();
+                                // add_all_goal(goal, selected_goals_arr)
+                        } else {
+                            console.warn('no data from')
+                            $('#sdg_cards_container .row:first,.sdg_container h5:first').show();
+                            $('#sdg_cards_container .row').eq(1).hide();
+                            sel_info = [];
+                            $('#chart .svg-container').children().remove()
+                        }
+
+                    } else {
+                        //not checkbox_all
+                        //check_2.1
+                        var id = target.attr('id').split('check_')[1];
+                        var goal = id.split('.')[0];
+                        var target_id = id;
+
+
+
+                        // var pos = dynamic_data.selected_goals_arr.indexOf(goal);
+
+                        if (target.prop('checked')) {
+                            target.prop('checked', true);
+                        }
+
+                        //     if (pos == -1) {
+                        //         dynamic_data.selected_goals_arr.push(goal);
+                        //     }
+
+                        //     dynamic_data.selected_targets_arr.push(id);
+
+
+                        //  get_individual_target(goal, id);
+                        else {
+                            target.prop('checked', false);
+                            // var this_li = $(".side-nav .li_goal_container." + goal);
+
+                            // if (this_li.find('ul input:checked').length == 0) {
+                            //     dynamic_data.selected_goals_arr.splice(pos, 1);
+                            // }
+
+                            // var pos = dynamic_data.selected_targets_arr.indexOf(id);
+
+                            // dynamic_data.selected_targets_arr.splice(pos, 1);
+
+                            //  get_individual_target(goal, id);
+                        }
+
+
+
+                    }
+                    dynamic_data.selected_goals_arr = $('.side-nav .input-field select').val()
+                        .map(function(d) {
+                            return d - 1;
+                        });
+
+                    dynamic_data.pushed_vis_targets = [];
+
+                    $('.side-nav .collapsible-body ul li input:checked').each(
+                        function() {
+                            // var pos = dynamic_data.pushed_vis_targets.indexOf($(this).attr('id').split('_')[1])
+                            // if (pos == -1)
+                            dynamic_data.pushed_vis_targets.push($(this).attr('id').split('_')[1]);
+                        })
+                    get_individual_target();
+
+
+                    console.info(dynamic_data)
+                }
+            });
+
+
+            //end get_individual_target
+
+            function update_progress_bars_csv() {
+                console.log(goal_stats)
+
+
+
+                for (var p in goal_stats) {
+                    $('.right_container_cards .ul_tables .li_goal_container.class_' + goal_stats[p].goal).find('.card_count').html('<b>' + goal_stats[p].count + ' record</b>');
+                }
+                var x_sel_labels = d3v5.selectAll(".xLabels_counter")
+                x_sel_labels.classed('with_data', true);
+
+                var y_sel_labels = d3v5.selectAll(".yLabels_counter");
+                y_sel_labels.classed('with_data', true);
+                var colors_obj = structural_data.colors_obj;
+
+                colors_obj.data.forEach(function(d, i) {
+                    d.percent_val = parseInt((d.counts / colors_obj.total_records) * 100) || 0;
+
+
+
+                    var container = $('.progress_test div.progress[data-val=' + d.legend_val + ']'); //.parent();
+
+                    //container.find('div:first').css('width',d.percent_val+'%');
+
+                    container.find('div:first').animate({
+                        width: d.percent_val + '%'
+                    }, 2000)
+
+                    container.parent().find('.progress_num_rec').html('<span>' + d.counts + '/' + colors_obj.total_records + '</span>');
+
+                    console.info('EQUAL data ' + d.percent_val + ' for ' + d.legend_val + ' with coiunts ' + d.counts)
+
+                    console.log(container.parent())
+                    if (d.counts == 0) {
+                        container.parent().hide();
+                        console.info('container with ZERO data')
+                        container.parent().removeClass('active');
+                    } else {
+                        container.parent().show();
+
+                        if (!container.parent().hasClass('active'))
+                            container.parent().addClass('active');
+                    }
+                })
+
+
+            }
+
+            app.update_progress_bars = function(action, data, prev_card_val) {
+                debugger;
+                console.trace();
+                console.warn(arguments)
+
+                console.log(action)
+                var colors_obj = structural_data.colors_obj;
+
+                var goal = data.goal;
+                /*
+                   unique_id_arr
+
+                   ids: (3) ["1.3-1.b", "1.4-1.2", "1.2-1.2"]
+                  values: (3) ["3", "-3", "-2"]
+                */
+                console.log(data)
+                if (action == 'add') {
+                    colors_obj.total_records = colors_obj.total_records + 1;
+
+                    for (var p in goal_stats) {
+                        if (goal_stats[p].goal == goal) {
+                            goal_stats[p].count++;
+                            console.log(goal_stats[p])
+                            $('.right_container_cards .ul_tables .li_goal_container.class_' + goal).find('.card_count').html('<b>' + goal_stats[p].count + ' record</b>');
+
+
+                        }
+                    }
+                }
+                if (action == 'remove') {
+
+                    //to be executed when removing data ffrom tooltip
+                    if (colors_obj.total_records !== 0)
+                        colors_obj.total_records = colors_obj.total_records - 1;
+
+
+                    for (var p in goal_stats) {
+                        if (goal_stats[p].goal == goal) {
+                            goal_stats[p].count--;
+                            console.log(goal_stats[p])
+                            $('.right_container_cards .ul_tables .li_goal_container.class_' + goal).find('.card_count').html('<b>' + goal_stats[p].count + ' record</b>');
+
+
+                        }
+
+
+                    }
+                }
+                if (action == 'update') {
+
+                    console.log('update already existing progress BARs')
+                        /*  var pos=unique_id_arr.ids.indexOf(data.data);
+                          console.log('update from app.update_progress_bars')
+                          colors_obj.data.forEach(function(color,i)
+                                                {
+                                                  if (parseInt(color.legend_val)==parseInt(prev_card_val))
+                                                  {
+                                                    //selected(updated color)
+                                                    console.log('clicking on same color')
+                                                    color.counts=color.counts+1;
+
+
+                                                  }
+
+                                                  if (parseInt(color.legend_val)==parseInt(prev_card_val))
+                                                  {
+                                                    //selected(updated color)
+                                                    console.log('update counts for prev_rect_val')
+                                                    color.counts=color.counts-1;
+
+                                                  }
+
+                                                });*/
+                }
+
+                var row_sum = 0;
+                var row_number = 0;
+
+                var row_filtered = d3v5.selectAll('.link').filter(function(d) {
+
+                    if (d.from_id == data.from_id && d.value !== null) {
+
+                        console.warn(d)
+                        row_number++;
+                        row_sum += d.value;
+                        return this;
+                    }
+
+                });
+
+                var x_sel_labels = d3v5.selectAll(".xLabels_counter").filter(function(d) {
+
+                    if (d.id == data.from_id) {
+
+                        d.sum_rows = row_sum;
+                        d.row_number = row_number;
+                        return this;
+                    }
+                });
+
+                x_sel_labels.classed('with_data', true);
+                console.info(x_sel_labels)
+
+                x_sel_labels.text(row_sum);
+
+
+                var sum_col = 0;
+                var col_number = 0;
+
+                var col_filtered = d3v5.selectAll('.link').filter(function(d) {
+
+
+                    if (d.to_id == data.to_id && d.value !== null) {
+
+                        col_number++;
+                        sum_col += d.value;
+                        return this;
+                    }
+
+                });
+
+                var y_sel_labels = d3v5.selectAll(".yLabels_counter").filter(function(d) {
+
+                    if (d.id == data.to_id) {
+
+                        d.sum_col = sum_col;
+                        d.col_number = col_number;
+                        return this;
+                    }
+                });
+
+                y_sel_labels.classed('with_data', true);
+                y_sel_labels.text(sum_col);
+
+                console.info(colors_obj.total_records)
+
+                function check_hidden($element) {
+                    if ($(element).css('display') == 'none' || $(element).css("visibility") == "hidden")
+                        return true
+                    else
+                        return false
+                }
+
+                colors_obj.data.forEach(function(d, i) {
+
+                    if (parseInt(d.legend_val) == parseInt(data.value)) {
+                        if (action == 'add') {
+                            d.counts = d.counts + 1;
+                        }
+
+                        if (action == 'remove') {
+                            if (d.counts !== 0)
+                                d.counts = d.counts - 1;
+                        }
+
+                        if (action == 'update') {
+                            console.log('do not sum up or delete from here!')
+                        }
+
+
+
+                        d.percent_val = parseInt((d.counts / colors_obj.total_records) * 100) || 0;
+
+                        var container = $('.progress_test div.progress[data-val=' + d.legend_val + ']'); //.parent();
+
+                        //container.find('div:first').css('width',d.percent_val+'%');
+
+                        container.find('div:first').animate({
+                            width: d.percent_val + '%'
+                        }, 2000)
+
+                        container.parent().find('.progress_num_rec').html('<span>' + d.counts + '/' + colors_obj.total_records + '</span>');
+
+                        console.info('EQUAL data ' + d.percent_val + ' for ' + d.legend_val + ' with coiunts ' + d.counts)
+
+                        console.log(container.parent())
+                        if (d.counts == 0) {
+                            container.parent().hide();
+                            console.info('container with ZERO data')
+                            container.parent().removeClass('active');
+                        } else {
+                            container.parent().show();
+
+                            if (!container.parent().hasClass('active'))
+                                container.parent().addClass('active');
+                        }
+                    } else {
+                        //not the same color than selected
+                        d.percent_val = parseInt((d.counts / colors_obj.total_records) * 100) || 0;
+
+                        var container = $('.progress_test div.progress[data-val=' + d.legend_val + ']');
+                        container.parent().find('.progress_num_rec').html('<span>' + d.counts + '/' + colors_obj.total_records + '</span>');
+                        container.find('div:first').animate({
+                            width: d.percent_val + '%'
+                        }, 2000)
+
+                        if (d.percent_val == 0) {
+                            container.parent().hide();
+                        } else {
+                            container.parent().show();
+
+                        }
+
+                        if (d.counts == 0) {
+                            container.parent().hide();
+                            console.info('container with ZERO data')
+                            container.parent().removeClass('active');
+                        } else {
+                            container.parent().show();
+
+                            if (!container.parent().hasClass('active'))
+                                container.parent().addClass('active');
+                        }
+                    }
+                });
+
+                //direct children
+
+                if ($('.progress_test').children('div.active').length == 0) //$('.progress_test').children('div').length)
+                {
+
+                    $('.goal_stats_container .collapsible-body').find('h5').remove();
+                    $('.goal_stats_container .collapsible-body').append('<h5>No data inserted</h5>');
+
+
+                } else {
+
+                    $('.goal_stats_container .collapsible-body').find('h5').remove();
+                }
+
+                var color;
+
+                colors_obj.data.forEach(function(d, i) {
+
+                    if (parseInt(d.legend_val) == parseInt(data.value) && d.counts == 0) {
+
+                        d.value = null;
+
+                        color = app.sel_color(d).color;
+                    }
+                })
+                return color;
+
+            }
+
+            app.tabulate_clicked = function(data, action) {
+                console.trace();
+                console.warn(arguments)
+
+                /*
+               clicked_data
+
+         column: "1.4"
+         data: "1.4-1.4"
+         from_id: "1.4"
+         from_title: "<span class='toast_target'>Target 1.4</span>By 2030, ensure that all menand women, in particular the poor and the vulnerable, have equal rights to economic resources, as well as access to basic services, ownership and control over land and other forms of property, inheritance, natural resources, appropriate new technology and financial services, including microfinance. "
+         goal: 1
+         row: "1.4"
+         title: "<span class='toast_target'>Target 1.4</span>By 2030, ensure that all menand women, in particular the poor and the vulnerable, have equal rights to economic resources, as well as access to basic services, ownership and control over land and other forms of property, inher"
+         to_id: "1.4"
+         value: "-2"
+
+               */
+                console.warn(data);
+                //equivalent to clicked_card_data
+                var goal = data.goal;
+                var columns = ['From', 'to', 'value'];
+                var this_from_id = data.from_id.replace('.', '_');
+                var $goal_table = $('.right_container_cards .ul_tables .li_goal_container.class_' + goal + ' table');
+
+                if ($goal_table.length == 0) {
+                    if (action == 'add') {
+
+                        goal_stats.push({
+                            'goal': goal,
+                            'count': 0
+                        });
+
+                        //  app.update_progress_bars('add', data, null);
+
+                    } else {
+                        //app.update_progress_bars('remove', data, null);
+                    }
+
+                    var right_container_cards_html = '<li class="li_goal_container class_' + goal + '"><div class="collapsible-header nav_bar_' + goal + '"><div class="card horizontal"><div class="card-image"> <img class="responsive-img" style="width:70px" src="./img/sdg' + goal + '.png"></div><div class="card-stacked"><div class="card-content"><div class="card-sdg-goal card-goal-' + goal + '"> Goal ' + goal + '</div><span class="card_count"></span><i class="material-icons transform-icon">transform</i></div></div></div></div><div class="collapsible-body"><ul></ul> </div></li>';
+                    $('#right_container > div.right_container_cards > .ul_tables div.collapsible-body ul').append(right_container_cards_html)
+
+                } else {
+                    //not the first data on this group
+
+                    if (action == 'add') {
+                        //  app.update_progress_bars('add', data, null);
+                    }
+                    if (action == 'remove') {
+                        var goal = data.goal;
+                        //  app.update_progress_bars('remove', data, null);
+                    }
+                }
+                console.log(data)
+                if (action == 'add') { //colors_obj has been updated on app.update_progress_bars
+                    var $goal_table = $('.right_container_cards .ul_tables .li_goal_container.class_' + goal);
+
+                    if ($goal_table.find('.li_' + this_from_id).length == 0) {
+                        var to_target_li = '<li class="li_' + this_from_id + '"><table class="responsive-table striped highlight sel_table_goal target_' + this_from_id + '"><thead></thead><tbody></tbody></table></li></ul> </div></li>';
+                        $('.right_container_cards .ul_tables .li_goal_container.class_' + goal + ' .collapsible-body ul').append(to_target_li);
+
+                        var table = d3v5.select($goal_table.find('li.li_' + this_from_id + ' table:last')[0]);
+                        console.log($goal_table.find('li.li_' + this_from_id + ' table')[0])
+                        var thead = table.select('thead');
+                        var tbody = table.select('tbody');
+                        // append the header row
+                        thead.append('tr')
+                            .selectAll('th')
+                            .data(columns)
+                            .enter()
+                            .append('th')
+                            .text(function(column) {
+
+                                return column;
+                            });
+                    } else {
+                        var to_target_li = '<table class="responsive-table striped highlight sel_table_goal target_' + this_from_id + '"><tbody></tbody></table>';
+                        // $('.right_container_cards .ul_tables .li_goal_container.class_' + t_goal+' .collapsible-body ul')
+                        $goal_table.find('.li_' + this_from_id).append(to_target_li);
+                    }
+
+
+                    var this_data;
+
+                    $('.right_container_cards .ul_tables .li_goal_container.class_' + goal).fadeIn();
+
+                    var table = d3v5.select($goal_table.find('li.li_' + this_from_id + ' table:last')[0]);
+                    var tbody = table.select('tbody');
+                    var rows = tbody.selectAll('tr').data([data])
+                        .enter()
+                        .append('tr')
+                        .attr('data_val', function(d) {
+                            console.log(d)
+                            this_data = d;
+                            return d.data
+                        })
+
+
+                    //  console.log(rows)
+
+                    rows.attr('data_val', function(d) {
+                        // console.log(d)
+                        return d.data
+                    })
+
+
+                    rows.on('mouseover', function(d) {
+                            //console.info(d3v5.event.target)
+
+                            //this refers to TR
+                            //console.log(this)
+                            if ($(d3v5.event.target).hasClass('sel_table_value')) {
+                                $(d3v5.event.target).addClass('active');
+                                /* console.log(d)
+                                 console.warn('mouseovering TR')*/
+                                var cards = d3v5.selectAll('.link')
+                                cards.transition().duration(350).style('opacity', 0.2);
+
+                                var sel = cards.filter(function(data) {
+                                    return data.data == d.data;
+                                });
+
+                                sel.transition().duration(450).style('opacity', 1);
+
+                                sel.classed('hovered_class_from_table', true);
+                            } else {
+                                if ($(this).find('.sel_table_value.active')) {
+                                    $(this).find('.sel_table_value').removeClass('active');
+                                    var cards = d3v5.selectAll('.link');
+                                    var sel = cards.filter(function(data) {
+                                        return data.visualized == true;
+                                    });
+                                    sel.transition().duration(50).style('opacity', 1);
+                                }
+                            }
+
+                        })
+                        // .on('click',function(d)
+                        // {
+                        //   var sel=d3v5.select('.hovered_class_from_table');
+                        //   console.log(sel['_goals'][0])
+
+                    // })
+                    .on('mouseout', function(d) {
+                        console.warn($(d3v5.event.target))
+                        if ($(d3v5.event.target).hasClass('sel_table_value')) {
+
+                            var cards = d3v5.selectAll('.link')
+
+                            cards.style('opacity', function(card) {
+                                    if (card.visualized == true) {
+                                        return 1;
+                                    } else {
+                                        return 0.2;
+                                    }
+                                })
+                                //   console.warn('mouseout from table row')
+                            var filtered = d3v5.selectAll('.hovered_class_from_table');
+                        }
+
+                        // cards.transition().duration(550).attr('fill',function(d)
+                        // {
+                        //   return sel_color(d).color;
+                        // })
+
+                        // filtered.classed('hovered_class_from_table',false);
+                    })
+
+                    // create a cell in each row for each column
+                    var cells = rows.selectAll('td')
+                        .data(function(row) {
+
+                            return columns.map(function(column) {
+
+                                if (column == 'From') // || column=='to')
+                                {
+                                    //return {column: column, value: row['from_title']};
+                                    return {
+                                        column: column,
+                                        value: 'Target ' + row['from_id']
+                                    };
+                                } else {
+                                    if (column == 'to') // || column=='to')
+                                    {
+                                        console.warn(row['to_title'])
+                                            //  return {column: 'to', value: row['to_title']};
+                                        return {
+                                            column: 'to',
+                                            value: 'Target ' + row['to_id']
+                                        };
+
+                                    } else {
+
+                                        return {
+                                            column: 'value',
+                                            value: row['value']
+                                        };
+                                    }
+                                }
+
+                                //  return {column: row.id, value: row.description};
+                            });
+                        })
+                        .enter()
+                        .append('td')
+                        .style('background-color', function(d) {
+                            // if (d.column=='value')
+                            //   {
+                            //     return sel_color(d).color;
+                            //   }
+                            //   else
+                            //   {
+                            return 'white';
+                            //}
+                        })
+                        .html(function(d) {
+                            console.info(data)
+                                //+generate_select(d,data)
+                            var a = [];
+                            if (d.column == 'value') {
+                                console.info(generate_select(d, data))
+                                    //<a class="btn tooltipped" data-position="bottom" data-html="true">Hover me!</a>
+                                var html = '<h5 style="background-color:' + app.sel_color(d).color + '" class="sel_table_value">' + app.sel_color(d).legend_text + '</h5>' + generate_select(d, data);
+
+
+
+                                return html;
+
+                            } else {
+                                var html = '<div>' + d.value + '</div>';
+                                return html;
+
+                            }
+                            console.info(html)
+
+                        });
+
+                    setTimeout(function() {
+                        //we are on tabulate_clicked
+                        console.warn('.li_goal_container.class_' + goal + ' .collapsible-body > ul li.li_' + this_from_id)
+                        var container_lis = $('.li_goal_container.class_' + goal + ' .collapsible-body > ul li.li_' + this_from_id).find('tbody tr[data_val="' + data.data + '"]');
+                        console.log(container_lis)
+                        console.info(data)
+                        var mat_sel = container_lis.find('select');
+                        console.warn(mat_sel.length)
+                        var prev_sel_val = parseInt(mat_sel.find('option:selected')[0].value);
+                        mat_sel.unbind('change')
+                        mat_sel.material_select();
+
+
+
+                        mat_sel.on('change', function(e) {
+                            select_triggered = false;
+                            app.associate_ev_mat_select(prev_sel_val, e, data, container_lis.find('select'), mat_sel)
+                        })
+                    }, 1000)
+
+                } else {
+                    // $('.sel_table_goal.goal_1 tbody tr').remove();
+                    var goal = data.goal;
+                    var table = d3v5.select('.sel_table_goal.goal_' + goal);
+                    var thead = table.select('thead');
+                    var tbody = table.select('tbody');
+
+                    $('.sel_table_goal.goal_' + goal + ' tbody tr').each(function(i, tr) {
+                        if ($(tr).attr('data_val') == data.data) {
+                            $(tr).remove();
+                        }
+                    });
+
+                    if ($('.sel_table_goal.goal_' + goal + ' tbody tr').length == 0) {
+                        $('.sel_table_goal.goal_' + goal).remove();
+                        $('.right_container_cards .ul_tables .li_goal_container.class_' + goal).fadeOut();
+                    }
+
+
+                    // create a row for each object in the data
+                    /*   d3v5.selectAll('.sel_table_goal.goal_'+goal+' tbody tr').filter(function(d)
+                         {
+                           console.log(d.data)
+                           console.warn(data.data)
+                           if (data.data==d.data)
+                           {
+                             alert(data.data)
+                             return this
+                           }
+                         })
+                       .remove()*/
+
+
+                }
+
+
+
+            }
+
+            function tabulate(data) {
+                console.info(data)
+                    //var selected_labels=data.targets;
+                    /*
+                 0:
+         description: "<span class='toast_target'>Target 1.1 </span></span>By 2030, eradicate extreme poverty for all people everywhere, currently measured as people living on less than $15 a day. "
+         id: "1.1"
+         sdgnum: 1
+         value: 2
+         */
+
+                var goal = data[data.length - 1].sdgnum;
+
+                var t = $('.tables_container .responsive-table').length;
+                var all_tables_rows = d3v5.selectAll('.tables_container .col').nodes();
+                console.info(all_tables_rows)
+
+                if (t < 3) {
+                    var container = all_tables_rows[0];
+                }
+
+                if (t >= 2 && t <= 5) {
+                    var container = all_tables_rows[1];
+                }
+
+                if (t > 2 && t <= 7) {
+                    var container = all_tables_rows[2];
+                }
+
+                console.info(container)
+
+                var container = $('#chart_info');
+
+                //$('#chart_info').empty();
+
+
+                var table = d3v5.select('#chart_info').append('table').attr('class', 'responsive-table striped highlight table_goal ' + goal + '"');
+
+                $('#chart_info table:last').before('<h4> Goal ' + goal + '</h4>').wrap('<div class="table_wrapper ' + goal + '"></div>')
+                    //'+d.sdg_num+'"> Goal '+d.sdg_num+'
+
+                var thead = table.append('thead')
+                var tbody = table.append('tbody');
+
+                var columns = ['id', 'description', 'value'];
+
+                // append the header row
+                thead.append('tr')
+                    .selectAll('th')
+                    .data(columns).enter()
+                    .append('th')
+                    .text(function(column) {
+                        return column;
+                    });
+
+                // create a row for each object in the data
+                var rows = tbody.selectAll('tr')
+                    .data(data)
+                    .enter()
+                    .append('tr');
+
+                // create a cell in each row for each column
+                var cells = rows.selectAll('td.flow-text-test')
+                    .data(function(row) {
+                        return columns.map(function(column) {
+                            console.info(column)
+                            if (column == 'description') {
+                                var html = $.parseHTML(row[column]);
+                                //  console.log($(html)[1])
+                                console.log(html[1].data)
+                                    //var h=$(html).find('.toast_target').removeClass('toast_target')
+                                    //console.log(h)
+                                return {
+                                    column: column,
+                                    value: html[1].data
+                                };
+                            } else {
+                                return {
+                                    column: column,
+                                    value: row[column]
+                                };
+                            }
+
+                            //  return {column: row.id, value: row.description};
+                        });
+                    })
+                    .enter()
+                    .append('td')
+                    .text(function(d) {
+                        console.info(d)
+
+
+                        return d.value
+
+                    });
+
+                //console.info($('#chart_info table:last').contents());
+                // console.log($('#chart_info table:last').contents().find('.toast_target'))
+
+                //removeClass('toast_target')
+
+                return table;
+            }
+
+            // render the table(s)
+            // tabulate(data)//, ['date', 'close']); // 2 column table
+
+            $('#chart').on('mouseover', function(e) {
+
+                //   console.warn('mouiseover on CHART')
+                xmouse = e.clientX || e.pageX;
+                ymouse = e.clientY || e.pageY;
+                //console.log(xmouse)
+            }).on('mouseout', function(e) {
+                if (clicked_card_data == null) {
+
+
+                    if ($('.card_toast.blues').length > 0) {
+                        //  console.log('card_toast should be removed')
+                        $('.card_toast.blues').fadeOut();
+                        $('.card_toast.blues').remove();
+                        //   console.warn($('.card_toast.blues').length)
+
+                        //.remove();
+                    }
+                }
+            })
+
+            app.heatmap = function(_data, update) {
+                    console.trace();
+                    //debugger;
+                    new_params.heatmap_data = _data;
+                    var colors_obj = structural_data.colors_obj;
+                    console.info(_data)
+                    console.trace()
+                    $('.dropdown_legend_btn').fadeIn('slow')
+                    $('.main_initial_title,.tables_container,.sdg_cards_container').hide();
+                    //return {links:selected_links,targets:these_targets}
+                    var selected_labels = _data.targets;
+                    var selected_links = _data.links;
+
+                    chart.gridSize = Math.floor(width / selected_labels.length);
+
+                    //links not used now to plot??
+                    var hidden_links = _data.hidden_links;
+                    var extra_tooltip_info = {
+                        rows: 0,
+                        cols: 0
+                    };
+
+                    var colorScale = d3v5.scaleLinear() //.quantile()
+                        .domain([-3, 7, 3])
+                        .range(colors);
+
+                    if (options.config.from_csv == true) {
+
+                        //var colors_obj={total_records:0,data:[{legend_val:-3,counts:0,percent_val:0,color:"#d73027",legend_text:"Strongly restricting"}
+                        colors_obj.total_records = 0;
+                        colors_obj.data.forEach(function(d) {
+                            d.counts = 0;
+                            d.percent_val = 0;
+                        })
+                        console.log(colors_obj)
+                        new_params.colors_obj = colors_obj;
+
+                        update_vis_labels_counts(selected_labels);
+
+                    } else {
+                        var arr = [];
+
+
+                        dynamic_data.from_ids_counts = selected_labels.map(function(d) {
+                            arr.push(d.id)
+                            return {
+                                id: d.id,
+                                sum_rows: 0,
+                                sum_col: 0,
+                                values: []
+                            }
+
+                        });
+
+
+                        selected_links.map(function(d) {
+                            if (d.same_targets == true)
+                                return false;
+
+                            var from_id_pos = arr.indexOf(d.from_id);
+                            var to_id = d.data.split('-')[1];
+
+                            if (d.value == null) var this_val = 0;
+                            else
+                                var this_val = d.value;
+
+
+                            dynamic_data.from_ids_counts[from_id_pos].sum_rows += this_val;
+
+                            var to_id_pos = arr.indexOf(to_id);
+                            dynamic_data.from_ids_counts[to_id_pos].sum_col += this_val;
+
+                            //if (d.from_id == obj.from_id) {
+                            //     obj.sum_col = d.sum_col;
+
+                            // row_col_data[from_id_pos].values.push({
+                            //     data: d.data,
+                            //     value: parseInt(d.value),
+                            //     to_id: to_id
+                            // })
+                        });
+                        console.info(dynamic_data.from_ids_counts)
+                        update_vis_labels_counts(selected_labels)
+                    }
+
+                    var gridSize = chart.gridSize
+                    console.warn(gridSize)
+
+                    var new_arr = [];
+                    //console.info(_data.links)
+
+                    for (var p in _data.links) {
+
+                        new_arr.push(_data.links[p])
+                    }
+                    console.info(new_arr)
+
+                    chart.sel_true_links = _data.links.filter(function(info) {
+                        //console.log(info)
+                        return info.visualized == true;
+                    });
+                    console.log(chart.sel_true_links)
+
+                    console.info(selected_labels)
+
+                    chart.gridSize = Math.floor(width / selected_labels.length);
+
+
+                    function getRandomInt(min, max) {
+                        return Math.floor(Math.random() * (max - min)) + min;
+                    }
+
+
+                    var from_keys = d3v5.map(new_arr, function(d) {
+                        return d.from_id;
+                    }).keys();
+                    console.info(from_keys)
+                    var to_keys = d3v5.map(new_arr, function(d) {
+                        return d.to_id;
+                    }).keys();
+                    console.log(from_keys)
+
+                    var y = d3v5.scaleBand()
+                        .range([0, width])
+                        .domain(from_keys)
+                        .padding(0.05);
+
+                    var x = d3v5.scaleBand()
+                        .range([0, width])
+                        .domain(to_keys)
+                        .padding(0.05);
+                    console.info(new_arr)
+
+                    //xLabels follow the row, x=increases, y stays 0
+                    var xLabels_group = svg.selectAll(".xLabels")
+                        .data(selected_labels, function(d) {
+
+                            return d;
+                        });
+                    xLabels_group.exit().remove();
+
+                    var xLabelsEnter = xLabels_group
+                        .enter()
+                        .append("text")
+                        //   .merge(xLabels)
+                        .text(function(d) {
+                            return d.id;
+                        })
+                        .attr("x", function(d, i) {
+                            return i * gridSize;
+                        })
+                        .attr("y", 0)
+                        .style("text-anchor", "middle")
+                        .style("font-size", function(d) {
+                            return 10;
+                        })
+
+                    .attr("transform", "translate(" + gridSize / 2 + ", -6)")
+                        .attr("class", "xLabels mono axis axis-x")
+                        .on('click', function(d) {
+                            if (options.config.satellites == true)
+                                return false;
+
+                            var _t = d3v5.select(this);
+                            var cards = d3v5.selectAll('.link');
+
+                            var x_sel_labels = d3v5.selectAll(".xLabels").filter(function(labels) {
+
+                                if (labels.id == d.id) {
+                                    console.info(d)
+                                    return this;
+                                }
+                            });
+                            var y_sel_labels = d3v5.selectAll(".yLabels").filter(function(labels) {
+                                if (labels.id == d.id) {
+                                    console.info(d)
+                                    return this;
+                                }
+                            });
+
+
+
+                            var row_cards = cards.filter(function(data) {
+                                return (data.visualized == true && data.from_id == d.id);
+                            });
+                            row_cards.classed('low_opacity', false);
+
+
+                            var col_cards = cards.filter(function(data) {
+                                return (data.visualized == true && data.to_id == d.id);
+                            });
+
+                            console.info(_t);
+
+
+
+                            if (_t.classed('fixed_col_row') == false) {
+
+                                //_t.classed('fixed_col_row',true);
+
+
+
+                                d3v5.selectAll('.fixed_col_row').classed('fixed_col_row', false);
+                                x_sel_labels.classed('new_fixed_col_row', true);
+                                y_sel_labels.classed('new_fixed_col_row', true);
+
+                                x_sel_labels.classed('fixed_col_row', function() {
+                                    var label = d3v5.select(this);
+                                    console.log(label.classed('new_fixed_col_row'))
+                                    return label.classed('new_fixed_col_row')
+
+                                });
+                                y_sel_labels.classed('fixed_col_row', function() {
+                                    var label = d3v5.select(this);
+
+                                    return label.classed('new_fixed_col_row')
+
+                                })
+                                d3v5.selectAll('.new_fixed_col_row').classed('new_fixed_col_row', false);
+
+
+                                cards.classed('low_opacity', true);
+
+
+                                col_cards.classed('low_opacity', false);
+                                row_cards.classed('low_opacity', false);
+
+                            } else {
+                                console.info('YES, it was not previously clicked SO we are un-highlighting row and columns')
+
+                                x_sel_labels.classed('fixed_col_row', false);
+                                x_sel_labels.classed('new_fixed_col_row', false);
+
+                                y_sel_labels.classed('new_fixed_col_row', false);
+                                y_sel_labels.classed('fixed_col_row', false);
+
+                                cards.classed('low_opacity', false);
+
+                            }
+
+                        })
+                        .on('mouseover', function(d) {
+                            if ($('.fixed_col_row').length > 0 || options.config.satellites == true)
+                                return false;
+
+                            $(this).addClass('xLabel_hovered');
+                            d3v5.select(this).style('color', 'red');
+
+                            var cards = d3v5.selectAll('.link');
+                            cards.classed('low_opacity', true);
+
+                            var row_cards = cards.filter(function(data) {
+                                return (data.visualized == true && data.from_id == d.id);
+                            });
+                            row_cards.classed('low_opacity', false);
+
+
+                            var col_cards = cards.filter(function(data) {
+                                return (data.visualized == true && data.to_id == d.id);
+                            });
+                            col_cards.classed('low_opacity', false);
+
+                            var $anchor = $(d3v5.select(this).node());
+
+                            $anchor
+                                .attr('data-tooltip', function(i, d) {
+                                    var data = $(this)[0]['__data__'];
+                                    if (data.hasOwnProperty('sum_col')) {
+                                        var sum_col = "Score <b>" + data.sum_col + "</b>";
+                                    } else {
+                                        var sum_col = '<b>No score</b>';
+                                    }
+                                    return "<div class='xLabel_tooltip'><div class='Label_tooltip_direction'>To target</div>" + data.description + "<div style='padding:5px;font-size:1.2em;'>" + sum_col + "</div></div>";
+                                });
+
+                            $anchor.tooltip({
+                                delay: 50,
+                                delayOut: 5000000,
+                                position: 'top',
+                                html: true
+                            });
+                            //$anchor.trigger('hover')
+                            setTimeout(function() {
+                                $anchor.trigger('mouseover');
+                            }, 300)
+
+                        })
+                        .on('mouseout', function(d) {
+
+                            if ($('.fixed_col_row').length > 0 || options.config.satellites == true)
+                                return false;
+
+                            var cards = d3v5.selectAll('.link');
+                            $(this).removeClass('xLabel_hovered');
+                            var _t = d3v5.select(this);
+                            if (_t.classed('fixed_col_row') == false) {
+                                $('.material-tooltip').hide();
+
+                                cards.classed('low_opacity', false);
+                                $(this).removeClass('xLabel_hovered');
+                            } else {
+                                cards.classed('low_opacity', false);
+                                $(d3v5.select(this).node()).trigger('mouseover')
+                            }
+                        })
+
+
+
+
+                    var yLabels_group = svg.selectAll(".yLabels")
+                        .data(selected_labels, function(d) {
+
+                            return d;
+                        });
+                    yLabels_group.exit().remove();
+
+                    // 3. Enter new elements
+                    var yLabelsEnter = yLabels_group
+                        .enter()
+                        .append("text")
+                        // .merge(yLabels)
+                        .text(function(d) {
+                            return d.id;
+                        })
+                        .attr("x", 0)
+                        .attr("y", function(d, i) {
+                            //return y(d.id)
+                            return i * gridSize;
+                        })
+                        .style("text-anchor", "end")
+                        .style("font-size", function(d) {
+                            return 14;
+                        })
+                        .attr("transform", "translate(-7," + (Math.floor(gridSize / 2) + 4) + ")") // + gridSize / 1.5 + ")")
+                        .attr("class", "yLabels mono axis axis-y")
+
+                    // 5. Update new selection
+                    yLabels_group = svg.selectAll(".yLabels")
+                        .transition()
+                        .duration(900)
+                        .attr("x", 0)
+                        .attr("y", function(d, i) {
+
+                            return i * gridSize;
+                            // console.log(d)
+                            //return y(d.id)
+                        })
+                        .text(function(d) {
+
+                            return d.id;
+                        })
+                        // .attr("transform", "translate(-7," + (Math.floor(gridSize / 2) + 4) + ")") // + gridSize / 1.5 + ")")                      
+                        .attr("class", "news_labels yLabels mono axis axis-y")
+
+                    // 1. Make new data join
+                    var my_group = svg.selectAll(".g_matrix .link")
+                        .data(new_arr, function(d) {
+                            return d.data
+                        });
+                    console.log(my_group)
+
+                    // 2. Get rid of old elements
+                    my_group.exit().remove();
+
+                    console.info(my_group)
+
+                    // 3. Enter new elements
+                    var rectEnter = my_group
+                        .enter()
+                        .append("rect")
+                        //.classed('just_entered', true)
+                        .attr("y", function(d) {
+                            // console.log(d.data)
+                            //index2.html:3113 1.2-1.5  y 1.5960099750623726 x 33.51620947630926
+                            //index2.html:3113 1.2-1.4  y 95.31914893617021 x 276.87943262411346
+                            //console.warn(d.data + '  y ' + y(d.from_id), 'x ' + x(d.to_id))
+                            return y(d.from_id)
+                        })
+                        .attr("x", function(d) {
+
+                            return x(d.to_id)
+                        })
+                        /*  .attr("rx", 20)
+                        .attr("ry", 20)*/
+                        .attr("class", function(d) {
+                            if (d.same_targets == true) {
+                                return "just_entered link bordered same_targets";
+                            } else {
+                                return "just_entered link bordered";
+                            }
+
+                        })
+                        .attr("width", chart.gridSize)
+                        .attr("height", chart.gridSize)
+                        .attr('opacity', function(d) {
+                            if (d.visualized == true) {
+                                return 1;
+                            } else {
+                                return 0.8;
+                            }
+                        })
+                        .style("fill", function(d) {
+
+                            // return '#a8a7a7';
+
+
+                            if (d.same_targets == true) {
+                                //  console.log(d)
+
+                                return '#ffffff';
+                            } else {
+                                if (d.data == '1.2-1.5') {
+                                    console.log(d)
+                                    console.info(app.sel_color_update(d).color)
+                                }
+
+                                if (d.value == undefined)
+                                    return '#ffffff';
+                                else
+                                    return app.sel_color_update(d).color;
+                                //return sel_color(d).color;
+                            }
+
+
+
+                        })
+                        .on('click', //tip.show)
+                            function(d) {
+                                if (d.visualized == true && d.same_targets == false) {
+                                    console.log(clicked_card)
+                                    $('#toast-container').css('opacity', 1);
+
+                                    //if there was already a a clickedcard active...
+                                    if (clicked_card = true) {
+                                        clicked_card_data = d;
+                                        if (d.value !== null) {
+                                            $('.card_toast.blues').find('.delete_card_icon').show();
+                                        } else {
+                                            $('.card_toast.blues').find('.delete_card_icon').hide();
+                                        }
+                                        $('.card_toast.blues').find('#legend_tooltip').show();
+
+                                    } else {
+                                        clicked_card = true;
+
+                                        var filtered = d3.select(d3v5.event.target);
+                                        clicked_card_data = d;
+                                    }
+
+                                    $('.card_toast.blues').addClass('editing_card_toast')
+
+                                    var this_data = d; //3.select(this).data()[0];
+                                }
+
+                            })
+                        .on('mouseover', //tip.show)
+                            function(d) {
+                                if (d.visualized == true && d.same_targets == false) {
+                                    var this_data = d; //3.select(this).data()[0];
+
+                                    var filtered = d3.select(d3v5.event.target);
+
+                                    if (filtered.classed('blacked'))
+                                        return false;
+
+                                    // if (clicked_card==true)
+                                    if ($('.editing_card_toast').length > 0) {
+
+                                        // console.warn('some shown on mouseover card')
+                                        $('.editing_card_toast').show();
+
+                                    }
+
+
+
+                                    //if (clicked_card==false)
+                                    if ($('.editing_card_toast').length == 0) {
+
+
+                                        filtered.classed('hovered_class', true);
+
+                                        var this_data;
+                                        var with_data = null;
+
+                                        if (filtered.classed('low_opacity') == false) {
+                                            filtered.transition().duration(550)
+                                                .style("opacity", 1)
+                                        }
+
+
+
+                                        filtered.style("fill", function(d) {
+
+                                            this_data = d;
+
+                                            if (d.value !== null) {
+                                                with_data = d;
+                                                // console.log(d.value)
+                                                return app.sel_color(d).color;
+                                            } else {
+                                                //return '#dc3d84';
+                                                return app.sel_color(d).color;
+                                            }
+
+                                            //sel_color(d).color;
+
+                                        });
+                                        if ($('.card_toast.blues').length > 0) {
+                                            $('.card_toast.blues').fadeOut(); //
+                                            console.log($('.card_toast.blues').length)
+                                                //.remove();
+                                        }
+                                        //  console.info(with_data)
+
+                                        if (with_data == null) {
+
+                                            var $toastContent = $("<a href='#close' class='close_tooltip'>x</a><div><span class='target_toast_direction_title'>How is target " + this_data.row + " affecting " + this_data.column + "?</span><div class='flow-text-test'>" + d.title + '</div><div><div class="val_title center" style="display:block!important;"><div class="card_val_title">No value assigned</div><div class="row toast_actions"><i class="material-icons edit-icon">edit</i><i style="display:none" class="delete_card_icon material-icons right">delete_forever</i></div></div><div class="card_legend_tooltip_container"><div class="on toast_slide_color">Hide score colors</div>' + $('#dropdown_legend #legend_tooltip')[0].outerHTML + "</div><div class=' toast_slide_text'>Show text form</div><div class='row card_text_form'> <form class='col s12'> <div class='row'> <div class='input-field col s12'> <textarea id='textarea1' class='materialize-textarea'></textarea> <label for='textarea1'>If necessary, add some remarks</label> </div> </div> </form> </div></div></div>");
+
+                                        } else {
+                                            //can be true or false???
+
+                                            var $toastContent = $("<a href='#close' class='close_tooltip'>x</a><div><span class='target_toast_direction_title'>How is target " + this_data.row + " affecting " + this_data.column + "?</span><div class='flow-text-test'>" + d.title + '</div><div class="val_title center" style="display:block!important;"><div class="card_val_title" style="color:' + app.sel_color(d).color + '">' + app.sel_color(d).legend_text + '</div><div class="row toast_actions"><i class="delete_card_icon material-icons right">delete_forever</i><i class="material-icons edit-icon left">edit</i><div class="col s12"> <div class="control"><a class="btn-floating waves-effect waves-light black"><i class="material-icons">invert_colors</i></a><a href="#colorpalette" class="btn-floating waves-effect waves-light black"><i class="material-icons">textsms</i></a><a href="#colorpalette" class="btn-floating waves-effect waves-light black"><i class="material-icons">palette</i></a><a class="btn-floating waves-effect waves-light black"><i class="material-icons handle">open_with</i></a></div></div><div class="card_legend_tooltip_container"><div class="off toast_slide_color">Show score colors</div>' + $('#dropdown_legend #legend_tooltip')[0].outerHTML + '</div><div class="row card_text_form"> <form class="col s12"> <div class="row"> <div class="input-field col s12"> <textarea id="textarea1" class="materialize-textarea"></textarea> <label for="textarea1">If necessary, add some remarks</label> </div> </div> </form> </div></div>');
+                                        }
+
+                                        if (options.config.opt_click == true) {
+                                            console.log('on click only')
+                                            $('#toast-container').css('opacity', 0);
+                                        } else {
+                                            $('#toast-container').css('opacity', 1);
+                                        }
+
+                                        //Materialize.toast($toastContent, 4000000, 'card_toast blues');
+
+                                        Materialize.toast($toastContent, 4000000, 'card_toast blues ui-widget-content draggable');
+
+                                        if (typeof options.config.top !== 'undefined') {
+
+                                            setTimeout(function() {
+
+
+                                                    $('#toast-container .toast').css({
+                                                        'top': options.config.top + '!important',
+                                                        'left': options.config.left
+                                                    });
+
+                                                }, 5)
+                                                //options.config.top=position.top;
+                                                //options.config.left=position.left;
+                                        }
+
+
+                                        $(".draggable").draggable({
+                                            handle: '.handle'
+                                        });
+                                        $('.card_toast').parent().removeClass('goal_toast_container');
+                                        // console.log(xmouse+'px!important  should be left')
+                                        //$('.card_toast').parent().css('right', xmouse + 'px!important').css('bottom', ymouse + 'px!important')
+                                    }
+                                }
+
+
+
+                            })
+                        .on('mouseout', function(d) {
+                            if (d.visualized == true && d.same_targets == false) {
+                                var filtered = d3.select(d3v5.event.target);
+
+                                if (filtered.classed('blacked'))
+                                    return false;
+
+                                $('.card_toast.blues').not('.editing_card_toast').remove();
+                                //console.log($('.card_toast.blues').length)
+                                if ($('.editing_card_toast').length == 0) {
+                                    d3v5.selectAll('.hovered_class').classed('hovered_class', false)
+                                        .transition().duration(550)
+                                        // .style("opacity", 1)
+                                        .style("fill", function(d) {
+                                            return app.sel_color(d).color;
+
+                                        })
+                                }
+
+
+                                // if (clicked_card==true)
+                                if ($('.editing_card_toast').length > 0) {
+                                    console.log('some shown on mouseout, we keep hovered style')
+
+                                }
+                            }
+                        });
+
+                    // 5. Update new selection
+                    my_group = svg.selectAll(".g_matrix .link")
+                        .transition()
+                        .duration(2400)
+                        .attr("y", function(d) {
+                            return y(d.from_id)
+                        })
+                        .attr("x", function(d) {
+                            return x(d.to_id)
+                        })
+                        .attr("width", function(d) {
+
+                            return chart.gridSize
+                        })
+                        .attr("class", "just_updated_old link bordered")
+                        .attr("height", chart.gridSize)
+
+                    .style("fill", function(d) {
+
+                        if (d.data == '1.2-1.5') {
+                            console.log(d)
+                            console.info(app.sel_color_update(d).color)
+                        }
+
+                        if (d.same_targets == true) {
+                            //  console.log(d)
+
+                            return 'blue';
+                        } else {
+
+                            return app.sel_color_update(d).color;
+                            //return sel_color(d).color;
+                        }
+                    });
+
+                } // ./heatmap
+
+            $(window).on('resize', function() {
+                width_px = $(window).height() + $('.nav-wrapper').height();
+                console.log(width_px)
+                $('.svg-container').height(width_px);
+                $('.svg-container').width(width_px);
+            });
+
+
+
+
+            function update_vis_labels_counts(selected_labels) {
+                console.warn(selected_labels)
+
+                var gridSize = chart.gridSize;
+
+                var keys = d3v5.map(selected_labels, function(d) {
+                    return d.id;
+                }).keys();
+                console.log(keys)
+
+                var y = d3v5.scaleBand()
+                    .range([0, width])
+                    .domain(keys)
+                    .padding(0.05);
+
+                var x = d3v5.scaleBand()
+                    .range([0, width])
+                    .domain(keys)
+                    .padding(0.05);
+
+                var xLabels_counter = svg.selectAll(".xLabels_counter")
+                    .data(selected_labels, function(d) {
+
+                        // if (options.config.from_csv == true) {
+
+                        //{data: "13.2-1.2", value: 1, to_id: "1.2"}      
+
+                        for (var p in dynamic_data.from_ids_counts) {
+                            var t = dynamic_data.from_ids_counts[p];
+
+                            if (t.id == d.id) {
+                                d.sum_rows = t.sum_rows;
+                                d.sum_col = t.sum_col;
+                            }
+
+                        }
+                        //new_params.from_ids_counts = from_ids_counts;
+
+                        // } else {
+
+                        // }
+
+                        return d.id;
+                    });
+
+                xLabels_counter.exit().remove();
+                // var width=$('.svg-container').width();
+                var x_width = (chart.buckets * chart.gridSize) + 22;
+
+                xLab_count_enter = xLabels_counter
+                    .enter().append("text")
+                    //   .merge(xLabels)
+                    .text(function(d) {
+
+                        //if (typeof d.sum_rows!=='undefined')
+                        //if(sum_rows in d)
+                        if (d.hasOwnProperty('sum_rows')) {
+                            return d.sum_rows
+                        } else {
+                            if (options.config.from_csv == true) {
+                                return 'to_fill'
+                            } else {
+                                return '';
+                            }
+
+                        }
+                    })
+                    .style("text-anchor", "middle")
+                    .attr("font-size", function(d) {
+                        return 18;
+                    })
+                    .attr("transform", "translate(-10, 0)")
+                    .attr("class", "xLabels_counter")
+
+                .attr("x", function(d, i) {
+
+                        return x_width;
+                    })
+                    .attr("y", function(d, i) {
+                        console.warn(d)
+                        console.info(y(d.id))
+                            //  return (i * chart.gridSize) + (gridSize / 2) + 20;
+                        return y(d.id) + (gridSize / 2);
+                    })
+
+                //  .attr("transform", "translate(" + gridSize / 2 + ", -6)")
+                //we have to take into account the label size in pixel (currently, 18px)
+                xLabels_counter.transition()
+                    .duration(2400)
+
+                .attr("y", function(d, i) {
+                    console.info((i * chart.gridSize) + (gridSize / 2) + 20)
+                    return y(d.id) + (gridSize / 2);
+                })
+
+
+
+                var yLabels_counter = svg.selectAll(".yLabels_counter")
+                    .data(selected_labels, function(d) {
+                        return d.id;
+                    });
+
+                yLabels_counter.exit().remove();
+                yLabels_counter.enter().append("text")
+                    //   .merge(xLabels)
+                    .text(function(d) {
+
+                        if (d.hasOwnProperty('sum_col')) {
+                            return d.sum_col;
+                        } else {
+                            if (options.config.from_csv == true) {
+                                return 'to_fill'
+                            } else {
+                                return '';
+                            }
+
+                        }
+                    })
+                    .attr("x", function(d, i) {
+                        return x(d.id) + (gridSize / 2);
+                    })
+                    .attr("y", function(d, i) {
+
+                        return x_width;
+                    })
+                    .style("text-anchor", "middle")
+                    /* .attr("font-size",function(d)
+                       {
+                         return 18;
+                       })
+*/
+                    .attr("transform", "translate(0, 0)")
+                    .attr("class", "yLabels_counter");
+
+
+                yLabels_counter.transition()
+                    .duration(2400)
+
+                .attr("x", function(d, i) {
+                    return x(d.id) + (gridSize / 2);
+                })
+
+
+
+
+                if (options.config.from_csv == true)
+                    update_progress_bars_csv();
+            }
+            //end update_vis_labels_counts
+
+
+
+            app.attach_ev_sidenav_select = function(extra_params) {
+                console.info(arguments)
+                var sel_goal_arr = [];
+
+                $('.side-nav .input-field select').bind('change', function(e, extra_params) {
+                    if (e.hasOwnProperty('originalEvent')) {
+                        //alert('clicked')
+                    } else {
+                        // alert('triggered ')
+                    }
+                    $('.last_changed').addClass('blues');
+
+
+
+                    if (options.config.from_csv == false) {
+
+                        setTimeout(function() {
+
+                            var sel_goal;
+                            $('.side-nav .input-field .select-wrapper ul').find('li').not('.disabled').each(function(i, d) {
+                                if ($(d).hasClass('last_changed')) {
+                                    sel_goal = i + 1;
+                                }
+
+                            });
+                            //dynamic_data.selected_goals_arr
+                            if (sel_goal_arr.indexOf(sel_goal) == -1) {
+                                sel_goal_arr.push(sel_goal);
+
+                                if (sel_from_sidenav == true && sel_goal !== 0) {
+
+
+                                    if ($('.card_toast').length > 0)
+                                        $('.card_toast').remove();
+
+                                    $('.card-goal-' + sel_goal).parent().find('.card-action a').trigger('click');
+
+                                    // if ($('body').css('overflow') !== 'hidden')
+                                    //      $('.sidenav_trigger').trigger('click');
+
+                                    $('.side-nav .li_goal_container.' + sel_goal + ' .collapsible-header').trigger('click');
+
+
+                                }
+                            } else {
+
+
+                                console.log('DE-activate ' + sel_goal);
+                                $('.side-nav .li_goal_container.' + sel_goal).hide().find('.checkbox_all_goal').prop('temp_checked', true)
+                                    .trigger('click')
+
+                                var $elem = $('.right_container_cards .ul_tables .li_goal_container.class_' + sel_goal)
+                                if ($elem) {
+                                    $elem.fadeOut();
+                                    $elem.find('.right_container_cards_ul').empty();
+                                }
+                            }
+
+
+                        }, 500)
+                    }
+
+
+                    // selected.hide();
+                });
+            };
+
+            $('.sidenav_trigger').sideNav({
+                menuWidth: 380, // Default is 300
+                onOpen: function(el) {
+                    sel_from_sidenav = true;
+                },
+                onClose: function(el) {
+                    sel_from_sidenav = false;
+                }
+            });
+            $('.dropdown-button').dropdown();
+
+            if (options.config.from_csv == false) {
+                $('select').material_select();
+                app.attach_ev_sidenav_select('not_csv');
+            }
+
+
+
+
+
+            $('.ul_tables .goal_table_container').bind('click', function(e) {
+
+
+                if ($(e.target).hasClass('card-content') || $(e.target).hasClass('card-sdg-goal') || $(e.target).hasClass('collapsible-header')) {
+                    console.log($(e.target))
+
+                    if ($(e.target).hasClass('collapsible-header') == false)
+                        var header = $(e.target).parents().closest('.collapsible-header');
+                    else
+                        var header = $(e.target);
+
+                    var container = header.next() //find('.collapsible-body');
+                    console.warn(container)
+
+                    if (container.is(':visible')) {
+                        container.hide();
+                    } else {
+                        container.show();
+
+
+                    }
+                }
+            })
+
+
+
+            // $('.card-action:first a').trigger('click')
+            //        $('.sidenav_trigger').trigger('click');
+
+
+            var showChar = 30; // How many characters are shown by default
+            var ellipsestext = "...";
+            var moretext = "Show more";
+            var lesstext = "Show less";
+
+
+            $('.more').each(function() {
+                var content = $(this).html();
+
+                if (content.length > showChar) {
+
+                    var c = content.substr(0, showChar);
+                    var h = content.substr(showChar, content.length - showChar);
+
+                    var html = c + '<span class="moreellipses">' + ellipsestext + '&nbsp;</span><span class="morecontent"><span>' + h + '</span>&nbsp;&nbsp;<a href="" class="morelink">' + moretext + '</a></span>';
+
+                    $(this).html(html);
+                }
+
+            });
+
+
+
+
+            $(".morelink").click(function() {
+                if ($(this).hasClass("less")) {
+                    $(this).removeClass("less");
+                    $(this).html(moretext);
+                } else {
+                    $(this).addClass("less");
+                    $(this).html(lesstext);
+                }
+                $(this).parent().prev().toggle();
+                $(this).prev().toggle();
+                return false;
+            });
+
+        });
+
+        $('#satellite_selects_opt .btn').on('click', function(e) {
+
+            var data_id = $('.satellite_options select').find('option:selected')[0].value;
+
+
+            var _type = $('#satellite_selects_opt form').find('input:checked').attr('id');
+            if (data_id !== 'empty') {
+                create_satellite(data_id, _type, e)
+            }
+        })
+
+        $('.print').click(function(e) {
+            e.preventDefault();
+            //$('text').hide()
+            $('#print_modal').modal('open');
+            setTimeout(function() {
+
+
+
+                //better matrix, no text with canvas_old
+                html2canvas(document.querySelector("#vis-container"), {
+
+                    //much biggerr space below matrix, no text with canvas_old
+                    //html2canvas(document.querySelector(".svg-container"),{
+
+                }).then(function(canvas) {
+
+
+                    var imgageData = canvas.toDataURL("image/png");
+                    var newData = imgageData.replace(/^data:image\/png/, "data:application/octet-stream");
+                    $("<a>", {
+                            href: newData,
+                            download: "legend.png",
+                            on: {
+                                click: function() {
+                                    $(this).remove()
+                                }
+                            }
+                        })
+                        .appendTo("body")[0].click();
+                    $('#print_modal').modal('close');
+                    return false;
+
+
+                })
+            }, 500)
+
+        })
+
+
+
+        function create_satellite(data_id, _type, e) {
+            console.trace()
+            console.log($(e.target).is('select'))
+            var cards = d3v5.selectAll('.link');
+            $('.fixed_col_row').removeClass('fixed_col_row');
+
+            if ($('#satellite_selects_opt .btn').hasClass('off')) {
+                console.log('activatiiiiing')
+
+                options.config.satellites = true;
+
+                $('#vis-container').trigger('mouseenter');
+                $('.print_div').show();
+
+                if ((!$(e.target).is('select') && !$(e.target).is('input')) || $('#satellite_selects_opt .btn').hasClass('initial_off')) {
+
+
+                    $('#satellite_selects_opt .btn').removeClass('off initial_off').addClass('on').text('Reset');
+
+                }
+
+            } else {
+                var cards = d3v5.selectAll('.link');
+                console.log('de-actuive')
+                cards.classed('blacked', false).classed('satellite_selected', false);
+                cards.classed('low_opacity', false)
+                    //.style('opacity',1);
+                options.config.satellites = false;
+                $('#vis-container').empty();
+
+                $('#satellite_selects_opt .btn').removeClass('on').addClass('off').text('Apply');
+                $('.print_div').hide();
+
+                return false
+
+
+
+
+
+
+            }
+            //initially, 'off'
+            /*    if ($('#satellite_selects_opt .btn').hasClass('on'))
+                {
+                  $('#satellite_selects_opt .btn').removeClass('on').addClass('off').text('Apply'); 
+                }
+                else
+                {
+                  $('#satellite_selects_opt .btn').removeClass('off').addClass('on').text('Reset');
+                }
+                */
+            //options.config.satellites=true;
+            $('.fixed_col_row').removeClass('fixed_col_row');
+
+            $('.ul_satellite,.print').show();
+            $('.satellite_selects_opt .btn').show()
+            console.info(arguments)
+            var cards = d3v5.selectAll('.link').filter(function(data) {
+                    return (data.visualized == true);
+                })
+                // cards.transition().duration(150).style('opacity',0.1)
+            $('#vis-container').empty();
+
+            var t_obj = {
+                label: data_id,
+                value: 20,
+                satellites: []
+            }
+
+            var t_obj_to = {
+                label: data_id,
+                value: 20,
+                satellites: []
+            }
+
+            var objects = new_params.objects;
+            structural_data.colors_obj.data.forEach(function(d) {
+                t_obj.satellites.push({
+                    value: d.legend_val,
+                    label: d.legend_val,
+                    label_text: d.legend_text,
+                    tip: d.legend_text,
+                    satellites: []
+                });
+                t_obj_to.satellites.push({
+                    value: d.legend_val,
+                    label: d.legend_val,
+                    label_text: d.legend_text,
+                    tip: d.legend_text,
+                    satellites: []
+                });
+            });
+
+
+
+
+            var cards = d3v5.selectAll('.link');
+            var to_ids_arr = [];
+
+            col_cards = cards.filter(function(d) {
+                if (d.to_id == data_id && d.value !== null) {
+
+                    t_obj_to.satellites.forEach(function(this_obj) {
+                        //sdg_obj refers to the DATA
+                        //obj refers to the new obj created on pushing the DATA
+                        if (parseInt(this_obj.value) == parseInt(d.value)) {
+                            // Array.prototype.push.apply(these_targets_data,d2);
+
+                            this_obj.satellites.push({
+                                from_id: d.from_id,
+                                label: d.from_id,
+                                tip: d.from_title,
+                                value: d.value,
+                                data_id: d.data
+                            });
+                            //  console.info(this_obj)                
+                        }
+                    })
+                    return this;
+                }
+
+            });
+
+            row_cards = cards.filter(function(d) {
+                if (d.from_id == data_id && d.value !== null) {
+
+                    t_obj.satellites.forEach(function(this_obj) {
+                        //sdg_obj refers to the DATA
+                        //obj refers to the new obj created on pushing the DATA
+                        if (parseInt(this_obj.value) == parseInt(d.value)) {
+                            // Array.prototype.push.apply(these_targets_data,d2);
+
+                            this_obj.satellites.push({
+                                from_id: d.from_id,
+                                label: d.to_id,
+                                tip: d.to_title,
+                                value: d.value,
+                                data_id: d.data
+                            });
+
+
+                            //  console.info(this_obj)                
+                        }
+                    })
+                    return this;
+                }
+
+            });
+
+            cards.classed('satellite_selected', false);
+            cards.classed('blacked', true);
+            cards.classed('low_opacity', true);
+
+
+            var row_cards = cards.filter(function(data) {
+                return (data.visualized == true && data.from_id == data_id);
+            });
+            var col_cards = cards.filter(function(data) {
+                return (data.visualized == true && data.to_id == data_id);
+            });
+
+            if (_type == 'from_id') {
+                var this_to_plot = t_obj;
+                console.log(this_to_plot)
+
+
+                row_cards.classed('blacked', false);
+
+
+
+                row_cards.classed('satellite_selected', true);
+                row_cards.classed('low_opacity', false);
+                //  return false
+                //row_cards.transition().duration(150).style('opacity',1);
+
+            } else {
+                var this_to_plot = t_obj_to;
+
+                col_cards.classed('blacked', false);
+
+
+                col_cards.classed('satellite_selected', true);
+                col_cards.classed('low_opacity', false);
+
+                // return false
+
+                //col_cards.style('opacity',1);
+
+            }
+
+
+            //alert(document.getElementById('vis-container').length)
+            new satchart.SatChart(
+                document.getElementById('vis-container'),
+                //$('#vis-container').eq(0),
+                //$('#vis-container')
+                this_to_plot, {
+                    // width: $('#vis-container').width(),
+                    //height: $('#vis-container').height(),
+                    width: parseInt($('.ul_satellite').width()) - 50,
+                    height: parseInt($('.ul_satellite').width()),
+                    valueRange: [-3, -2, -1, 0, 1, 2, 3],
+                    colorRange: ['#bd0026', '#fd8d3c', '#feb900', '#f4de00', '#a1d99b', '#31a354', '#006d2c'],
+                    strokeWidth: 0,
+                    sunOrbitWidth: 1,
+                    planetOrbitWidth: 1,
+                    orbitColor: 'gray',
+                    fontColor: 'white',
+                    distanceRatio: 3, // sun-to-planets / planets-to-moons
+                    animationDuration: 1000,
+                    transitionDuration: 450,
+                    clampScale: false,
+                    intervaledValues: false
+                });
+
+
+
+            $('#vis-container').on('mouseenter', function(event) {
+
+                    if (options.config.satellites == false)
+                        return false;
+
+                    var _type = $('#satellite_selects_opt form').find('input:checked').attr('id');
+                    console.log(options.config.satellites)
+
+
+
+                    cards.classed('individual_satellite', false);
+                    // console.log($(d3v5.event.target)[0]['__data__'])
+                    console.log('mouseentering vis-container')
+                    cards.classed('blacked', true);
+                    cards.classed('low_opacity', true)
+
+                    cards.classed('satellite_selected', false);
+
+                    col_cards = cards.filter(function(d) {
+                        if (d.to_id == data_id && d.value !== null) {
+                            return this;
+                        }
+                    })
+                    row_cards = cards.filter(function(d) {
+                        if (d.from_id == data_id && d.value !== null) {
+                            return this;
+                        }
+                    })
+
+                    if (_type == 'from_id') {
+                        console.log(row_cards)
+                        row_cards.classed('blacked', false);
+                        row_cards.classed('satellite_selected', true);
+                        row_cards.classed('low_opacity', false);
+                        console.log($('.low_opacity').length)
+                    }
+                    if (_type == 'to_id') {
+
+                        col_cards.classed('blacked', false);
+                        col_cards.classed('satellite_selected', true);
+                        col_cards.classed('low_opacity', false);
+
+                    }
+                }).on('mouseleave', function(e) {
+
+                    if ($(e.target).is('svg')) {
+                        /*     cards.transition().duration(150).style('opacity',1)
+                             cards.classed('blacked',false);*/
+                    }
+                })
+                //.moon 
+            $('#vis-container .planets').on('mouseover', function(e) {
+
+                if (options.config.satellites == false)
+                    return false;
+
+                console.log('PLANETS')
+                var _type = $('#satellite_selects_opt form').find('input:checked').attr('id');
+                console.warn(_type)
+
+                /*            if (options.config.satellites==false)
+                          return false;*/
+
+                cards.classed('individual_satellite', false);
+                var data = $(e.target)[0]['__data__'];
+
+                cards.classed('blacked', true);
+                cards.classed('low_opacity', true);
+
+                col_cards = cards.filter(function(d) {
+                    if (d.to_id == data_id && d.value !== null) {
+                        return this;
+                    }
+                })
+                row_cards = cards.filter(function(d) {
+                    if (d.from_id == data_id && d.value !== null) {
+                        return this;
+                    }
+                })
+
+
+                if (_type == 'from_id') {
+                    console.warn('planets on row_cards')
+                    var sel = row_cards.filter(function(d2) {
+
+                        console.info(d2)
+                        console.warn(data)
+                        if (parseInt(d2.value) == parseInt(data.value)) {
+                            console.log(this)
+                            return this;
+                        }
+
+                    })
+                    console.log(sel)
+                    console.warn(row_cards)
+
+                    row_cards.classed('blacked', false);
+                    row_cards.classed('low_opacity', true)
+                        //.style('opacity',0.2);
+                        //cards.classed('low_opacity',true);
+
+                    sel.classed('blacked', false)
+                    sel.classed('individual_satellite', true)
+                    sel.classed('low_opacity', false);
+                    //.transition().duration(250).style('opacity',1)
+
+                }
+
+                if (_type == 'to_id') {
+                    console.warn('planets on col_cards')
+                    var sel = col_cards.filter(function(d2) {
+                        if (parseInt(d2.value) == parseInt(data.value)) {
+                            console.info(d2)
+                            console.warn(data)
+                            return this;
+                        }
+                    })
+                    console.log(sel)
+                    col_cards.classed('blacked', false);
+                    col_cards.classed('low_opacity', true);
+                    //.style('opacity',0.2)
+                    sel.classed('blacked', false)
+                    sel.classed('individual_satellite', true)
+                    sel.style('opacity', 1)
+                    sel.classed('low_opacity', false);
+                }
+
+
+
+
+                //sel.filter(function)
+            }).on('mouseleave', function(d) {
+                if (options.config.satellites == false)
+                    return false;
+
+                col_cards = cards.filter(function(d) {
+                    if (d.to_id == data_id && d.value !== null) {
+                        return this;
+                    }
+                })
+                row_cards = cards.filter(function(d) {
+                    if (d.from_id == data_id && d.value !== null) {
+                        return this;
+                    }
+                })
+
+                var _type = $('#satellite_selects_opt form').find('input:checked').attr('id');
+
+                if (options.config.satellites == false)
+                    return false;
+
+                cards.classed('individual_satellite', false);
+                console.log('mouseleave planet circles')
+
+                if (_type == 'from_id') {
+                    row_cards.classed('blacked', false).classed('individual_satellite', false)
+                        //.style('opacity',1);
+                    row_cards.classed('low_opacity', false);
+                } else {
+
+                    col_cards.classed('blacked', false).classed('individual_satellite', false);
+                    col_cards.classed('low_opacity', false);
+                    //.style('opacity',1);
+                }
+            });
+        }
+
+
+        $('.download_button').click(function() {
+            console.info(new_params);
+            var csv = d3.csv.format(new_params.all_t_val);
+
+            blob = new Blob([csv], {
+                type: 'text/csv'
+            });
+            console.log(blob)
+            var csvUrl = URL.createObjectURL(blob);
+            var filename = 'UserExport.csv';
+
+            /* var link = document.createElement("a");    
+             link.id="lnkDwnldLnk";*/
+
+            $("#lnkDwnldLnk")
+                .attr({
+                    'download': filename,
+                    'href': csvUrl
+                });
+
+            $('#lnkDwnldLnk')[0].click();
+            //document.body.removeChild(link)
+
+
+
+        })
+    </script>
+    <script src="./extra.js"></script>
+
+</body>
+
+</html>
