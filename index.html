@@ -1489,12 +1489,6 @@
                     app.heatmap(params.to_plot, true);
 
 
-                    console.warn($('.svg-container').css('height') + ' ssss')
-
-                    console.info($('.yLabels_counter:last').attr('transform'));
-                    console.info($('.yLabels_counter:last').attr('x'));
-                    console.info($('.yLabels_counter:last').attr('y'));
-
                     if ($('#legend_tooltip svg').length == 0)
                         app.create_legend();
 
@@ -3222,7 +3216,7 @@
                     .attr("font-size", function(d) {
                         return 18;
                     })
-                    .attr("transform", "translate(-10, 0)")
+                    .attr("transform", "translate(0, 5)")
                     .attr("class", "xLabels_counter")
 
                 .attr("x", function(d, i) {
@@ -3230,9 +3224,8 @@
                         return x_width;
                     })
                     .attr("y", function(d, i) {
-                        console.warn(d)
-                        console.info(y(d.id))
-                            //  return (i * chart.gridSize) + (gridSize / 2) + 20;
+
+                        //  return (i * chart.gridSize) + (gridSize / 2) + 20;
                         return y(d.id) + (gridSize / 2);
                     })
 
@@ -3242,7 +3235,7 @@
                     .duration(2400)
 
                 .attr("y", function(d, i) {
-                    console.info((i * chart.gridSize) + (gridSize / 2) + 20)
+
                     return y(d.id) + (gridSize / 2);
                 })
 
