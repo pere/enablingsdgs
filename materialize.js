@@ -4,10 +4,17 @@
  * MIT License (https://raw.githubusercontent.com/Dogfalo/materialize/master/LICENSE)
  */
 var _createClass = function() {
-    function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i];
+    function defineProperties(target, props) {
+        for (var i = 0; i < props.length; i++) {
+            var descriptor = props[i];
             descriptor.enumerable = descriptor.enumerable || false;
-            descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true;
-            Object.defineProperty(target, descriptor.key, descriptor); } } return function(Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+            descriptor.configurable = true;
+            if ("value" in descriptor) descriptor.writable = true;
+            Object.defineProperty(target, descriptor.key, descriptor);
+        }
+    }
+    return function(Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; };
+}();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -1930,7 +1937,13 @@ jQuery.Velocity ? console.log("Velocity is already loaded. You may be needlessly
         emit: function() {
             this.state == Vb && (this._input.tapCount = this.count, this.manager.emit(this.options.event, this._input));
         }
-    }), hc.VERSION = "2.0.4", hc.defaults = { domEvents: !1, touchAction: Jb, enable: !0, inputTarget: null, inputClass: null, preset: [
+    }), hc.VERSION = "2.0.4", hc.defaults = {
+        domEvents: !1,
+        touchAction: Jb,
+        enable: !0,
+        inputTarget: null,
+        inputClass: null,
+        preset: [
             [ec, { enable: !1 }],
             [cc, { enable: !1 },
                 ["rotate"]
@@ -1944,7 +1957,9 @@ jQuery.Velocity ? console.log("Velocity is already loaded. You may be needlessly
                 ["tap"]
             ],
             [dc]
-        ], cssProps: { userSelect: "default", touchSelect: "none", touchCallout: "none", contentZooming: "none", userDrag: "none", tapHighlightColor: "rgba(0,0,0,0)" } };
+        ],
+        cssProps: { userSelect: "default", touchSelect: "none", touchCallout: "none", contentZooming: "none", userDrag: "none", tapHighlightColor: "rgba(0,0,0,0)" }
+    };
     var ic = 1,
         jc = 2;
     kc.prototype = {
@@ -4474,7 +4489,8 @@ if (Vel) {
                     var activationDistance = toast.el.offsetWidth * toast.options.activationPercent;
                     var shouldBeDismissed = Math.abs(totalDeltaX) > activationDistance || toast.velocityX > 1;
 
-                    var position = $('#toast-container .toast').position();
+                    var position = $('.card_toast:visible').position();
+                    console.warn(position)
                     options.config.top = position.top;
                     options.config.left = position.left;
 
@@ -5689,6 +5705,12 @@ if (Vel) {
 
         $(this).each(function() {
             var $select = $(this);
+            if ($select.parents().closest('.sel_table_goal').length > 0) {
+                var target_select = true;
+            } else {
+                var target_select = false;
+            }
+
 
             if ($select.hasClass('browser-default')) {
                 return; // Continue to next (return false breaks out of entire loop)
@@ -5714,6 +5736,9 @@ if (Vel) {
 
             var uniqueID = Materialize.guid();
             $select.attr('data-select-id', uniqueID);
+
+            // if ($select.hasClass('rect_select'))
+            //     console.log('rect_sellect')
             var wrapper = $('<div class="select-wrapper"></div>');
             wrapper.addClass($select.attr('class'));
             if ($select.is(':disabled')) wrapper.addClass('disabled');
@@ -5728,7 +5753,9 @@ if (Vel) {
             // account type and possible image icon.
             var appendOptionWithIcon = function(select, option, type) {
                 // Add disabled attr if disabled
+
                 var disabledClass = option.is(':disabled') ? 'disabled ' : '';
+                var selectedClass = option.is(':selected') ? 'last_changed_sel_val' : '';
                 var optgroupClass = type === 'optgroup-option' ? 'optgroup-option ' : '';
                 var multipleCheckbox = multiple ? '<input type="checkbox"' + disabledClass + '/><label></label>' : '';
 
@@ -5740,12 +5767,28 @@ if (Vel) {
                     if (!!classes) classString = ' class="' + classes + '"';
 
                     // Check for multiple type.
-                    options.append($('<li class="' + disabledClass + optgroupClass + '"><img alt="" src="' + icon_url + '"' + classString + '><span>' + multipleCheckbox + option.html() + '</span></li>'));
+                    if ($select.hasClass('rect_select'))
+                        options.append($('<li value="' + option.value + '" class="' + disabledClass + optgroupClass + '"><img alt="" src="' + icon_url + '"' + classString + '><span>' + multipleCheckbox + option.html() + '</span></li>'));
+                    else
+                        options.append($('<li class="' + disabledClass + optgroupClass + '"><img alt="" src="' + icon_url + '"' + classString + '><span>' + multipleCheckbox + option.html() + '</span></li>'));
+
                     return true;
                 }
 
-                // Check for multiple type.
-                options.append($('<li class="' + disabledClass + optgroupClass + '"><span>' + multipleCheckbox + option.html() + '</span></li>'));
+                // Check for multiple type??
+                if (target_select == true) {
+                    options.append($('<li class="' + disabledClass + optgroupClass + selectedClass + '"><span>' + multipleCheckbox + option.html() + '</span></li>'));
+                    if (selectedClass) {
+                        // console.info(wrapper.prev())
+                        // console.info($(this).find('.input-field'))
+                        // console.log('initialy selected ' + option[0].value)
+                        wrapper.prev().attr('val', option[0].value)
+
+                    }
+                } else {
+                    options.append($('<li class="' + disabledClass + optgroupClass + '"><span>' + multipleCheckbox + option.html() + '</span></li>'));
+                }
+
             };
 
             /* Create dropdown structure. */
@@ -5754,9 +5797,13 @@ if (Vel) {
                     if ($(this).is('option')) {
                         // Direct descendant option.
                         if (multiple) {
+
                             appendOptionWithIcon($select, $(this), 'multiple');
                         } else {
+
                             appendOptionWithIcon($select, $(this));
+
+
                         }
                     } else if ($(this).is('optgroup')) {
                         // Optgroup.
@@ -5768,18 +5815,50 @@ if (Vel) {
                         });
                     }
                 });
+
+                // if ($select.hasClass('rect_select')) {
+
+                //     console.warn($select.find('option:selected')[0].value);
+                //     // $newSelect.parents().closest('td').find('.sel_table_value').text($select.find('option:selected')[0].value)
+                // }
+
             }
 
             options.find('li:not(.optgroup)').each(function(i) {
                 $(this).click(function(e) {
+
                     // Check if option element is disabled
                     if (!$(this).hasClass('disabled') && !$(this).hasClass('optgroup')) {
                         var selected = true;
-                        console.log($newSelect)
+
+                        if (wrapper.hasClass('rect_select')) {
+                            console.log($(this))
+                            var container = $newSelect.parents().closest('.input-field');
+                            if ($('.last_changed_sel_val').length > 0) {
+                                var t = container.find('ul.select-dropdown li.last_changed_sel_val').text();
+                                console.log(structural_data.colors_obj.data)
+                                    //{legend_val:-3,counts:0,percent_val:0,color:"#d73027",legend_text:"Strongly restricting"},
+                                prev_sel = structural_data.colors_obj.data.filter(function(info) {
+
+                                    if (info.legend_text == t) {
+                                        return info;
+                                    }
+                                })[0];
+
+                                app.prev_data = { legend_val: prev_sel.legend_text, prev_val: prev_sel.legend_val }
+
+                                console.log('prev data is ' + app.prev_data)
+                                container.find('ul.select-dropdown li.last_changed_sel_val').removeClass('last_changed_sel_val');
+
+                                //$(this) refers to li    
+                            }
+
+                            $(this).addClass('last_changed_sel_val');
+
+                        }
 
                         if (multiple) {
                             //for SDG is multiple
-
 
                             $('.last_changed').removeClass('last_changed');
 
@@ -5806,15 +5885,128 @@ if (Vel) {
                         }
 
                         activateOption(options, $(this));
-                        $select.find('option').eq(i).prop('selected', selected);
+
+
 
                         // Trigger onchange() event
 
-                        if (window.options.config.from_csv == false) {
-                            //individual change
+                        if (window.options.config.from_csv == false && wrapper.hasClass('rect_select')) {
 
-                            $select.trigger('change', { _type: 'individual_sel' });
+                            var data_selector = $newSelect.parents().closest('.input-field');
+                            var data = data_selector.attr('data_val');
+                            var t = $(this).text();
+                            //{legend_val:-3,counts:0,percent_val:0,color:"#d73027",legend_text:"Strongly restricting"},
+                            var _sel = structural_data.colors_obj.data.filter(function(info) {
+                                // console.warn(info)
+                                if (info.legend_text == t) {
+                                    return info;
+                                }
+                            })[0];
+                            $newSelect.parents().closest('td').find('.sel_table_value')
+                                .text(_sel.legend_text).css('background-color', _sel.color).attr('data_val', _sel.legend_val)
+
+                            var svg = d3v5.select(".svg-container")
+                            var cards = svg.selectAll(".link");
+                            var visible_cards = cards.filter(function(d) {
+                                    return d.visualized == true;
+                                })
+                                //visible_cards.style('opacity', 0.8)
+
+                            var prev_card_val;
+                            console.log($('svg rect').length)
+
+                            var sel = visible_cards.filter(function(card) {
+                                if (data == card.data) {
+
+                                    // prev_card_val = card.value;
+                                    return this
+                                }
+
+                            });
+
+                            var current_data;
+
+                            sel.style('opacity', 1) //.classed('just_changed');
+                            sel.style('fill', function(d) {
+                                //necessary?
+                                d.visualized = true;
+                                d.value = _sel.legend_val;
+                                data_selector.attr('val', d.value);
+                                current_data = d;
+
+                                return _sel.color;
+                            });
+
+                            var pos = app_data.entered_data.ids.indexOf(current_data.data);
+
+                            if (pos == -1) {
+
+                                console.log('first time for this value')
+                                app_data.entered_data.ids.push(current_data.data);
+                                app_data.entered_data.values.push(_sel.legend_val);
+
+
+                            } else {
+
+
+                                app_data.entered_data.values[pos] = _sel.legend_val;
+                                console.info('from select we updated app_data.entered_data')
+
+                            }
+
+                            console.log(dynamic_data.update_params)
+                            if (e.hasOwnProperty('isTrigger') == false) {
+                                console.info('NOT being triggered from rect')
+                                var params = dynamic_data.update_params;
+                                params.filtered = sel;
+                                params.new = false;
+                                //  app.prev_data = { legend_val: _sel.legend_text, prev_val: _sel.legend_val }
+                                params.prev_card_val = prev_sel.legend_val;
+                                params.value = _sel.legend_val;
+
+                                params.data = current_data;
+
+
+                                app.update_progress_bars('update', current_data, params);
+
+                                app.update_assoc_rect(params);
+
+                                for (var p in dynamic_data.from_ids_counts) {
+                                    if (dynamic_data.from_ids_counts[p].id == current_data.from_id) {
+                                        console.warn(current_data)
+                                        app.circles_stats(dynamic_data.from_ids_counts[p])
+                                    }
+                                }
+
+
+                            } else {
+                                console.warn('not from select')
+                                var current_data = dynamic_data.update_params;
+                                console.warn(current_data)
+                                for (var p in dynamic_data.from_ids_counts) {
+                                    console.log(dynamic_data.from_ids_counts[p].id)
+                                    if (dynamic_data.from_ids_counts[p].id == current_data.data.from_id) {
+                                        console.warn(current_data)
+                                        app.circles_stats(dynamic_data.from_ids_counts[p])
+                                    }
+                                }
+
+                            }
+
+
+
+
                         } else {
+
+                            //when CSV is true
+                            // alert('sdfsdf')
+                            // for (var p in dynamic_data.from_ids_counts) {
+                            //     if (dynamic_data.from_ids_counts[p].id == current_data.from_id) {
+                            //         console.warn(current_data)
+                            //         app.circles_stats(dynamic_data.from_ids_counts[p])
+                            //     }
+                            // }
+                            //  alert('trigger??')
                             /*    setTimeout(function()
                                 {
 
@@ -5827,10 +6019,15 @@ if (Vel) {
                                   })
 
                                 },1000)*/
-                            $select.trigger('change', { _type: 'csv_sel' });
+                            console.warn('TRIGGERING SELECT CHANGE from materialize.js when from_csv is TRUE')
+                                //    $select.trigger('change', { _type: 'csv_sel' });
+
+
                             return false;
                             //   
                         }
+
+
 
 
                         if (typeof callback !== 'undefined') callback();
@@ -5867,6 +6064,7 @@ if (Vel) {
 
             $newSelect.on({
                 'focus': function() {
+
                     if ($('ul.select-dropdown').not(options[0]).is(':visible')) {
                         $('input.select-dropdown').trigger('close');
                         $(window).off('click.select');
@@ -5890,7 +6088,7 @@ if (Vel) {
                     }
                 },
                 'click': function(e) {
-                    console.info($(this))
+
                     e.stopPropagation();
                 }
             });
@@ -5903,7 +6101,10 @@ if (Vel) {
                 options.find('li.selected').removeClass('selected');
             });
 
-            options.hover(function() {
+
+
+            options.hover(function(e) {
+
                 optionsHover = true;
             }, function() {
                 optionsHover = false;
