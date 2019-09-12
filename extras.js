@@ -43,14 +43,14 @@ function attach_events_initial_dom() {
         outDuration: 200, // Transition out duration
         startingTop: '14%', // Starting top style attribute
         endingTop: '30%', // Ending top style attribute
-        ready: function(modal, trigger) { // Callback for Modal open. Modal and trigger parameters available.
+        ready: function (modal, trigger) { // Callback for Modal open. Modal and trigger parameters available.
 
             console.log(modal, trigger);
 
             // $('#intro_modal .btn.index_sat').trigger('click');
 
         },
-        complete: function() {} // Callback for Modal close
+        complete: function () { } // Callback for Modal close
     });
 
 
@@ -65,18 +65,18 @@ function attach_events_initial_dom() {
 
     $('#intro_modal').modal('open');
 
-    $('#intro_modal .modal-content').find('.btn').click(function() {
+    $('#intro_modal .modal-content').find('.btn').click(function () {
 
         if ($(this).hasClass('index')) {
 
 
             // window.location.replace('./sdgs_make_matrix_t3.html')
             options.config.from_csv = false;
-            $('.card-action:first a').trigger('click')
-            $('.sidenav_trigger').trigger('click');
+            // $('.card-action:first a').trigger('click')
+            // $('.sidenav_trigger').trigger('click');
 
-            $('.checkbox_all_goal:first').trigger('click')
-                //options.config.from_csv=false; 
+            // $('.checkbox_all_goal:first').trigger('click')
+            //options.config.from_csv=false; 
         } else {
 
             options.config.from_csv = true;
@@ -92,193 +92,193 @@ function attach_events_initial_dom() {
 
 
     });
-    app.delete_card_info = function(clicked_card_data) {
-            var target = $('.toast .delete_card_icon');
-            var prev_card_val = parseInt(clicked_card_data.value);
-            target.hide();
-            $('.toast_slide_text').hide();
-            console.info(clicked_card_data)
+    app.delete_card_info = function (clicked_card_data) {
+        var target = $('.toast .delete_card_icon');
+        var prev_card_val = parseInt(clicked_card_data.value);
+        target.hide();
+        $('.toast_slide_text').hide();
+        console.info(clicked_card_data)
 
-            // ?????????????
-            clicked_card_data.with_data = false;
-            // clicked_card_data.visualized=false;
+        // ?????????????
+        clicked_card_data.with_data = false;
+        // clicked_card_data.visualized=false;
 
-            var filtered = d3v5.selectAll('.link').filter(function(d) {
+        var filtered = d3v5.selectAll('.link').filter(function (d) {
 
-                if (d.data == clicked_card_data.data) {
+            if (d.data == clicked_card_data.data) {
+                return this;
+            }
+        });
+        filtered.style("fill", function (d) {
+
+            //we apply later, have to keep in memory the value to be removed
+            //d.value=null;
+
+            clicked_card_data = d;
+
+            $('.card_val_title').css('color', function () {
+
+
+                return "#c6c4c4";
+            }).text(function () {
+                return 'No value assigned';
+            });
+
+            var pos = unique_id_arr.ids.indexOf(d.data);
+
+
+            for (var p in unique_id_arr) {
+                unique_id_arr[p].splice(pos, 1);
+            }
+            console.log(clicked_card_data)
+
+            //yLabels are HORIZONTAL. we have to count the SUM_COLS
+            d3v5.selectAll(".yLabels_counter").filter(function (d) {
+                console.info(d)
+                if (d.id == clicked_card_data.to_id) {
+                    d.sum_col = d.sum_col - (prev_card_val)
+                    //d.sum_col=d.sum_col;
+                    //d.col_number=col_number;
                     return this;
                 }
-            });
-            filtered.style("fill", function(d) {
-
-                //we apply later, have to keep in memory the value to be removed
-                //d.value=null;
-
-                clicked_card_data = d;
-
-                $('.card_val_title').css('color', function() {
-
-
-                    return "#c6c4c4";
-                }).text(function() {
-                    return 'No value assigned';
+                console.info(d)
+            })
+                .text(function (d) {
+                    //if ()
+                    return d.sum_col;
                 });
 
-                var pos = unique_id_arr.ids.indexOf(d.data);
 
 
-                for (var p in unique_id_arr) {
-                    unique_id_arr[p].splice(pos, 1);
+            var x_sel_labels = d3v5.selectAll(".xLabels_counter").filter(function (d) {
+                console.info(d)
+                if (d.id == clicked_card_data.from_id) {
+                    d.sum_rows = d.sum_rows - (prev_card_val)
+
+                    return this;
                 }
-                console.log(clicked_card_data)
+                console.info(d)
+            })
+                .text(function (d) {
+                    //if ()
+                    return d.sum_rows;
+                })
 
-                //yLabels are HORIZONTAL. we have to count the SUM_COLS
-                d3v5.selectAll(".yLabels_counter").filter(function(d) {
-                        console.info(d)
-                        if (d.id == clicked_card_data.to_id) {
-                            d.sum_col = d.sum_col - (prev_card_val)
-                                //d.sum_col=d.sum_col;
-                                //d.col_number=col_number;
-                            return this;
-                        }
-                        console.info(d)
-                    })
-                    .text(function(d) {
-                        //if ()
-                        return d.sum_col;
-                    });
+            //to remove table
+            // to update progressing tabs
 
+            //WE ARE ON delete_card_info!
+            $.when(app.tabulate_clicked(clicked_card_data, 'remove')).then(function (result) {
 
+                d.value = null;
+                d.comments = 'No comments';
+                console.info(d)
+                $('.edit-icon').show();
 
-                var x_sel_labels = d3v5.selectAll(".xLabels_counter").filter(function(d) {
-                        console.info(d)
-                        if (d.id == clicked_card_data.from_id) {
-                            d.sum_rows = d.sum_rows - (prev_card_val)
+                var filtered = d3v5.selectAll('rect.link').filter(function (d) {
 
-                            return this;
-                        }
-                        console.info(d)
-                    })
-                    .text(function(d) {
-                        //if ()
-                        return d.sum_rows;
-                    })
-
-                //to remove table
-                // to update progressing tabs
-
-                //WE ARE ON delete_card_info!
-                $.when(app.tabulate_clicked(clicked_card_data, 'remove')).then(function(result) {
-
-                    d.value = null;
-                    d.comments = 'No comments';
-                    console.info(d)
-                    $('.edit-icon').show();
-
-                    var filtered = d3v5.selectAll('rect.link').filter(function(d) {
-
-                        if (d.data == clicked_card_data.data) {
-                            return this;
-                        }
-                    });
-                    filtered.style("fill", function(d) {
-                        console.info(d)
-                        return app.sel_color({
-                            value: val
-                        }).color;
-
-                    })
-                    if (structural_data.colors_obj.total_records > 0) {
-                        $('.goal_stats_container,.goal_table_container').fadeIn();
-                    } else {
-                        $('.goal_stats_container,.goal_table_container').fadeOut();
+                    if (d.data == clicked_card_data.data) {
+                        return this;
                     }
-
+                });
+                filtered.style("fill", function (d) {
+                    console.info(d)
+                    return app.sel_color({
+                        value: val
+                    }).color;
 
                 })
-                return "#c6c4c4";
+                if (structural_data.colors_obj.total_records > 0) {
+                    $('.goal_stats_container,.goal_table_container').fadeIn();
+                } else {
+                    $('.goal_stats_container,.goal_table_container').fadeOut();
+                }
+
+
             })
-        } // END fx delete_card_info
+            return "#c6c4c4";
+        })
+    } // END fx delete_card_info
 
-    app.update_assoc_rect = function(params) {
+    app.update_assoc_rect = function (params) {
 
-            console.log(dynamic_data.update_params)
+        console.log(dynamic_data.update_params)
 
-            // params.prev_card_val = d.value;
-            //             d.value = val;
-            //             params.value = d.value;
-            //             params.data = d;
-
-
-            console.info(params)
-            var clicked_card_data = params.data;
-
-            params.filtered.style("opacity", 1);
-
-            var all_vis_data = [];
-
-            var sum_rows = 0;
-            var row_number = 0;
+        // params.prev_card_val = d.value;
+        //             d.value = val;
+        //             params.value = d.value;
+        //             params.data = d;
 
 
-            var row_filtered = d3v5.selectAll('.link').filter(function(d2) {
+        console.info(params)
+        var clicked_card_data = params.data;
 
-                if (d2.value !== null) {
-                    all_vis_data.push(d2)
-                }
-                if (d2.from_id == clicked_card_data.from_id && d2.value !== null) {
-                    row_number++;
-                    console.warn('summing ' + d2.value + ' for ' + d2.from_id)
-                    sum_rows += d2.value;
-                    return this;
-                }
+        params.filtered.style("opacity", 1);
 
-            });
-            console.info(sum_rows)
+        var all_vis_data = [];
+
+        var sum_rows = 0;
+        var row_number = 0;
 
 
-            var x_sel_labels = d3v5.selectAll(".xLabels_counter").filter(function(d2) {
+        var row_filtered = d3v5.selectAll('.link').filter(function (d2) {
 
-                if (d2.id == clicked_card_data.from_id) {
-                    d2.sum_rows = sum_rows;
-                    d2.row_number = row_number;
-                    return this;
-                }
-            });
+            if (d2.value !== null) {
+                all_vis_data.push(d2)
+            }
+            if (d2.from_id == clicked_card_data.from_id && d2.value !== null) {
+                row_number++;
+                console.warn('summing ' + d2.value + ' for ' + d2.from_id)
+                sum_rows += d2.value;
+                return this;
+            }
 
-            x_sel_labels.classed('with_data', true);
-
-            x_sel_labels.text(sum_rows);
-            var y_sel_labels = d3v5.selectAll(".yLabels_counter");
+        });
+        console.info(sum_rows)
 
 
-            var sum_col = 0;
-            var col_number = 0;
+        var x_sel_labels = d3v5.selectAll(".xLabels_counter").filter(function (d2) {
 
-            var col_filtered = d3v5.selectAll('.link').filter(function(d) {
-                if (d.to_id == clicked_card_data.to_id && d.value !== null) {
+            if (d2.id == clicked_card_data.from_id) {
+                d2.sum_rows = sum_rows;
+                d2.row_number = row_number;
+                return this;
+            }
+        });
 
-                    col_number++;
-                    sum_col += d.value;
-                    return this;
-                }
-            });
+        x_sel_labels.classed('with_data', true);
 
-            var y_sel_labels = d3v5.selectAll(".yLabels_counter").filter(function(d) {
-                if (d.id == clicked_card_data.to_id) {
+        x_sel_labels.text(sum_rows);
+        var y_sel_labels = d3v5.selectAll(".yLabels_counter");
 
-                    d.sum_col = sum_col;
-                    d.col_number = col_number;
-                    return this;
-                }
-            });
 
-            y_sel_labels.classed('with_data', true);
-            y_sel_labels.text(sum_col);
+        var sum_col = 0;
+        var col_number = 0;
 
-        } //end function update_assoc_rect
+        var col_filtered = d3v5.selectAll('.link').filter(function (d) {
+            if (d.to_id == clicked_card_data.to_id && d.value !== null) {
 
-    $('body').on('click', function(e) {
+                col_number++;
+                sum_col += d.value;
+                return this;
+            }
+        });
+
+        var y_sel_labels = d3v5.selectAll(".yLabels_counter").filter(function (d) {
+            if (d.id == clicked_card_data.to_id) {
+
+                d.sum_col = sum_col;
+                d.col_number = col_number;
+                return this;
+            }
+        });
+
+        y_sel_labels.classed('with_data', true);
+        y_sel_labels.text(sum_col);
+
+    } //end function update_assoc_rect
+
+    $('body').on('click', function (e) {
         var target = $(e.target);
 
         if (target.is(':checkbox')) {
@@ -355,7 +355,7 @@ function attach_events_initial_dom() {
             return false;
         }
         if (target.hasClass('close_tooltip')) {
-            var filtered = d3v5.selectAll('.g_matrix rect').filter(function(d) {
+            var filtered = d3v5.selectAll('.g_matrix rect').filter(function (d) {
                 return d.data == clicked_card_data.data
 
             })
@@ -374,7 +374,7 @@ function attach_events_initial_dom() {
                     .style(
 
                         'fill',
-                        function(d) {
+                        function (d) {
                             return app.sel_color(d).color
                         }
                     );
@@ -389,7 +389,7 @@ function attach_events_initial_dom() {
             //rectangles on the LEGEND
             if (target.is('rect') && target.parent().hasClass('legend')) {
                 var val = parseInt(target.attr('value'));
-                var filtered = d3v5.selectAll('.link').filter(function(d) {
+                var filtered = d3v5.selectAll('.link').filter(function (d) {
 
                     if (d.data == clicked_card_data.data) {
 
@@ -400,7 +400,7 @@ function attach_events_initial_dom() {
                 })
 
                 console.info(filtered)
-                    //select_triggered = true;
+                //select_triggered = true;
                 var prev_card_val;
 
                 dynamic_data.update_params.filtered = filtered;
@@ -409,7 +409,7 @@ function attach_events_initial_dom() {
                 //var params = { data: null, new: true, prev_card_val: null, value: null, filtered: filtered }
 
                 //FILL WHEN WE CLICK ON THE RECTS
-                filtered.style("fill", function(d) {
+                filtered.style("fill", function (d) {
 
                     $('#right_container').show();
                     params.prev_card_val = d.value;
@@ -482,9 +482,9 @@ function tabulate_from_csv() {
     // var columns = ['From', 'to', 'value'];
     var columns = ['Data', 'value'];
 
-    var present_in_csv_goals = goal_stats.map(function(d) {
+    var present_in_csv_goals = goal_stats.map(function (d) {
         console.warn('to fix')
-            //$('.side-nav .input-field select').eq(d.goal-1).trigger('click')
+        //$('.side-nav .input-field select').eq(d.goal-1).trigger('click')
         return d.goal;
     });
 
@@ -506,7 +506,7 @@ function tabulate_from_csv() {
     $('.satellite_options select').append(satellites_sel_html);
 
     $('.satellite_options select').material_select();
-    $('.satellite_options select').change(function(e) {
+    $('.satellite_options select').change(function (e) {
 
         var data_id = $(this).find('option:selected')[0].value;
 
@@ -519,7 +519,7 @@ function tabulate_from_csv() {
     })
 
     //RADIO BUTTONS
-    $('#satellite_selects_opt form').change(function(e) {
+    $('#satellite_selects_opt form').change(function (e) {
         var data_id = $('.satellite_options select').find('option:selected')[0].value;
         if (data_id !== 'empty') {
 
@@ -535,190 +535,190 @@ function tabulate_from_csv() {
 
     })
 
-    var goals_keys = d3v5.map(new_params.objects, function(d) {
+    var goals_keys = d3v5.map(new_params.objects, function (d) {
         return d.goal;
     }).keys()
 
-    new_params.objects.forEach(function(obj_d, i_obj) {
-            var t_goal = obj_d.goal;
-            var pos = goals_keys.indexOf(obj_d.goal);
-            var this_from_id = obj_d.from_id.replace('.', '_');
-            //  var this_from_id = obj_d.from_id;
-            console.log(this_from_id)
+    new_params.objects.forEach(function (obj_d, i_obj) {
+        var t_goal = obj_d.goal;
+        var pos = goals_keys.indexOf(obj_d.goal);
+        var this_from_id = obj_d.from_id.replace('.', '_');
+        //  var this_from_id = obj_d.from_id;
+        console.log(this_from_id)
 
-            // if (this_from_id==)
-            if (pos !== -1) {
+        // if (this_from_id==)
+        if (pos !== -1) {
 
 
 
-                var right_container_cards_html = '<li class="li_goal_container class_' + t_goal + '"><div class="collapsible-header nav_bar_' + t_goal + '"><div class="card horizontal"><div class="card-image"> <img class="responsive-img" style="width:70px" src="./img/sdg' + t_goal + '.png"></div><div class="card-stacked"><div class="card-content"><div class="card-sdg-goal card-goal-' + t_goal + '"> Goal ' + t_goal + '</div><span class="card_count"></span></div></div></div></div><div class="collapsible-body"><ul>';
+            var right_container_cards_html = '<li class="li_goal_container class_' + t_goal + '"><div class="collapsible-header nav_bar_' + t_goal + '"><div class="card horizontal"><div class="card-image"> <img class="responsive-img" style="width:70px" src="./img/sdg' + t_goal + '.png"></div><div class="card-stacked"><div class="card-content"><div class="card-sdg-goal card-goal-' + t_goal + '"> Goal ' + t_goal + '</div><span class="card_count"></span></div></div></div></div><div class="collapsible-body"><ul>';
 
-                var to_target_li = '<li class="li_' + this_from_id + '"><table class="active responsive-table striped highlight sel_table_goal target_' + this_from_id + '"><thead><tr class="row"><td width:"80%">Target ' + obj_d.from_id + '</td></tr></thead><tbody></tbody></table></li></ul> </div></li>';
-                //console.log('<li class="li_' + this_from_id + '"><table class="responsive-table striped highlight sel_table_goal target_' + this_from_id + '"><thead><tr class="row"><div>Target ' + obj_d.from_id + '</div></tr></thead><tbody></tbody></table></li></ul> </div></li>')
+            var to_target_li = '<li class="li_' + this_from_id + '"><table class="active responsive-table striped highlight sel_table_goal target_' + this_from_id + '"><thead><tr class="row"><td width:"80%">Target ' + obj_d.from_id + '</td></tr></thead><tbody></tbody></table></li></ul> </div></li>';
+            //console.log('<li class="li_' + this_from_id + '"><table class="responsive-table striped highlight sel_table_goal target_' + this_from_id + '"><thead><tr class="row"><div>Target ' + obj_d.from_id + '</div></tr></thead><tbody></tbody></table></li></ul> </div></li>')
 
-                $('#right_container > div.right_container_cards > ul.collapsible.ul_tables > li > div.collapsible-body.white > ul')
-                    // $('.right_container_cards ul.collapsible.ul_tables > li > div.collapsible-body.white')
-                    .append(right_container_cards_html + to_target_li);
-                goals_keys.splice(pos, 1);
+            $('#right_container > div.right_container_cards > ul.collapsible.ul_tables > li > div.collapsible-body.white > ul')
+                // $('.right_container_cards ul.collapsible.ul_tables > li > div.collapsible-body.white')
+                .append(right_container_cards_html + to_target_li);
+            goals_keys.splice(pos, 1);
 
-                $('.right_container_cards .ul_tables .li_goal_container.class_' + t_goal).show();
+            $('.right_container_cards .ul_tables .li_goal_container.class_' + t_goal).show();
+        } else {
+            console.warn('present ' + obj_d.goal)
+            var to_target_li = '<li class="li_' + this_from_id + '"><table class="active responsive-table striped highlight sel_table_goal target_' + this_from_id + '"><thead><tr class="row"><td width:"80%">Target ' + obj_d.from_id + '</td></tr></thead><tbody><span style="height:83px"></span></tbody></table></li></ul> </div></li>';
+
+            //   $('#right_container > div.right_container_cards > ul.collapsible.ul_tables > li > div.collapsible-body.white > ul')
+            $('.right_container_cards .ul_tables .li_goal_container.class_' + t_goal + ' .collapsible-body ul')
+                // $('.right_container_cards ul.collapsible.ul_tables > li > div.collapsible-body.white')
+                .append(to_target_li);
+        }
+
+        var table = d3v5.select($('.li_goal_container.class_' + t_goal + ' > div.collapsible-body > ul >  li.li_' + this_from_id + ' table')[0]);
+
+        var thead = table.select('thead');
+        var tbody = table.select('tbody');
+
+        var row_data = obj_d.values.filter(function (d2, i) {
+
+            d2.from_id = d2.data.split('-')[0];
+
+            if (d2.from_id !== d2.to_id) {
+
+
+                //    console.info(d.data)
+                //console.warn(d2)
+                return d2;
             } else {
-                console.warn('present ' + obj_d.goal)
-                var to_target_li = '<li class="li_' + this_from_id + '"><table class="active responsive-table striped highlight sel_table_goal target_' + this_from_id + '"><thead><tr class="row"><td width:"80%">Target ' + obj_d.from_id + '</td></tr></thead><tbody><span style="height:83px"></span></tbody></table></li></ul> </div></li>';
-
-                //   $('#right_container > div.right_container_cards > ul.collapsible.ul_tables > li > div.collapsible-body.white > ul')
-                $('.right_container_cards .ul_tables .li_goal_container.class_' + t_goal + ' .collapsible-body ul')
-                    // $('.right_container_cards ul.collapsible.ul_tables > li > div.collapsible-body.white')
-                    .append(to_target_li);
+                console.info(d2)
+                return false;
             }
 
-            var table = d3v5.select($('.li_goal_container.class_' + t_goal + ' > div.collapsible-body > ul >  li.li_' + this_from_id + ' table')[0]);
 
-            var thead = table.select('thead');
-            var tbody = table.select('tbody');
+        })
 
-            var row_data = obj_d.values.filter(function(d2, i) {
-
-                d2.from_id = d2.data.split('-')[0];
-
-                if (d2.from_id !== d2.to_id) {
-
-
-                    //    console.info(d.data)
-                    //console.warn(d2)
-                    return d2;
-                } else {
-                    console.info(d2)
-                    return false;
-                }
-
-
-            })
-
-            var rows = tbody.selectAll('tr').data(row_data, function(d) {
-                    return d.data;
-                })
-                .enter()
-                .append('tr');
+        var rows = tbody.selectAll('tr').data(row_data, function (d) {
+            return d.data;
+        })
+            .enter()
+            .append('tr');
 
 
 
-            rows.attr('data_val', function(d) {
+        rows.attr('data_val', function (d) {
 
-                return d.data
-            });
+            return d.data
+        });
 
-            $('.li_goal_container.class_' + t_goal + ' li.li_' + this_from_id + ' table tbody').prepend('<tr class="extra_tr" height="50px"></tr>');
+        $('.li_goal_container.class_' + t_goal + ' li.li_' + this_from_id + ' table tbody').prepend('<tr class="extra_tr" height="50px"></tr>');
 
 
 
-            table.on('mouseover', function(d) {
-                //console.info(d3v5.event.target)
+        table.on('mouseover', function (d) {
+            //console.info(d3v5.event.target)
 
-                //this refers to TR
-                //console.log(this)
-                if ($(d3v5.event.target).hasClass('sel_table_value')) {
-                    $(d3v5.event.target).addClass('active');
-                    /* console.log(d)
-                     console.warn('mouseovering TR')*/
-                    var cards = d3v5.selectAll('.link')
-                    cards.transition().duration(350).style('opacity', 0.1);
-                    console.info($(d3v5.event.target).parents().closest('tr'))
-                    var _data = $(d3v5.event.target).parents().closest('tr')[0]['__data__'];
+            //this refers to TR
+            //console.log(this)
+            if ($(d3v5.event.target).hasClass('sel_table_value')) {
+                $(d3v5.event.target).addClass('active');
+                /* console.log(d)
+                 console.warn('mouseovering TR')*/
+                var cards = d3v5.selectAll('.link')
+                cards.transition().duration(350).style('opacity', 0.1);
+                console.info($(d3v5.event.target).parents().closest('tr'))
+                var _data = $(d3v5.event.target).parents().closest('tr')[0]['__data__'];
 
-                    var sel = cards.filter(function(data) {
+                var sel = cards.filter(function (data) {
 
-                        return data.data == _data.data;
+                    return data.data == _data.data;
+                });
+
+
+                sel.transition().duration(450).style('opacity', 1)
+
+                sel.classed('hovered_class_from_table', true);
+            } else {
+                if ($(this).find('.sel_table_value.active')) {
+                    $(this).find('.sel_table_value').removeClass('active');
+                    var cards = d3v5.selectAll('.link');
+
+                    var sel = cards.filter(function (data) {
+                        return data.visualized == true;
                     });
-
-
-                    sel.transition().duration(450).style('opacity', 1)
-
-                    sel.classed('hovered_class_from_table', true);
-                } else {
-                    if ($(this).find('.sel_table_value.active')) {
-                        $(this).find('.sel_table_value').removeClass('active');
-                        var cards = d3v5.selectAll('.link');
-
-                        var sel = cards.filter(function(data) {
-                            return data.visualized == true;
-                        });
-                        sel.transition().duration(50).style('opacity', 1)
-                        d3v5.selectAll('.hovered_class_from_table').classed('hovered_class_from_table', false);
-                    }
+                    sel.transition().duration(50).style('opacity', 1)
+                    d3v5.selectAll('.hovered_class_from_table').classed('hovered_class_from_table', false);
                 }
+            }
 
-            })
+        })
 
-            .on('mouseout', function(d) {
+            .on('mouseout', function (d) {
                 // console.warn($(d3v5.event.target))
                 if ($(d3v5.event.target).hasClass('sel_table_value')) {
 
                     var cards = d3v5.selectAll('.link')
 
-                    cards.style('opacity', function(card) {
-                            if (card.visualized == true) {
-                                return 1;
-                            } else {
-                                return 0.2;
-                            }
-                        })
-                        //   console.warn('mouseout from table row')
+                    cards.style('opacity', function (card) {
+                        if (card.visualized == true) {
+                            return 1;
+                        } else {
+                            return 0.2;
+                        }
+                    })
+                    //   console.warn('mouseout from table row')
                     var filtered = d3v5.selectAll('.hovered_class_from_table');
                 }
 
 
             })
 
-            //acting over new_params.objects as DATA
-            var cells = rows.selectAll('td')
-                .data(function(row) {
-                    return columns.map(function(column) {
-                        // console.info(columns)
+        //acting over new_params.objects as DATA
+        var cells = rows.selectAll('td')
+            .data(function (row) {
+                return columns.map(function (column) {
+                    // console.info(columns)
 
-                        if (column == 'Data') // || column=='to')
-                        {
-                            //return {column: column, value: row['from_title']};
-                            return {
-                                column: column,
-                                comments: row.comments,
-                                value: 'Target ' + row['from_id'] + ' to ' + row['to_id']
-                            };
+                    if (column == 'Data') // || column=='to')
+                    {
+                        //return {column: column, value: row['from_title']};
+                        return {
+                            column: column,
+                            comments: row.comments,
+                            value: 'Target ' + row['from_id'] + ' to ' + row['to_id']
+                        };
+                    }
+                    if (column == 'value') {
+
+                        var goal = row['from_id'].split('.')[0];
+                        return {
+                            column: 'value',
+                            goal: goal,
+                            data: row.data,
+
+                            value: row['value'],
+                            comments: row['comments']
+                        };
+
+                    }
+
+                    if (column == 'comments') {
+                        return {
+                            column: 'comments',
+                            comments: row.comments
                         }
-                        if (column == 'value') {
-
-                            var goal = row['from_id'].split('.')[0];
-                            return {
-                                column: 'value',
-                                goal: goal,
-                                data: row.data,
-
-                                value: row['value'],
-                                comments: row['comments']
-                            };
-
-                        }
-
-                        if (column == 'comments') {
-                            return {
-                                column: 'comments',
-                                comments: row.comments
-                            }
-                        }
+                    }
 
 
-                        //  return {column: row.id, value: row.description};
-                    });
-                })
-                .enter()
-                .append('td')
-                .style('background-color', function(d) {
+                    //  return {column: row.id, value: row.description};
+                });
+            })
+            .enter()
+            .append('td')
+            .style('background-color', function (d) {
 
-                    return 'white';
+                return 'white';
 
-                })
+            })
 
-            .html(function(d) {
+            .html(function (d) {
 
                 //+generate_select(d,data)
                 var a = [];
@@ -752,11 +752,11 @@ function tabulate_from_csv() {
 
 
             });
-        })
-        //     } //end if present on goals arr
-        // })
+    })
+    //     } //end if present on goals arr
+    // })
 
-    $('.sel_table_goal.responsive-table thead').click(function(e) {
+    $('.sel_table_goal.responsive-table thead').click(function (e) {
         if ($(e.target).parents().closest('svg').length == 0) {
             console.info('not svg')
             var container = $(this).parent();
@@ -780,14 +780,14 @@ function attach_fx_sel_csv(container) {
 
     console.info('attach_fx_sel_csv for this goal tables')
 
-    container.find('table tbody tr').not('.extra_tr').each(function() {
+    container.find('table tbody tr').not('.extra_tr').each(function () {
 
 
         var container_tr = $(this);
 
         var _id = container_tr.attr('data_val');
 
-        var data = new_params.heatmap_data.links.filter(function(d) {
+        var data = new_params.heatmap_data.links.filter(function (d) {
             return d.data == _id;
         })[0];
 
@@ -889,91 +889,91 @@ function successFunction(data) {
     var all_to_ids_obj = [];
     app_data.entered_data = { ids: [], values: [] }
     console.info(allRows.length) //21
-    allRows.forEach(function(d, i) {
+    allRows.forEach(function (d, i) {
 
-            var this_row_cells = d.split(',');
-            var l = this_row_cells.length;
+        var this_row_cells = d.split(',');
+        var l = this_row_cells.length;
 
 
-            if (i == 0) {
-                //for each cell on the FIRST ROW (to_id), create an obj taht will store the data 
-                this_row_cells.forEach(function(d2, i2) {
+        if (i == 0) {
+            //for each cell on the FIRST ROW (to_id), create an obj taht will store the data 
+            this_row_cells.forEach(function (d2, i2) {
 
-                    var this_obj = {
-                        from_id: d2,
-                        goal: d2.split('.')[0],
-                        sum_rows: 0,
-                        sum_cols: 0,
-                        values: []
-                    }
+                var this_obj = {
+                    from_id: d2,
+                    goal: d2.split('.')[0],
+                    sum_rows: 0,
+                    sum_cols: 0,
+                    values: []
+                }
 
-                    all_to_ids.push(d2);
-                    all_to_ids_obj.push({
-                        to_id: d2,
-                        sum_cols: 0
-                    });
+                all_to_ids.push(d2);
+                all_to_ids_obj.push({
+                    to_id: d2,
+                    sum_cols: 0
+                });
 
-                    objects.push(this_obj)
-                })
+                objects.push(this_obj)
+            })
 
-            } else {
-                //  console.info(all_to_ids)
-                if (typeof objects[i - 1] !== undefined)
+        } else {
+            //  console.info(all_to_ids)
+            if (typeof objects[i - 1] !== undefined)
 
 
                 //each data on the ROW, is a value
                 //{from_id:'1.1',sum_rows:3,values:[{},{}]}
-                    var s;
-                this_row_cells.forEach(function(d2, i2) {
+                var s;
+            this_row_cells.forEach(function (d2, i2) {
 
-                    //the FIRST cell is the from_id
-                    if (i2 == 0) {
-                        var o = objects[i - 1];
+                //the FIRST cell is the from_id
+                if (i2 == 0) {
+                    var o = objects[i - 1];
 
-                        objects[i - 1].from_id = d2;
-                        //o.data=d2+'-'+o.to_id;
+                    objects[i - 1].from_id = d2;
+                    //o.data=d2+'-'+o.to_id;
 
-                        // objects[i-1].values.push({val:d2,to_id:all_to_ids[i2]});                            
-                    } else {
-                        //reference to the previously created object
-                        var o = objects[i - 1];
+                    // objects[i-1].values.push({val:d2,to_id:all_to_ids[i2]});                            
+                } else {
+                    //reference to the previously created object
+                    var o = objects[i - 1];
 
-                        o.sum_rows += parseInt(d2);
+                    o.sum_rows += parseInt(d2);
 
-                        //because the first 
-                        var to_id = all_to_ids[i2 - 1];
-                        var pos = all_to_ids.indexOf(to_id);
+                    //because the first 
+                    var to_id = all_to_ids[i2 - 1];
+                    var pos = all_to_ids.indexOf(to_id);
 
-                        //all_to_ids_obj[pos].sum_col+=parseInt(d2);
-                        all_to_ids_obj[pos].sum_cols = all_to_ids_obj[pos].sum_cols + parseInt(d2)
-                            //   console.warn(all_to_ids_obj[pos])
-                        s = all_to_ids_obj[pos].sum_cols;
+                    //all_to_ids_obj[pos].sum_col+=parseInt(d2);
+                    all_to_ids_obj[pos].sum_cols = all_to_ids_obj[pos].sum_cols + parseInt(d2)
+                    //   console.warn(all_to_ids_obj[pos])
+                    s = all_to_ids_obj[pos].sum_cols;
 
-                        //console.log(o)
+                    //console.log(o)
 
-                        //o.sum_col=all_to_ids_obj[pos].sum_col;
+                    //o.sum_col=all_to_ids_obj[pos].sum_col;
 
-                        app_data.entered_data.ids.push(o.from_id + '-' + all_to_ids[i2 - 1]);
-                        app_data.entered_data.values.push(parseInt(d2))
+                    app_data.entered_data.ids.push(o.from_id + '-' + all_to_ids[i2 - 1]);
+                    app_data.entered_data.values.push(parseInt(d2))
 
-                        o.values.push({
-                            data: o.from_id + '-' + all_to_ids[i2 - 1],
-                            from_id: o.from_id,
-                            to_id: to_id,
-                            value: parseInt(d2),
-                            comments: 'No comments'
+                    o.values.push({
+                        data: o.from_id + '-' + all_to_ids[i2 - 1],
+                        from_id: o.from_id,
+                        to_id: to_id,
+                        value: parseInt(d2),
+                        comments: 'No comments'
 
-                        });
-                        //    console.log(o)                                     
+                    });
+                    //    console.log(o)                                     
 
-                    }
-                })
+                }
+            })
 
-            }
+        }
 
-            // objects.push(this_obj)
-        })
-        //console.log(objects)
+        // objects.push(this_obj)
+    })
+    //console.log(objects)
 
     for (var p in objects) {
         var obj = objects[p];
@@ -991,16 +991,16 @@ function successFunction(data) {
     console.warn(all_t_val)
     console.info(objects)
     new_params.objects = objects;
-    dynamic_data.selected_goals_arr = d3v5.map(objects, function(d) {
+    dynamic_data.selected_goals_arr = d3v5.map(objects, function (d) {
         return d.from_id.split('-')[0].split('.')[0]
     }).keys();
-    dynamic_data.pushed_vis_targets = d3v5.map(objects, function(d) {
+    dynamic_data.pushed_vis_targets = d3v5.map(objects, function (d) {
         return d.from_id
 
     }).keys()
     console.info(dynamic_data)
 
-    dynamic_data.selected_goals_arr.forEach(function(d, i) {
+    dynamic_data.selected_goals_arr.forEach(function (d, i) {
         $('.side-nav .input-field select option[value="' + d + '"]').prop('selected', true);
         $('.card-goal-' + d).parent().find('.card-action a').trigger('click');
         $('.side-nav .li_goal_container.' + d + ' .collapsible-header').trigger('click');
@@ -1009,26 +1009,26 @@ function successFunction(data) {
     $('.side-nav .input-field select').material_select('from_outside')
     app.attach_ev_sidenav_select();
     console.info(dynamic_data.pushed_vis_targets)
-    $('.li_goal_container:visible').each(function() {
-            var checkboxes = $(this).find(':checkbox').not('.checkbox_all_goal');
+    $('.li_goal_container:visible').each(function () {
+        var checkboxes = $(this).find(':checkbox').not('.checkbox_all_goal');
 
-            checkboxes.each(function(i, _this) {
-                // var _this = checkboxes[p];
+        checkboxes.each(function (i, _this) {
+            // var _this = checkboxes[p];
 
-                $(_this).prop('checked', false);
-                //id check_2.3
-                var _t_target = $(_this).attr('id').split('_')[1];
+            $(_this).prop('checked', false);
+            //id check_2.3
+            var _t_target = $(_this).attr('id').split('_')[1];
 
-                if (dynamic_data.pushed_vis_targets.indexOf(_t_target) !== -1)
-                    $(_this).prop('checked', true);
-            })
-
+            if (dynamic_data.pushed_vis_targets.indexOf(_t_target) !== -1)
+                $(_this).prop('checked', true);
         })
-        //$('.side-nav .input-field select').trigger('change');
+
+    })
+    //$('.side-nav .input-field select').trigger('change');
 
     console.info(all_t_val)
 
-    dynamic_data.from_ids_counts = objects.map(function(d, i) {
+    dynamic_data.from_ids_counts = objects.map(function (d, i) {
 
         return {
             goal: d.goal,
@@ -1049,7 +1049,7 @@ function successFunction(data) {
 
         var _this = objects[p];
         console.log(_this.values)
-        var range_obj = val_range.map(function(d) {
+        var range_obj = val_range.map(function (d) {
             return { value: d, sum: 0 }
         });
 
@@ -1072,7 +1072,7 @@ function successFunction(data) {
 
         }
         _this.values_stats = range_obj;
-        dynamic_data.from_ids_counts.filter(function(d) {
+        dynamic_data.from_ids_counts.filter(function (d) {
             if (d.id == from_id)
                 d.value_stats = range_obj
         })
@@ -1101,12 +1101,12 @@ function successFunction(data) {
 
     //$('.li_goal_container')
     $('.ul_tables .goal_table_container').unbind('click');
-    $('.ul_tables .goal_table_container').each(function() {
+    $('.ul_tables .goal_table_container').each(function () {
         attach_fx_sel_csv($(this).find('.collapsible-header').next())
     })
 
 
-    $('.ul_tables .goal_table_container').bind('click', function(e) {
+    $('.ul_tables .goal_table_container').bind('click', function (e) {
 
 
         if ($(e.target).hasClass('card-content') || $(e.target).hasClass('card-sdg-goal') || $(e.target).hasClass('collapsible-header')) {
@@ -1124,7 +1124,7 @@ function successFunction(data) {
                 container.hide();
             } else {
                 if (container.find('select.initialized').length == 0)
-                    setTimeout(function() {
+                    setTimeout(function () {
 
 
                     }, 30)
@@ -1137,7 +1137,7 @@ function successFunction(data) {
 
 
 
-    $('.ul_satellite .collapsible-header').click(function(e) {
+    $('.ul_satellite .collapsible-header').click(function (e) {
         e.preventDefault();
         var body = $('.ul_satellite').find('.collapsible-body');
         if (body.is(':visible')) {
@@ -1177,7 +1177,7 @@ function get_individual_target(goal, target_id) {
 
     if (options.config.from_csv == true) {
         console.log(new_params)
-            //contains VALUES! created on charging the CSV
+        //contains VALUES! created on charging the CSV
         var obj = new_params['objects'];
 
         //we store all values OBJECTS in an array
@@ -1194,7 +1194,7 @@ function get_individual_target(goal, target_id) {
         console.info(obj_all.length);
         console.dir(obj_all)
 
-        var keys = d3v5.map(obj_all, function(d) {
+        var keys = d3v5.map(obj_all, function (d) {
             return d.data;
         }).keys();
         console.log(keys)
@@ -1223,7 +1223,7 @@ function get_individual_target(goal, target_id) {
     } else {
         //get_individual_target
         //from_csv is FALSE
-        var keys = d3v5.map(sel_info['links'], function(d) {
+        var keys = d3v5.map(sel_info['links'], function (d) {
             //  console.log(d)
 
             //IF WE START FROM ZERO or NO DATA HAS BEEN INSERTED?? then value==null
@@ -1288,7 +1288,7 @@ function get_individual_target(goal, target_id) {
         //creating tables
         $('#sdg_cards_container .row').eq(1).hide();
 
-        setTimeout(function() {
+        setTimeout(function () {
             $('#sdg_cards_container .row').eq(1).show();
         }, 800)
     }
