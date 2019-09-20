@@ -81,7 +81,7 @@ function attach_events_initial_dom() {
 
             options.config.from_csv = true;
             $.ajax({
-                url: './data/matrix2.csv',
+                url: './data/matrix.csv',
                 dataType: 'text',
             }).done(successFunction);
         }
