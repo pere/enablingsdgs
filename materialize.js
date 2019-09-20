@@ -3,7 +3,7 @@
  * Copyright 2014-2017 Materialize
  * MIT License (https://raw.githubusercontent.com/Dogfalo/materialize/master/LICENSE)
  */
-var _createClass = function() {
+var _createClass = function () {
     function defineProperties(target, props) {
         for (var i = 0; i < props.length; i++) {
             var descriptor = props[i];
@@ -13,7 +13,7 @@ var _createClass = function() {
             Object.defineProperty(target, descriptor.key, descriptor);
         }
     }
-    return function(Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; };
+    return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; };
 }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -36,9 +36,9 @@ if (typeof jQuery === 'undefined') {
  * https://raw.github.com/gdsmith/jquery-easing/master/LICENSE
  */
 
-(function(factory) {
+(function (factory) {
     if (typeof define === "function" && define.amd) {
-        define(['jquery'], function($) {
+        define(['jquery'], function ($) {
             return factory($);
         });
     } else if (typeof module === "object" && typeof module.exports === "object") {
@@ -46,7 +46,7 @@ if (typeof jQuery === 'undefined') {
     } else {
         factory(jQuery);
     }
-})(function($) {
+})(function ($) {
 
     // Preserve the original jQuery "swing" easing as "jswing"
     $.easing['jswing'] = $.easing['swing'];
@@ -79,124 +79,124 @@ if (typeof jQuery === 'undefined') {
 
     $.extend($.easing, {
         def: 'easeOutQuad',
-        swing: function(x) {
+        swing: function (x) {
             return $.easing[$.easing.def](x);
         },
-        easeInQuad: function(x) {
+        easeInQuad: function (x) {
             return x * x;
         },
-        easeOutQuad: function(x) {
+        easeOutQuad: function (x) {
             return 1 - (1 - x) * (1 - x);
         },
-        easeInOutQuad: function(x) {
+        easeInOutQuad: function (x) {
             return x < 0.5 ? 2 * x * x : 1 - pow(-2 * x + 2, 2) / 2;
         },
-        easeInCubic: function(x) {
+        easeInCubic: function (x) {
             return x * x * x;
         },
-        easeOutCubic: function(x) {
+        easeOutCubic: function (x) {
             return 1 - pow(1 - x, 3);
         },
-        easeInOutCubic: function(x) {
+        easeInOutCubic: function (x) {
             return x < 0.5 ? 4 * x * x * x : 1 - pow(-2 * x + 2, 3) / 2;
         },
-        easeInQuart: function(x) {
+        easeInQuart: function (x) {
             return x * x * x * x;
         },
-        easeOutQuart: function(x) {
+        easeOutQuart: function (x) {
             return 1 - pow(1 - x, 4);
         },
-        easeInOutQuart: function(x) {
+        easeInOutQuart: function (x) {
             return x < 0.5 ? 8 * x * x * x * x : 1 - pow(-2 * x + 2, 4) / 2;
         },
-        easeInQuint: function(x) {
+        easeInQuint: function (x) {
             return x * x * x * x * x;
         },
-        easeOutQuint: function(x) {
+        easeOutQuint: function (x) {
             return 1 - pow(1 - x, 5);
         },
-        easeInOutQuint: function(x) {
+        easeInOutQuint: function (x) {
             return x < 0.5 ? 16 * x * x * x * x * x : 1 - pow(-2 * x + 2, 5) / 2;
         },
-        easeInSine: function(x) {
+        easeInSine: function (x) {
             return 1 - cos(x * PI / 2);
         },
-        easeOutSine: function(x) {
+        easeOutSine: function (x) {
             return sin(x * PI / 2);
         },
-        easeInOutSine: function(x) {
+        easeInOutSine: function (x) {
             return -(cos(PI * x) - 1) / 2;
         },
-        easeInExpo: function(x) {
+        easeInExpo: function (x) {
             return x === 0 ? 0 : pow(2, 10 * x - 10);
         },
-        easeOutExpo: function(x) {
+        easeOutExpo: function (x) {
             return x === 1 ? 1 : 1 - pow(2, -10 * x);
         },
-        easeInOutExpo: function(x) {
+        easeInOutExpo: function (x) {
             return x === 0 ? 0 : x === 1 ? 1 : x < 0.5 ? pow(2, 20 * x - 10) / 2 : (2 - pow(2, -20 * x + 10)) / 2;
         },
-        easeInCirc: function(x) {
+        easeInCirc: function (x) {
             return 1 - sqrt(1 - pow(x, 2));
         },
-        easeOutCirc: function(x) {
+        easeOutCirc: function (x) {
             return sqrt(1 - pow(x - 1, 2));
         },
-        easeInOutCirc: function(x) {
+        easeInOutCirc: function (x) {
             return x < 0.5 ? (1 - sqrt(1 - pow(2 * x, 2))) / 2 : (sqrt(1 - pow(-2 * x + 2, 2)) + 1) / 2;
         },
-        easeInElastic: function(x) {
+        easeInElastic: function (x) {
             return x === 0 ? 0 : x === 1 ? 1 : -pow(2, 10 * x - 10) * sin((x * 10 - 10.75) * c4);
         },
-        easeOutElastic: function(x) {
+        easeOutElastic: function (x) {
             return x === 0 ? 0 : x === 1 ? 1 : pow(2, -10 * x) * sin((x * 10 - 0.75) * c4) + 1;
         },
-        easeInOutElastic: function(x) {
+        easeInOutElastic: function (x) {
             return x === 0 ? 0 : x === 1 ? 1 : x < 0.5 ? -(pow(2, 20 * x - 10) * sin((20 * x - 11.125) * c5)) / 2 : pow(2, -20 * x + 10) * sin((20 * x - 11.125) * c5) / 2 + 1;
         },
-        easeInBack: function(x) {
+        easeInBack: function (x) {
             return c3 * x * x * x - c1 * x * x;
         },
-        easeOutBack: function(x) {
+        easeOutBack: function (x) {
             return 1 + c3 * pow(x - 1, 3) + c1 * pow(x - 1, 2);
         },
-        easeInOutBack: function(x) {
+        easeInOutBack: function (x) {
             return x < 0.5 ? pow(2 * x, 2) * ((c2 + 1) * 2 * x - c2) / 2 : (pow(2 * x - 2, 2) * ((c2 + 1) * (x * 2 - 2) + c2) + 2) / 2;
         },
-        easeInBounce: function(x) {
+        easeInBounce: function (x) {
             return 1 - bounceOut(1 - x);
         },
         easeOutBounce: bounceOut,
-        easeInOutBounce: function(x) {
+        easeInOutBounce: function (x) {
             return x < 0.5 ? (1 - bounceOut(1 - 2 * x)) / 2 : (1 + bounceOut(2 * x - 1)) / 2;
         }
     });
 });; // Custom Easing
 jQuery.extend(jQuery.easing, {
-    easeInOutMaterial: function(x, t, b, c, d) {
+    easeInOutMaterial: function (x, t, b, c, d) {
         if ((t /= d / 2) < 1) return c / 2 * t * t + b;
         return c / 4 * ((t -= 2) * t * t + 2) + b;
     }
 });; /*! VelocityJS.org (1.2.3). (C) 2014 Julian Shapiro. MIT @license: en.wikipedia.org/wiki/MIT_License */
 /*! VelocityJS.org jQuery Shim (1.0.1). (C) 2014 The jQuery Foundation. MIT @license: en.wikipedia.org/wiki/MIT_License. */
 /*! Note that this has been modified by Materialize to confirm that Velocity is not already being imported. */
-jQuery.Velocity ? console.log("Velocity is already loaded. You may be needlessly importing Velocity again; note that Materialize includes Velocity.") : (! function(e) {
+jQuery.Velocity ? console.log("Velocity is already loaded. You may be needlessly importing Velocity again; note that Materialize includes Velocity.") : (! function (e) {
     function t(e) {
         var t = e.length,
             a = r.type(e);
         return "function" === a || r.isWindow(e) ? !1 : 1 === e.nodeType && t ? !0 : "array" === a || 0 === t || "number" == typeof t && t > 0 && t - 1 in e;
     }
     if (!e.jQuery) {
-        var r = function(e, t) {
+        var r = function (e, t) {
             return new r.fn.init(e, t);
         };
-        r.isWindow = function(e) {
+        r.isWindow = function (e) {
             return null != e && e == e.window;
-        }, r.type = function(e) {
+        }, r.type = function (e) {
             return null == e ? e + "" : "object" == typeof e || "function" == typeof e ? n[i.call(e)] || "object" : typeof e;
-        }, r.isArray = Array.isArray || function(e) {
+        }, r.isArray = Array.isArray || function (e) {
             return "array" === r.type(e);
-        }, r.isPlainObject = function(e) {
+        }, r.isPlainObject = function (e) {
             var t;
             if (!e || "object" !== r.type(e) || e.nodeType || r.isWindow(e)) return !1;
             try {
@@ -204,26 +204,26 @@ jQuery.Velocity ? console.log("Velocity is already loaded. You may be needlessly
             } catch (a) {
                 return !1;
             }
-            for (t in e) {}
+            for (t in e) { }
             return void 0 === t || o.call(e, t);
-        }, r.each = function(e, r, a) {
+        }, r.each = function (e, r, a) {
             var n,
                 o = 0,
                 i = e.length,
                 s = t(e);
             if (a) {
                 if (s)
-                    for (; i > o && (n = r.apply(e[o], a), n !== !1); o++) {} else
-                        for (o in e) {
-                            if (n = r.apply(e[o], a), n === !1) break;
-                        }
-            } else if (s)
-                for (; i > o && (n = r.call(e[o], o, e[o]), n !== !1); o++) {} else
+                    for (; i > o && (n = r.apply(e[o], a), n !== !1); o++) { } else
                     for (o in e) {
-                        if (n = r.call(e[o], o, e[o]), n === !1) break;
+                        if (n = r.apply(e[o], a), n === !1) break;
                     }
+            } else if (s)
+                for (; i > o && (n = r.call(e[o], o, e[o]), n !== !1); o++) { } else
+                for (o in e) {
+                    if (n = r.call(e[o], o, e[o]), n === !1) break;
+                }
             return e;
-        }, r.data = function(e, t, n) {
+        }, r.data = function (e, t, n) {
             if (void 0 === n) {
                 var o = e[r.expando],
                     i = o && a[o];
@@ -233,13 +233,13 @@ jQuery.Velocity ? console.log("Velocity is already loaded. You may be needlessly
                 var o = e[r.expando] || (e[r.expando] = ++r.uuid);
                 return a[o] = a[o] || {}, a[o][t] = n, n;
             }
-        }, r.removeData = function(e, t) {
+        }, r.removeData = function (e, t) {
             var n = e[r.expando],
                 o = n && a[n];
-            o && r.each(t, function(e, t) {
+            o && r.each(t, function (e, t) {
                 delete o[t];
             });
-        }, r.extend = function() {
+        }, r.extend = function () {
             var e,
                 t,
                 a,
@@ -257,10 +257,10 @@ jQuery.Velocity ? console.log("Velocity is already loaded. You may be needlessly
                     }
             }
             return s;
-        }, r.queue = function(e, a, n) {
+        }, r.queue = function (e, a, n) {
             function o(e, r) {
                 var a = r || [];
-                return null != e && (t(Object(e)) ? ! function(e, t) {
+                return null != e && (t(Object(e)) ? ! function (e, t) {
                     for (var r = +t.length, a = 0, n = e.length; r > a;) {
                         e[n++] = t[a++];
                     }
@@ -276,25 +276,25 @@ jQuery.Velocity ? console.log("Velocity is already loaded. You may be needlessly
                 var i = r.data(e, a);
                 return n ? (!i || r.isArray(n) ? i = r.data(e, a, o(n)) : i.push(n), i) : i || [];
             }
-        }, r.dequeue = function(e, t) {
-            r.each(e.nodeType ? [e] : e, function(e, a) {
+        }, r.dequeue = function (e, t) {
+            r.each(e.nodeType ? [e] : e, function (e, a) {
                 t = t || "fx";
                 var n = r.queue(a, t),
                     o = n.shift();
-                "inprogress" === o && (o = n.shift()), o && ("fx" === t && n.unshift("inprogress"), o.call(a, function() {
+                "inprogress" === o && (o = n.shift()), o && ("fx" === t && n.unshift("inprogress"), o.call(a, function () {
                     r.dequeue(a, t);
                 }));
             });
         }, r.fn = r.prototype = {
-            init: function(e) {
+            init: function (e) {
                 if (e.nodeType) return this[0] = e, this;
                 throw new Error("Not a DOM node.");
             },
-            offset: function() {
+            offset: function () {
                 var t = this[0].getBoundingClientRect ? this[0].getBoundingClientRect() : { top: 0, left: 0 };
                 return { top: t.top + (e.pageYOffset || document.scrollTop || 0) - (document.clientTop || 0), left: t.left + (e.pageXOffset || document.scrollLeft || 0) - (document.clientLeft || 0) };
             },
-            position: function() {
+            position: function () {
                 function e() {
                     for (var e = this.offsetParent || document; e && "html" === !e.nodeType.toLowerCase && "static" === e.style.position;) {
                         e = e.offsetParent;
@@ -315,10 +315,10 @@ jQuery.Velocity ? console.log("Velocity is already loaded. You may be needlessly
         }
         r.fn.init.prototype = r.fn, e.Velocity = { Utilities: r };
     }
-}(window), function(e) {
+}(window), function (e) {
     "object" == typeof module && "object" == typeof module.exports ? module.exports = e() : "function" == typeof define && define.amd ? define(e) : e();
-}(function() {
-    return function(e, t, r, a) {
+}(function () {
+    return function (e, t, r, a) {
         function n(e) {
             for (var t = -1, r = e ? e.length : 0, a = []; ++t < r;) {
                 var n = e[t];
@@ -337,7 +337,7 @@ jQuery.Velocity ? console.log("Velocity is already loaded. You may be needlessly
         }
 
         function s(e) {
-            return function(t) {
+            return function (t) {
                 return Math.round(t * e) * (1 / e);
             };
         }
@@ -392,7 +392,7 @@ jQuery.Velocity ? console.log("Velocity is already loaded. You may be needlessly
             function d(t) {
                 for (var r = 0, n = 1, o = b - 1; n != o && w[n] <= t; ++n) {
                     r += x;
-                }--n;
+                } --n;
                 var i = (t - w[n]) / (w[n + 1] - w[n]),
                     s = r + i * x,
                     l = u(s, e, a);
@@ -416,14 +416,14 @@ jQuery.Velocity ? console.log("Velocity is already loaded. You may be needlessly
             e = Math.min(e, 1), a = Math.min(a, 1), e = Math.max(e, 0), a = Math.max(a, 0);
             var w = S ? new Float32Array(b) : new Array(b),
                 V = !1,
-                C = function(t) {
+                C = function (t) {
                     return V || g(), e === r && a === n ? t : 0 === t ? 0 : 1 === t ? 1 : l(d(t), r, n);
                 };
-            C.getControlPoints = function() {
+            C.getControlPoints = function () {
                 return [{ x: e, y: r }, { x: a, y: n }];
             };
             var T = "generateBezier(" + [e, r, a, n] + ")";
-            return C.toString = function() {
+            return C.toString = function () {
                 return T;
             }, C;
         }
@@ -455,7 +455,7 @@ jQuery.Velocity ? console.log("Velocity is already loaded. You may be needlessly
                                 if (u.display !== a && null !== u.display && "none" !== u.display) {
                                     if ("flex" === u.display) {
                                         var T = ["-webkit-box", "-moz-box", "-ms-flexbox", "-webkit-flex"];
-                                        f.each(T, function(e, t) {
+                                        f.each(T, function (e, t) {
                                             S.setPropertyValue(V, "display", t);
                                         });
                                     }
@@ -501,7 +501,7 @@ jQuery.Velocity ? console.log("Velocity is already loaded. You may be needlessly
                 if (t || o.loop || ("none" === o.display && S.setPropertyValue(p, "display", o.display), "hidden" === o.visibility && S.setPropertyValue(p, "visibility", o.visibility)), o.loop !== !0 && (f.queue(p)[1] === a || !/\.velocityQueueEntryFlag/i.test(f.queue(p)[1])) && i(p)) {
                     i(p).isAnimating = !1, i(p).rootPropertyValueCache = {};
                     var d = !1;
-                    f.each(S.Lists.transforms3D, function(e, t) {
+                    f.each(S.Lists.transforms3D, function (e, t) {
                         var r = /^scale/.test(t) ? 1 : 0,
                             n = i(p).transformCache[t];
                         i(p).transformCache[t] !== a && new RegExp("^\\(" + r + "[^.]").test(n) && (d = !0, delete i(p).transformCache[t]);
@@ -510,11 +510,11 @@ jQuery.Velocity ? console.log("Velocity is already loaded. You may be needlessly
                 if (!t && o.complete && !o.loop && u === c - 1) try {
                     o.complete.call(n, n);
                 } catch (g) {
-                    setTimeout(function() {
+                    setTimeout(function () {
                         throw g;
                     }, 1);
                 }
-                s && o.loop !== !0 && s(n), i(p) && o.loop === !0 && !t && (f.each(i(p).tweensContainer, function(e, t) {
+                s && o.loop !== !0 && s(n), i(p) && o.loop === !0 && !t && (f.each(i(p).tweensContainer, function (e, t) {
                     /^rotate/.test(e) && 360 === parseFloat(t.endValue) && (t.endValue = 0, t.startValue = 360), /^backgroundPosition/.test(e) && 100 === parseFloat(t.endValue) && "%" === t.unitType && (t.endValue = 0, t.startValue = 100);
                 }), b(p, "reverse", { loop: !0, delay: o.delay })), o.queue !== !1 && f.dequeue(p, o.queue);
             }
@@ -528,7 +528,7 @@ jQuery.Velocity ? console.log("Velocity is already loaded. You may be needlessly
             l === !1 && (b.State.isTicking = !1, delete b.State.calls, b.State.calls = []);
         }
         var f,
-            d = function() {
+            d = function () {
                 if (r.documentMode) return r.documentMode;
                 for (var e = 7; e > 4; e--) {
                     var t = r.createElement("div");
@@ -536,39 +536,39 @@ jQuery.Velocity ? console.log("Velocity is already loaded. You may be needlessly
                 }
                 return a;
             }(),
-            g = function() {
+            g = function () {
                 var e = 0;
-                return t.webkitRequestAnimationFrame || t.mozRequestAnimationFrame || function(t) {
+                return t.webkitRequestAnimationFrame || t.mozRequestAnimationFrame || function (t) {
                     var r,
                         a = new Date().getTime();
-                    return r = Math.max(0, 16 - (a - e)), e = a + r, setTimeout(function() {
+                    return r = Math.max(0, 16 - (a - e)), e = a + r, setTimeout(function () {
                         t(a + r);
                     }, r);
                 };
             }(),
             m = {
-                isString: function(e) {
+                isString: function (e) {
                     return "string" == typeof e;
                 },
-                isArray: Array.isArray || function(e) {
+                isArray: Array.isArray || function (e) {
                     return "[object Array]" === Object.prototype.toString.call(e);
                 },
-                isFunction: function(e) {
+                isFunction: function (e) {
                     return "[object Function]" === Object.prototype.toString.call(e);
                 },
-                isNode: function(e) {
+                isNode: function (e) {
                     return e && e.nodeType;
                 },
-                isNodeList: function(e) {
+                isNodeList: function (e) {
                     return "object" == typeof e && /^\[object (HTMLCollection|NodeList|Object)\]$/.test(Object.prototype.toString.call(e)) && e.length !== a && (0 === e.length || "object" == typeof e[0] && e[0].nodeType > 0);
                 },
-                isWrapped: function(e) {
+                isWrapped: function (e) {
                     return e && (e.jquery || t.Zepto && t.Zepto.zepto.isZ(e));
                 },
-                isSVG: function(e) {
+                isSVG: function (e) {
                     return t.SVGElement && e instanceof t.SVGElement;
                 },
-                isEmptyObject: function(e) {
+                isEmptyObject: function (e) {
                     for (var t in e) {
                         return !1;
                     }
@@ -577,7 +577,7 @@ jQuery.Velocity ? console.log("Velocity is already loaded. You may be needlessly
             },
             y = !1;
         if (e.fn && e.fn.jquery ? (f = e, y = !0) : f = t.Velocity.Utilities, 8 >= d && !y) throw new Error("Velocity: IE8 and below require jQuery to be loaded before Velocity.");
-        if (7 >= d) return void(jQuery.fn.velocity = jQuery.fn.animate);
+        if (7 >= d) return void (jQuery.fn.velocity = jQuery.fn.animate);
         var h = 400,
             v = "swing",
             b = {
@@ -588,7 +588,7 @@ jQuery.Velocity ? console.log("Velocity is already loaded. You may be needlessly
                 Easings: {},
                 Promise: t.Promise,
                 defaults: { queue: "", duration: h, easing: v, begin: a, complete: a, progress: a, display: a, visibility: a, loop: !1, delay: !1, mobileHA: !0, _cacheValues: !0 },
-                init: function(e) {
+                init: function (e) {
                     f.data(e, "velocity", { isSVG: m.isSVG(e), isAnimating: !1, computedStyle: null, tweensContainer: null, rootPropertyValueCache: {}, transformCache: {} });
                 },
                 hook: null,
@@ -597,7 +597,7 @@ jQuery.Velocity ? console.log("Velocity is already loaded. You may be needlessly
                 debug: !1
             };
         t.pageYOffset !== a ? (b.State.scrollAnchor = t, b.State.scrollPropertyLeft = "pageXOffset", b.State.scrollPropertyTop = "pageYOffset") : (b.State.scrollAnchor = r.documentElement || r.body.parentNode || r.body, b.State.scrollPropertyLeft = "scrollLeft", b.State.scrollPropertyTop = "scrollTop");
-        var x = function() {
+        var x = function () {
             function e(e) {
                 return -e.tension * e.x - e.friction * e.v;
             }
@@ -625,20 +625,20 @@ jQuery.Velocity ? console.log("Velocity is already loaded. You may be needlessly
                     c = 0,
                     p = 1e-4,
                     f = .016;
-                for (e = parseFloat(e) || 500, t = parseFloat(t) || 20, n = n || null, l.tension = e, l.friction = t, o = null !== n, o ? (c = a(e, t), i = c / n * f) : i = f; s = r(s || l, i), u.push(1 + s.x), c += 16, Math.abs(s.x) > p && Math.abs(s.v) > p;) {}
-                return o ? function(e) {
+                for (e = parseFloat(e) || 500, t = parseFloat(t) || 20, n = n || null, l.tension = e, l.friction = t, o = null !== n, o ? (c = a(e, t), i = c / n * f) : i = f; s = r(s || l, i), u.push(1 + s.x), c += 16, Math.abs(s.x) > p && Math.abs(s.v) > p;) { }
+                return o ? function (e) {
                     return u[e * (u.length - 1) | 0];
                 } : c;
             };
         }();
         b.Easings = {
-            linear: function(e) {
+            linear: function (e) {
                 return e;
             },
-            swing: function(e) {
+            swing: function (e) {
                 return .5 - Math.cos(e * Math.PI) / 2;
             },
-            spring: function(e) {
+            spring: function (e) {
                 return 1 - Math.cos(4.5 * e * Math.PI) * Math.exp(6 * -e);
             }
         }, f.each([
@@ -667,7 +667,7 @@ jQuery.Velocity ? console.log("Velocity is already loaded. You may be needlessly
             ["easeInCirc", [.6, .04, .98, .335]],
             ["easeOutCirc", [.075, .82, .165, 1]],
             ["easeInOutCirc", [.785, .135, .15, .86]]
-        ], function(e, t) {
+        ], function (e, t) {
             b.Easings[t[0]] = l.apply(null, t[1]);
         });
         var S = b.CSS = {
@@ -676,7 +676,7 @@ jQuery.Velocity ? console.log("Velocity is already loaded. You may be needlessly
             Hooks: {
                 templates: { textShadow: ["Color X Y Blur", "black 0px 0px 0px"], boxShadow: ["Color X Y Blur Spread", "black 0px 0px 0px 0px"], clip: ["Top Right Bottom Left", "0px 0px 0px 0px"], backgroundPosition: ["X Y", "0% 0%"], transformOrigin: ["X Y Z", "50% 50% 0px"], perspectiveOrigin: ["X Y", "50% 50%"] },
                 registered: {},
-                register: function() {
+                register: function () {
                     for (var e = 0; e < S.Lists.colors.length; e++) {
                         var t = "color" === S.Lists.colors[e] ? "0 0 0 1" : "255 255 255 1";
                         S.Hooks.templates[S.Lists.colors[e]] = ["Red Green Blue Alpha", t];
@@ -697,14 +697,14 @@ jQuery.Velocity ? console.log("Velocity is already loaded. You may be needlessly
                         }
                     }
                 },
-                getRoot: function(e) {
+                getRoot: function (e) {
                     var t = S.Hooks.registered[e];
                     return t ? t[0] : e;
                 },
-                cleanRootPropertyValue: function(e, t) {
+                cleanRootPropertyValue: function (e, t) {
                     return S.RegEx.valueUnwrap.test(t) && (t = t.match(S.RegEx.valueUnwrap)[1]), S.Values.isCSSNullValue(t) && (t = S.Hooks.templates[e][1]), t;
                 },
-                extractValue: function(e, t) {
+                extractValue: function (e, t) {
                     var r = S.Hooks.registered[e];
                     if (r) {
                         var a = r[0],
@@ -713,7 +713,7 @@ jQuery.Velocity ? console.log("Velocity is already loaded. You may be needlessly
                     }
                     return t;
                 },
-                injectValue: function(e, t, r) {
+                injectValue: function (e, t, r) {
                     var a = S.Hooks.registered[e];
                     if (a) {
                         var n,
@@ -727,7 +727,7 @@ jQuery.Velocity ? console.log("Velocity is already loaded. You may be needlessly
             },
             Normalizations: {
                 registered: {
-                    clip: function(e, t, r) {
+                    clip: function (e, t, r) {
                         switch (e) {
                             case "name":
                                 return "clip";
@@ -738,7 +738,7 @@ jQuery.Velocity ? console.log("Velocity is already loaded. You may be needlessly
                                 return "rect(" + r + ")";
                         }
                     },
-                    blur: function(e, t, r) {
+                    blur: function (e, t, r) {
                         switch (e) {
                             case "name":
                                 return b.State.isFirefox ? "filter" : "-webkit-filter";
@@ -753,7 +753,7 @@ jQuery.Velocity ? console.log("Velocity is already loaded. You may be needlessly
                                 return parseFloat(r) ? "blur(" + r + ")" : "none";
                         }
                     },
-                    opacity: function(e, t, r) {
+                    opacity: function (e, t, r) {
                         if (8 >= d) switch (e) {
                             case "name":
                                 return "filter";
@@ -772,12 +772,12 @@ jQuery.Velocity ? console.log("Velocity is already loaded. You may be needlessly
                         }
                     }
                 },
-                register: function() {
+                register: function () {
                     9 >= d || b.State.isGingerbread || (S.Lists.transformsBase = S.Lists.transformsBase.concat(S.Lists.transforms3D));
                     for (var e = 0; e < S.Lists.transformsBase.length; e++) {
-                        ! function() {
+                        ! function () {
                             var t = S.Lists.transformsBase[e];
-                            S.Normalizations.registered[t] = function(e, r, n) {
+                            S.Normalizations.registered[t] = function (e, r, n) {
                                 switch (e) {
                                     case "name":
                                         return "transform";
@@ -805,9 +805,9 @@ jQuery.Velocity ? console.log("Velocity is already loaded. You may be needlessly
                         }();
                     }
                     for (var e = 0; e < S.Lists.colors.length; e++) {
-                        ! function() {
+                        ! function () {
                             var t = S.Lists.colors[e];
-                            S.Normalizations.registered[t] = function(e, r, n) {
+                            S.Normalizations.registered[t] = function (e, r, n) {
                                 switch (e) {
                                     case "name":
                                         return t;
@@ -829,53 +829,53 @@ jQuery.Velocity ? console.log("Velocity is already loaded. You may be needlessly
                 }
             },
             Names: {
-                camelCase: function(e) {
-                    return e.replace(/-(\w)/g, function(e, t) {
+                camelCase: function (e) {
+                    return e.replace(/-(\w)/g, function (e, t) {
                         return t.toUpperCase();
                     });
                 },
-                SVGAttribute: function(e) {
+                SVGAttribute: function (e) {
                     var t = "width|height|x|y|cx|cy|r|rx|ry|x1|x2|y1|y2";
                     return (d || b.State.isAndroid && !b.State.isChrome) && (t += "|transform"), new RegExp("^(" + t + ")$", "i").test(e);
                 },
-                prefixCheck: function(e) {
+                prefixCheck: function (e) {
                     if (b.State.prefixMatches[e]) return [b.State.prefixMatches[e], !0];
                     for (var t = ["", "Webkit", "Moz", "ms", "O"], r = 0, a = t.length; a > r; r++) {
                         var n;
-                        if (n = 0 === r ? e : t[r] + e.replace(/^\w/, function(e) {
-                                return e.toUpperCase();
-                            }), m.isString(b.State.prefixElement.style[n])) return b.State.prefixMatches[e] = n, [n, !0];
+                        if (n = 0 === r ? e : t[r] + e.replace(/^\w/, function (e) {
+                            return e.toUpperCase();
+                        }), m.isString(b.State.prefixElement.style[n])) return b.State.prefixMatches[e] = n, [n, !0];
                     }
                     return [e, !1];
                 }
             },
             Values: {
-                hexToRgb: function(e) {
+                hexToRgb: function (e) {
                     var t,
                         r = /^#?([a-f\d])([a-f\d])([a-f\d])$/i,
                         a = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i;
-                    return e = e.replace(r, function(e, t, r, a) {
+                    return e = e.replace(r, function (e, t, r, a) {
                         return t + t + r + r + a + a;
                     }), t = a.exec(e), t ? [parseInt(t[1], 16), parseInt(t[2], 16), parseInt(t[3], 16)] : [0, 0, 0];
                 },
-                isCSSNullValue: function(e) {
+                isCSSNullValue: function (e) {
                     return 0 == e || /^(none|auto|transparent|(rgba\(0, ?0, ?0, ?0\)))$/i.test(e);
                 },
-                getUnitType: function(e) {
+                getUnitType: function (e) {
                     return (/^(rotate|skew)/i.test(e) ? "deg" : /(^(scale|scaleX|scaleY|scaleZ|alpha|flexGrow|flexHeight|zIndex|fontWeight)$)|((opacity|red|green|blue|alpha)$)/i.test(e) ? "" : "px");
                 },
-                getDisplayType: function(e) {
+                getDisplayType: function (e) {
                     var t = e && e.tagName.toString().toLowerCase();
                     return (/^(b|big|i|small|tt|abbr|acronym|cite|code|dfn|em|kbd|strong|samp|var|a|bdo|br|img|map|object|q|script|span|sub|sup|button|input|label|select|textarea)$/i.test(t) ? "inline" : /^(li)$/i.test(t) ? "list-item" : /^(tr)$/i.test(t) ? "table-row" : /^(table)$/i.test(t) ? "table" : /^(tbody)$/i.test(t) ? "table-row-group" : "block");
                 },
-                addClass: function(e, t) {
+                addClass: function (e, t) {
                     e.classList ? e.classList.add(t) : e.className += (e.className.length ? " " : "") + t;
                 },
-                removeClass: function(e, t) {
+                removeClass: function (e, t) {
                     e.classList ? e.classList.remove(t) : e.className = e.className.toString().replace(new RegExp("(^|\\s)" + t.split(" ").join("|") + "(\\s|$)", "gi"), " ");
                 }
             },
-            getPropertyValue: function(e, r, n, o) {
+            getPropertyValue: function (e, r, n, o) {
                 function s(e, r) {
                     function n() {
                         u && S.setPropertyValue(e, "display", "none");
@@ -922,7 +922,7 @@ jQuery.Velocity ? console.log("Velocity is already loaded. You may be needlessly
                     } else l = s(e, S.Names.prefixCheck(r)[0]);
                 return S.Values.isCSSNullValue(l) && (l = 0), b.debug >= 2 && console.log("Get " + r + ": " + l), l;
             },
-            setPropertyValue: function(e, r, a, n, o) {
+            setPropertyValue: function (e, r, a, n, o) {
                 var s = r;
                 if ("scroll" === r) o.container ? o.container["scroll" + o.direction] = a : "Left" === o.direction ? t.scrollTo(a, o.alternateValue) : t.scrollTo(o.alternateValue, a);
                 else if (S.Normalizations.registered[r] && "transform" === S.Normalizations.registered[r]("name", e)) S.Normalizations.registered[r]("inject", e, a), s = "transform", a = i(e).transformCache[r];
@@ -941,28 +941,28 @@ jQuery.Velocity ? console.log("Velocity is already loaded. You may be needlessly
                 }
                 return [s, a];
             },
-            flushTransformCache: function(e) {
+            flushTransformCache: function (e) {
                 function t(t) {
                     return parseFloat(S.getPropertyValue(e, t));
                 }
                 var r = "";
                 if ((d || b.State.isAndroid && !b.State.isChrome) && i(e).isSVG) {
                     var a = { translate: [t("translateX"), t("translateY")], skewX: [t("skewX")], skewY: [t("skewY")], scale: 1 !== t("scale") ? [t("scale"), t("scale")] : [t("scaleX"), t("scaleY")], rotate: [t("rotateZ"), 0, 0] };
-                    f.each(i(e).transformCache, function(e) {
+                    f.each(i(e).transformCache, function (e) {
                         /^translate/i.test(e) ? e = "translate" : /^scale/i.test(e) ? e = "scale" : /^rotate/i.test(e) && (e = "rotate"), a[e] && (r += e + "(" + a[e].join(" ") + ") ", delete a[e]);
                     });
                 } else {
                     var n, o;
-                    f.each(i(e).transformCache, function(t) {
-                        return n = i(e).transformCache[t], "transformPerspective" === t ? (o = n, !0) : (9 === d && "rotateZ" === t && (t = "rotate"), void(r += t + n + " "));
+                    f.each(i(e).transformCache, function (t) {
+                        return n = i(e).transformCache[t], "transformPerspective" === t ? (o = n, !0) : (9 === d && "rotateZ" === t && (t = "rotate"), void (r += t + n + " "));
                     }), o && (r = "perspective" + o + " " + r);
                 }
                 S.setPropertyValue(e, "transform", r);
             }
         };
-        S.Hooks.register(), S.Normalizations.register(), b.hook = function(e, t, r) {
+        S.Hooks.register(), S.Normalizations.register(), b.hook = function (e, t, r) {
             var n = a;
-            return e = o(e), f.each(e, function(e, o) {
+            return e = o(e), f.each(e, function (e, o) {
                 if (i(o) === a && b.init(o), r === a) n === a && (n = b.CSS.getPropertyValue(o, t));
                 else {
                     var s = b.CSS.setPropertyValue(o, t, r);
@@ -970,7 +970,7 @@ jQuery.Velocity ? console.log("Velocity is already loaded. You may be needlessly
                 }
             }), n;
         };
-        var P = function() {
+        var P = function () {
             function e() {
                 return s ? k.promise || null : l;
             }
@@ -986,7 +986,7 @@ jQuery.Velocity ? console.log("Velocity is already loaded. You may be needlessly
 
                     function d(e, t) {
                         var r, a;
-                        return a = (t || "0").toString().toLowerCase().replace(/[%A-z]+$/, function(e) {
+                        return a = (t || "0").toString().toLowerCase().replace(/[%A-z]+$/, function (e) {
                             return r = e, "";
                         }), r || (r = S.Values.getUnitType(e)), [a, r];
                     }
@@ -1001,9 +1001,9 @@ jQuery.Velocity ? console.log("Velocity is already loaded. You may be needlessly
                         if (n && a) l.emToPx = L.lastEmToPx, l.percentToPxWidth = L.lastPercentToPxWidth, l.percentToPxHeight = L.lastPercentToPxHeight;
                         else {
                             var u = i(o).isSVG ? r.createElementNS("http://www.w3.org/2000/svg", "rect") : r.createElement("div");
-                            b.init(u), e.myParent.appendChild(u), f.each(["overflow", "overflowX", "overflowY"], function(e, t) {
+                            b.init(u), e.myParent.appendChild(u), f.each(["overflow", "overflowX", "overflowY"], function (e, t) {
                                 b.CSS.setPropertyValue(u, t, "hidden");
-                            }), b.CSS.setPropertyValue(u, "position", e.position), b.CSS.setPropertyValue(u, "fontSize", e.fontSize), b.CSS.setPropertyValue(u, "boxSizing", "content-box"), f.each(["minWidth", "maxWidth", "width", "minHeight", "maxHeight", "height"], function(e, t) {
+                            }), b.CSS.setPropertyValue(u, "position", e.position), b.CSS.setPropertyValue(u, "fontSize", e.fontSize), b.CSS.setPropertyValue(u, "boxSizing", "content-box"), f.each(["minWidth", "maxWidth", "width", "minHeight", "maxHeight", "height"], function (e, t) {
                                 b.CSS.setPropertyValue(u, t, s + "%");
                             }), b.CSS.setPropertyValue(u, "paddingLeft", s + "em"), l.percentToPxWidth = L.lastPercentToPxWidth = (parseFloat(S.getPropertyValue(u, "width", null, !0)) || 1) / s, l.percentToPxHeight = L.lastPercentToPxHeight = (parseFloat(S.getPropertyValue(u, "height", null, !0)) || 1) / s, l.emToPx = L.lastEmToPx = (parseFloat(S.getPropertyValue(u, "paddingLeft")) || 1) / s, e.myParent.removeChild(u);
                         }
@@ -1012,7 +1012,7 @@ jQuery.Velocity ? console.log("Velocity is already loaded. You may be needlessly
                     if (s.begin && 0 === V) try {
                         s.begin.call(g, g);
                     } catch (x) {
-                        setTimeout(function() {
+                        setTimeout(function () {
                             throw x;
                         }, 1);
                     }
@@ -1036,7 +1036,7 @@ jQuery.Velocity ? console.log("Velocity is already loaded. You may be needlessly
                         l = E;
                     } else if ("start" === A) {
                         var E;
-                        i(o).tweensContainer && i(o).isAnimating === !0 && (E = i(o).tweensContainer), f.each(y, function(e, t) {
+                        i(o).tweensContainer && i(o).isAnimating === !0 && (E = i(o).tweensContainer), f.each(y, function (e, t) {
                             if (RegExp("^" + S.Lists.colors.join("$|^") + "$").test(e)) {
                                 var r = p(t, !0),
                                     n = r[0],
@@ -1065,9 +1065,9 @@ jQuery.Velocity ? console.log("Velocity is already loaded. You may be needlessly
                                     G,
                                     Y,
                                     D = !1;
-                                if (W = d(z, M), M = W[0], Y = W[1], W = d(z, q), q = W[0].replace(/^([+-\/*])=/, function(e, t) {
-                                        return D = t, "";
-                                    }), G = W[1], M = parseFloat(M) || 0, q = parseFloat(q) || 0, "%" === G && (/^(fontSize|lineHeight)$/.test(z) ? (q /= 100, G = "em") : /^scale/.test(z) ? (q /= 100, G = "") : /(Red|Green|Blue)$/i.test(z) && (q = q / 100 * 255, G = "")), /[\/*]/.test(D)) G = Y;
+                                if (W = d(z, M), M = W[0], Y = W[1], W = d(z, q), q = W[0].replace(/^([+-\/*])=/, function (e, t) {
+                                    return D = t, "";
+                                }), G = W[1], M = parseFloat(M) || 0, q = parseFloat(q) || 0, "%" === G && (/^(fontSize|lineHeight)$/.test(z) ? (q /= 100, G = "em") : /^scale/.test(z) ? (q /= 100, G = "") : /(Red|Green|Blue)$/i.test(z) && (q = q / 100 * 255, G = "")), /[\/*]/.test(D)) G = Y;
                                 else if (Y !== G && 0 !== M)
                                     if (0 === q) G = Y;
                                     else {
@@ -1116,7 +1116,7 @@ jQuery.Velocity ? console.log("Velocity is already loaded. You may be needlessly
                     o = this,
                     s = f.extend({}, b.defaults, v),
                     l = {};
-                switch (i(o) === a && b.init(o), parseFloat(s.delay) && s.queue !== !1 && f.queue(o, s.queue, function(e) {
+                switch (i(o) === a && b.init(o), parseFloat(s.delay) && s.queue !== !1 && f.queue(o, s.queue, function (e) {
                     b.velocityQueueEntryFlag = !0, i(o).delayTimer = { setTimeout: setTimeout(e, parseFloat(s.delay)), next: e };
                 }), s.duration.toString().toLowerCase()) {
                     case "fast":
@@ -1131,7 +1131,7 @@ jQuery.Velocity ? console.log("Velocity is already loaded. You may be needlessly
                     default:
                         s.duration = parseFloat(s.duration) || 1;
                 }
-                b.mock !== !1 && (b.mock === !0 ? s.duration = s.delay = 1 : (s.duration *= parseFloat(b.mock) || 1, s.delay *= parseFloat(b.mock) || 1)), s.easing = u(s.easing, s.duration), s.begin && !m.isFunction(s.begin) && (s.begin = null), s.progress && !m.isFunction(s.progress) && (s.progress = null), s.complete && !m.isFunction(s.complete) && (s.complete = null), s.display !== a && null !== s.display && (s.display = s.display.toString().toLowerCase(), "auto" === s.display && (s.display = b.CSS.Values.getDisplayType(o))), s.visibility !== a && null !== s.visibility && (s.visibility = s.visibility.toString().toLowerCase()), s.mobileHA = s.mobileHA && b.State.isMobile && !b.State.isGingerbread, s.queue === !1 ? s.delay ? setTimeout(e, s.delay) : e() : f.queue(o, s.queue, function(t, r) {
+                b.mock !== !1 && (b.mock === !0 ? s.duration = s.delay = 1 : (s.duration *= parseFloat(b.mock) || 1, s.delay *= parseFloat(b.mock) || 1)), s.easing = u(s.easing, s.duration), s.begin && !m.isFunction(s.begin) && (s.begin = null), s.progress && !m.isFunction(s.progress) && (s.progress = null), s.complete && !m.isFunction(s.complete) && (s.complete = null), s.display !== a && null !== s.display && (s.display = s.display.toString().toLowerCase(), "auto" === s.display && (s.display = b.CSS.Values.getDisplayType(o))), s.visibility !== a && null !== s.visibility && (s.visibility = s.visibility.toString().toLowerCase()), s.mobileHA = s.mobileHA && b.State.isMobile && !b.State.isGingerbread, s.queue === !1 ? s.delay ? setTimeout(e, s.delay) : e() : f.queue(o, s.queue, function (t, r) {
                     return r === !0 ? (k.promise && k.resolver(g), !0) : (b.velocityQueueEntryFlag = !0, void e(t));
                 }), "" !== s.queue && "fx" !== s.queue || "inprogress" === f.queue(o)[0] || f.dequeue(o);
             }
@@ -1154,7 +1154,7 @@ jQuery.Velocity ? console.log("Velocity is already loaded. You may be needlessly
                     }
                 }
                 var k = { promise: null, resolver: null, rejecter: null };
-                s && b.Promise && (k.promise = new b.Promise(function(e, t) {
+                s && b.Promise && (k.promise = new b.Promise(function (e, t) {
                     k.resolver = e, k.rejecter = t;
                 }));
                 var A;
@@ -1167,22 +1167,22 @@ jQuery.Velocity ? console.log("Velocity is already loaded. You may be needlessly
                         break;
                     case "finish":
                     case "stop":
-                        f.each(g, function(e, t) {
+                        f.each(g, function (e, t) {
                             i(t) && i(t).delayTimer && (clearTimeout(i(t).delayTimer.setTimeout), i(t).delayTimer.next && i(t).delayTimer.next(), delete i(t).delayTimer);
                         });
                         var F = [];
-                        return f.each(b.State.calls, function(e, t) {
-                            t && f.each(t[1], function(r, n) {
+                        return f.each(b.State.calls, function (e, t) {
+                            t && f.each(t[1], function (r, n) {
                                 var o = v === a ? "" : v;
-                                return o === !0 || t[2].queue === o || v === a && t[2].queue === !1 ? void f.each(g, function(r, a) {
-                                    a === n && ((v === !0 || m.isString(v)) && (f.each(f.queue(a, m.isString(v) ? v : ""), function(e, t) {
+                                return o === !0 || t[2].queue === o || v === a && t[2].queue === !1 ? void f.each(g, function (r, a) {
+                                    a === n && ((v === !0 || m.isString(v)) && (f.each(f.queue(a, m.isString(v) ? v : ""), function (e, t) {
                                         m.isFunction(t) && t(null, !0);
-                                    }), f.queue(a, m.isString(v) ? v : "", [])), "stop" === y ? (i(a) && i(a).tweensContainer && o !== !1 && f.each(i(a).tweensContainer, function(e, t) {
+                                    }), f.queue(a, m.isString(v) ? v : "", [])), "stop" === y ? (i(a) && i(a).tweensContainer && o !== !1 && f.each(i(a).tweensContainer, function (e, t) {
                                         t.endValue = t.currentValue;
                                     }), F.push(e)) : "finish" === y && (t[2].duration = 1));
                                 }) : !0;
                             });
-                        }), "stop" === y && (f.each(F, function(e, t) {
+                        }), "stop" === y && (f.each(F, function (e, t) {
                             p(t, !0);
                         }), k.promise && k.resolver(g)), e();
                     default:
@@ -1191,7 +1191,7 @@ jQuery.Velocity ? console.log("Velocity is already loaded. You may be needlessly
                                 var j = f.extend({}, v),
                                     E = j.duration,
                                     H = j.delay || 0;
-                                return j.backwards === !0 && (g = f.extend(!0, [], g).reverse()), f.each(g, function(e, t) {
+                                return j.backwards === !0 && (g = f.extend(!0, [], g).reverse()), f.each(g, function (e, t) {
                                     parseFloat(j.stagger) ? j.delay = H + parseFloat(j.stagger) * e : m.isFunction(j.stagger) && (j.delay = H + j.stagger.call(t, e, w)), j.drag && (j.duration = parseFloat(E) || (/^(callout|transition)/.test(y) ? 1e3 : h), j.duration = Math.max(j.duration * (j.backwards ? 1 - e / w : (e + 1) / w), .75 * j.duration, 200)), b.Redirects[y].call(t, t, j || {}, e, w, g, k.promise ? k : a);
                                 }), e();
                             }
@@ -1202,7 +1202,7 @@ jQuery.Velocity ? console.log("Velocity is already loaded. You may be needlessly
                 }
                 var L = { lastParent: null, lastPosition: null, lastFontSize: null, lastPercentToPxWidth: null, lastPercentToPxHeight: null, lastEmToPx: null, remToPx: null, vwToPx: null, vhToPx: null },
                     R = [];
-                f.each(g, function(e, t) {
+                f.each(g, function (e, t) {
                     m.isNode(t) && n.call(t);
                 });
                 var z,
@@ -1217,20 +1217,20 @@ jQuery.Velocity ? console.log("Velocity is already loaded. You may be needlessly
         };
         b = f.extend(P, b), b.animate = P;
         var w = t.requestAnimationFrame || g;
-        return b.State.isMobile || r.hidden === a || r.addEventListener("visibilitychange", function() {
-            r.hidden ? (w = function(e) {
-                return setTimeout(function() {
+        return b.State.isMobile || r.hidden === a || r.addEventListener("visibilitychange", function () {
+            r.hidden ? (w = function (e) {
+                return setTimeout(function () {
                     e(!0);
                 }, 16);
             }, c()) : w = t.requestAnimationFrame || g;
-        }), e.Velocity = b, e !== t && (e.fn.velocity = P, e.fn.velocity.defaults = b.defaults), f.each(["Down", "Up"], function(e, t) {
-            b.Redirects["slide" + t] = function(e, r, n, o, i, s) {
+        }), e.Velocity = b, e !== t && (e.fn.velocity = P, e.fn.velocity.defaults = b.defaults), f.each(["Down", "Up"], function (e, t) {
+            b.Redirects["slide" + t] = function (e, r, n, o, i, s) {
                 var l = f.extend({}, r),
                     u = l.begin,
                     c = l.complete,
                     p = { height: "", marginTop: "", marginBottom: "", paddingTop: "", paddingBottom: "" },
                     d = {};
-                l.display === a && (l.display = "Down" === t ? "inline" === b.CSS.Values.getDisplayType(e) ? "inline-block" : "block" : "none"), l.begin = function() {
+                l.display === a && (l.display = "Down" === t ? "inline" === b.CSS.Values.getDisplayType(e) ? "inline-block" : "block" : "none"), l.begin = function () {
                     u && u.call(i, i);
                     for (var r in p) {
                         d[r] = e.style[r];
@@ -1238,26 +1238,26 @@ jQuery.Velocity ? console.log("Velocity is already loaded. You may be needlessly
                         p[r] = "Down" === t ? [a, 0] : [0, a];
                     }
                     d.overflow = e.style.overflow, e.style.overflow = "hidden";
-                }, l.complete = function() {
+                }, l.complete = function () {
                     for (var t in d) {
                         e.style[t] = d[t];
                     }
                     c && c.call(i, i), s && s.resolver(i);
                 }, b(e, p, l);
             };
-        }), f.each(["In", "Out"], function(e, t) {
-            b.Redirects["fade" + t] = function(e, r, n, o, i, s) {
+        }), f.each(["In", "Out"], function (e, t) {
+            b.Redirects["fade" + t] = function (e, r, n, o, i, s) {
                 var l = f.extend({}, r),
                     u = { opacity: "In" === t ? 1 : 0 },
                     c = l.complete;
-                l.complete = n !== o - 1 ? l.begin = null : function() {
+                l.complete = n !== o - 1 ? l.begin = null : function () {
                     c && c.call(i, i), s && s.resolver(i);
                 }, l.display === a && (l.display = "In" === t ? "auto" : "none"), b(this, u, l);
             };
         }), b;
     }(window.jQuery || window.Zepto || window, window, document);
 }));;
-! function(a, b, c, d) {
+! function (a, b, c, d) {
     "use strict";
 
     function k(a, b, c) {
@@ -1273,9 +1273,9 @@ jQuery.Velocity ? console.log("Velocity is already loaded. You may be needlessly
         if (a)
             if (a.forEach) a.forEach(b, c);
             else if (a.length !== d)
-            for (e = 0; e < a.length;) {
-                b.call(c, a[e], e, a), e++;
-            } else
+                for (e = 0; e < a.length;) {
+                    b.call(c, a[e], e, a), e++;
+                } else
                 for (e in a) {
                     a.hasOwnProperty(e) && b.call(c, a[e], e, a);
                 }
@@ -1299,7 +1299,7 @@ jQuery.Velocity ? console.log("Velocity is already loaded. You may be needlessly
     }
 
     function q(a, b) {
-        return function() {
+        return function () {
             return a.apply(b, arguments);
         };
     }
@@ -1313,13 +1313,13 @@ jQuery.Velocity ? console.log("Velocity is already loaded. You may be needlessly
     }
 
     function t(a, b, c) {
-        m(x(b), function(b) {
+        m(x(b), function (b) {
             a.addEventListener(b, c, !1);
         });
     }
 
     function u(a, b, c) {
-        m(x(b), function(b) {
+        m(x(b), function (b) {
             a.removeEventListener(b, c, !1);
         });
     }
@@ -1358,7 +1358,7 @@ jQuery.Velocity ? console.log("Velocity is already loaded. You may be needlessly
             var g = b ? a[f][b] : a[f];
             y(e, g) < 0 && d.push(a[f]), e[f] = g, f++;
         }
-        return c && (d = b ? d.sort(function(a, c) {
+        return c && (d = b ? d.sort(function (a, c) {
             return a[b] > c[b];
         }) : d.sort()), d;
     }
@@ -1382,7 +1382,7 @@ jQuery.Velocity ? console.log("Velocity is already loaded. You may be needlessly
 
     function ab(a, b) {
         var c = this;
-        this.manager = a, this.callback = b, this.element = a.element, this.target = a.options.inputTarget, this.domHandler = function(b) {
+        this.manager = a, this.callback = b, this.element = a.element, this.target = a.options.inputTarget, this.domHandler = function (b) {
             r(a.options.enable, [a]) && c.handler(b);
         }, this.init();
     }
@@ -1516,9 +1516,9 @@ jQuery.Velocity ? console.log("Velocity is already loaded. You may be needlessly
             g = z(a.changedTouches),
             h = [],
             i = this.target;
-        if (f = c.filter(function(a) {
-                return v(a.target, i);
-            }), b === O)
+        if (f = c.filter(function (a) {
+            return v(a.target, i);
+        }), b === O)
             for (e = 0; e < f.length;) {
                 d[f[e].identifier] = !0, e++;
             }
@@ -1595,7 +1595,7 @@ jQuery.Velocity ? console.log("Velocity is already loaded. You may be needlessly
     }
 
     function kc(a, b) {
-        b = b || {}, this.options = o(b, hc.defaults), this.options.inputTarget = this.options.inputTarget || a, this.handlers = {}, this.session = {}, this.recognizers = [], this.element = a, this.input = bb(this), this.touchAction = new Pb(this, this.options.touchAction), lc(this, !0), m(b.recognizers, function(a) {
+        b = b || {}, this.options = o(b, hc.defaults), this.options.inputTarget = this.options.inputTarget || a, this.handlers = {}, this.session = {}, this.recognizers = [], this.element = a, this.input = bb(this), this.touchAction = new Pb(this, this.options.touchAction), lc(this, !0), m(b.recognizers, function (a) {
             var b = this.add(new a[0](a[1]));
             a[2] && b.recognizeWith(a[2]), a[3] && b.requireFailure(a[3]);
         }, this);
@@ -1603,7 +1603,7 @@ jQuery.Velocity ? console.log("Velocity is already loaded. You may be needlessly
 
     function lc(a, b) {
         var c = a.element;
-        m(a.options.cssProps, function(a, d) {
+        m(a.options.cssProps, function (a, d) {
             c.style[B(c.style, d)] = b ? a : "";
         });
     }
@@ -1643,11 +1643,11 @@ jQuery.Velocity ? console.log("Velocity is already loaded. You may be needlessly
         $ = ["x", "y"],
         _ = ["clientX", "clientY"];
     ab.prototype = {
-        handler: function() {},
-        init: function() {
+        handler: function () { },
+        init: function () {
             this.evEl && t(this.element, this.evEl, this.domHandler), this.evTarget && t(this.target, this.evTarget, this.domHandler), this.evWin && t(E(this.element), this.evWin, this.domHandler);
         },
-        destroy: function() {
+        destroy: function () {
             this.evEl && u(this.element, this.evEl, this.domHandler), this.evTarget && u(this.target, this.evTarget, this.domHandler), this.evWin && u(E(this.element), this.evWin, this.domHandler);
         }
     };
@@ -1655,7 +1655,7 @@ jQuery.Velocity ? console.log("Velocity is already loaded. You may be needlessly
         pb = "mousedown",
         qb = "mousemove mouseup";
     p(rb, ab, {
-        handler: function(a) {
+        handler: function (a) {
             var b = ob[a.type];
             b & O && 0 === a.button && (this.pressed = !0), b & P && 1 !== a.which && (b = Q), this.pressed && this.allow && (b & Q && (this.pressed = !1), this.callback(this.manager, b, { pointers: [a], changedPointers: [a], pointerType: L, srcEvent: a }));
         }
@@ -1665,7 +1665,7 @@ jQuery.Velocity ? console.log("Velocity is already loaded. You may be needlessly
         ub = "pointerdown",
         vb = "pointermove pointerup pointercancel";
     a.MSPointerEvent && (ub = "MSPointerDown", vb = "MSPointerMove MSPointerUp MSPointerCancel"), p(wb, ab, {
-        handler: function(a) {
+        handler: function (a) {
             var b = this.store,
                 c = !1,
                 d = a.type.toLowerCase().replace("ms", ""),
@@ -1680,7 +1680,7 @@ jQuery.Velocity ? console.log("Velocity is already loaded. You may be needlessly
         yb = "touchstart",
         zb = "touchstart touchmove touchend touchcancel";
     p(Ab, ab, {
-        handler: function(a) {
+        handler: function (a) {
             var b = xb[a.type];
             if (b === O && (this.started = !0), this.started) {
                 var c = Bb.call(this, a, b);
@@ -1691,20 +1691,20 @@ jQuery.Velocity ? console.log("Velocity is already loaded. You may be needlessly
     var Cb = { touchstart: O, touchmove: P, touchend: Q, touchcancel: R },
         Db = "touchstart touchmove touchend touchcancel";
     p(Eb, ab, {
-        handler: function(a) {
+        handler: function (a) {
             var b = Cb[a.type],
                 c = Fb.call(this, a, b);
             c && this.callback(this.manager, b, { pointers: c[0], changedPointers: c[1], pointerType: J, srcEvent: a });
         }
     }), p(Gb, ab, {
-        handler: function(a, b, c) {
+        handler: function (a, b, c) {
             var d = c.pointerType == J,
                 e = c.pointerType == L;
             if (d) this.mouse.allow = !1;
             else if (e && !this.mouse.allow) return;
             b & (Q | R) && (this.mouse.allow = !0), this.callback(a, b, c);
         },
-        destroy: function() {
+        destroy: function () {
             this.touch.destroy(), this.mouse.destroy();
         }
     });
@@ -1717,19 +1717,19 @@ jQuery.Velocity ? console.log("Velocity is already loaded. You may be needlessly
         Nb = "pan-x",
         Ob = "pan-y";
     Pb.prototype = {
-        set: function(a) {
+        set: function (a) {
             a == Jb && (a = this.compute()), Ib && (this.manager.element.style[Hb] = a), this.actions = a.toLowerCase().trim();
         },
-        update: function() {
+        update: function () {
             this.set(this.manager.options.touchAction);
         },
-        compute: function() {
+        compute: function () {
             var a = [];
-            return m(this.manager.recognizers, function(b) {
+            return m(this.manager.recognizers, function (b) {
                 r(b.options.enable, [b]) && (a = a.concat(b.getTouchAction()));
             }), Qb(a.join(" "));
         },
-        preventDefaults: function(a) {
+        preventDefaults: function (a) {
             if (!Ib) {
                 var b = a.srcEvent,
                     c = a.offsetDirection;
@@ -1741,7 +1741,7 @@ jQuery.Velocity ? console.log("Velocity is already loaded. You may be needlessly
                 return e || f && c & X || g && c & Y ? this.preventSrc(b) : void 0;
             }
         },
-        preventSrc: function(a) {
+        preventSrc: function (a) {
             this.manager.session.prevented = !0, a.preventDefault();
         }
     };
@@ -1754,35 +1754,35 @@ jQuery.Velocity ? console.log("Velocity is already loaded. You may be needlessly
         Xb = 32;
     Yb.prototype = {
         defaults: {},
-        set: function(a) {
+        set: function (a) {
             return n(this.options, a), this.manager && this.manager.touchAction.update(), this;
         },
-        recognizeWith: function(a) {
+        recognizeWith: function (a) {
             if (l(a, "recognizeWith", this)) return this;
             var b = this.simultaneous;
             return a = _b(a, this), b[a.id] || (b[a.id] = a, a.recognizeWith(this)), this;
         },
-        dropRecognizeWith: function(a) {
+        dropRecognizeWith: function (a) {
             return l(a, "dropRecognizeWith", this) ? this : (a = _b(a, this), delete this.simultaneous[a.id], this);
         },
-        requireFailure: function(a) {
+        requireFailure: function (a) {
             if (l(a, "requireFailure", this)) return this;
             var b = this.requireFail;
             return a = _b(a, this), -1 === y(b, a) && (b.push(a), a.requireFailure(this)), this;
         },
-        dropRequireFailure: function(a) {
+        dropRequireFailure: function (a) {
             if (l(a, "dropRequireFailure", this)) return this;
             a = _b(a, this);
             var b = y(this.requireFail, a);
             return b > -1 && this.requireFail.splice(b, 1), this;
         },
-        hasRequireFailures: function() {
+        hasRequireFailures: function () {
             return this.requireFail.length > 0;
         },
-        canRecognizeWith: function(a) {
+        canRecognizeWith: function (a) {
             return !!this.simultaneous[a.id];
         },
-        emit: function(a) {
+        emit: function (a) {
             function d(d) {
                 b.manager.emit(b.options.event + (d ? Zb(c) : ""), a);
             }
@@ -1790,30 +1790,30 @@ jQuery.Velocity ? console.log("Velocity is already loaded. You may be needlessly
                 c = this.state;
             Ub > c && d(!0), d(), c >= Ub && d(!0);
         },
-        tryEmit: function(a) {
+        tryEmit: function (a) {
             return this.canEmit() ? this.emit(a) : (this.state = Xb, void 0);
         },
-        canEmit: function() {
+        canEmit: function () {
             for (var a = 0; a < this.requireFail.length;) {
                 if (!(this.requireFail[a].state & (Xb | Rb))) return !1;
                 a++;
             }
             return !0;
         },
-        recognize: function(a) {
+        recognize: function (a) {
             var b = n({}, a);
             return r(this.options.enable, [this, b]) ? (this.state & (Vb | Wb | Xb) && (this.state = Rb), this.state = this.process(b), this.state & (Sb | Tb | Ub | Wb) && this.tryEmit(b), void 0) : (this.reset(), this.state = Xb, void 0);
         },
-        process: function() {},
-        getTouchAction: function() {},
-        reset: function() {}
+        process: function () { },
+        getTouchAction: function () { },
+        reset: function () { }
     }, p(ac, Yb, {
         defaults: { pointers: 1 },
-        attrTest: function(a) {
+        attrTest: function (a) {
             var b = this.options.pointers;
             return 0 === b || a.pointers.length === b;
         },
-        process: function(a) {
+        process: function (a) {
             var b = this.state,
                 c = a.eventType,
                 d = b & (Sb | Tb),
@@ -1822,12 +1822,12 @@ jQuery.Velocity ? console.log("Velocity is already loaded. You may be needlessly
         }
     }), p(bc, ac, {
         defaults: { event: "pan", threshold: 10, pointers: 1, direction: Z },
-        getTouchAction: function() {
+        getTouchAction: function () {
             var a = this.options.direction,
                 b = [];
             return a & X && b.push(Ob), a & Y && b.push(Nb), b;
         },
-        directionTest: function(a) {
+        directionTest: function (a) {
             var b = this.options,
                 c = !0,
                 d = a.distance,
@@ -1836,23 +1836,23 @@ jQuery.Velocity ? console.log("Velocity is already loaded. You may be needlessly
                 g = a.deltaY;
             return e & b.direction || (b.direction & X ? (e = 0 === f ? S : 0 > f ? T : U, c = f != this.pX, d = Math.abs(a.deltaX)) : (e = 0 === g ? S : 0 > g ? V : W, c = g != this.pY, d = Math.abs(a.deltaY))), a.direction = e, c && d > b.threshold && e & b.direction;
         },
-        attrTest: function(a) {
+        attrTest: function (a) {
             return ac.prototype.attrTest.call(this, a) && (this.state & Sb || !(this.state & Sb) && this.directionTest(a));
         },
-        emit: function(a) {
+        emit: function (a) {
             this.pX = a.deltaX, this.pY = a.deltaY;
             var b = $b(a.direction);
             b && this.manager.emit(this.options.event + b, a), this._super.emit.call(this, a);
         }
     }), p(cc, ac, {
         defaults: { event: "pinch", threshold: 0, pointers: 2 },
-        getTouchAction: function() {
+        getTouchAction: function () {
             return [Mb];
         },
-        attrTest: function(a) {
+        attrTest: function (a) {
             return this._super.attrTest.call(this, a) && (Math.abs(a.scale - 1) > this.options.threshold || this.state & Sb);
         },
-        emit: function(a) {
+        emit: function (a) {
             if (this._super.emit.call(this, a), 1 !== a.scale) {
                 var b = a.scale < 1 ? "in" : "out";
                 this.manager.emit(this.options.event + b, a);
@@ -1860,55 +1860,55 @@ jQuery.Velocity ? console.log("Velocity is already loaded. You may be needlessly
         }
     }), p(dc, Yb, {
         defaults: { event: "press", pointers: 1, time: 500, threshold: 5 },
-        getTouchAction: function() {
+        getTouchAction: function () {
             return [Kb];
         },
-        process: function(a) {
+        process: function (a) {
             var b = this.options,
                 c = a.pointers.length === b.pointers,
                 d = a.distance < b.threshold,
                 e = a.deltaTime > b.time;
             if (this._input = a, !d || !c || a.eventType & (Q | R) && !e) this.reset();
-            else if (a.eventType & O) this.reset(), this._timer = k(function() {
+            else if (a.eventType & O) this.reset(), this._timer = k(function () {
                 this.state = Vb, this.tryEmit();
             }, b.time, this);
             else if (a.eventType & Q) return Vb;
             return Xb;
         },
-        reset: function() {
+        reset: function () {
             clearTimeout(this._timer);
         },
-        emit: function(a) {
+        emit: function (a) {
             this.state === Vb && (a && a.eventType & Q ? this.manager.emit(this.options.event + "up", a) : (this._input.timeStamp = j(), this.manager.emit(this.options.event, this._input)));
         }
     }), p(ec, ac, {
         defaults: { event: "rotate", threshold: 0, pointers: 2 },
-        getTouchAction: function() {
+        getTouchAction: function () {
             return [Mb];
         },
-        attrTest: function(a) {
+        attrTest: function (a) {
             return this._super.attrTest.call(this, a) && (Math.abs(a.rotation) > this.options.threshold || this.state & Sb);
         }
     }), p(fc, ac, {
         defaults: { event: "swipe", threshold: 10, velocity: .65, direction: X | Y, pointers: 1 },
-        getTouchAction: function() {
+        getTouchAction: function () {
             return bc.prototype.getTouchAction.call(this);
         },
-        attrTest: function(a) {
+        attrTest: function (a) {
             var c,
                 b = this.options.direction;
             return b & (X | Y) ? c = a.velocity : b & X ? c = a.velocityX : b & Y && (c = a.velocityY), this._super.attrTest.call(this, a) && b & a.direction && a.distance > this.options.threshold && i(c) > this.options.velocity && a.eventType & Q;
         },
-        emit: function(a) {
+        emit: function (a) {
             var b = $b(a.direction);
             b && this.manager.emit(this.options.event + b, a), this.manager.emit(this.options.event, a);
         }
     }), p(gc, Yb, {
         defaults: { event: "tap", pointers: 1, taps: 1, interval: 300, time: 250, threshold: 2, posThreshold: 10 },
-        getTouchAction: function() {
+        getTouchAction: function () {
             return [Lb];
         },
-        process: function(a) {
+        process: function (a) {
             var b = this.options,
                 c = a.pointers.length === b.pointers,
                 d = a.distance < b.threshold,
@@ -1920,21 +1920,21 @@ jQuery.Velocity ? console.log("Velocity is already loaded. You may be needlessly
                     g = !this.pCenter || kb(this.pCenter, a.center) < b.posThreshold;
                 this.pTime = a.timeStamp, this.pCenter = a.center, g && f ? this.count += 1 : this.count = 1, this._input = a;
                 var h = this.count % b.taps;
-                if (0 === h) return this.hasRequireFailures() ? (this._timer = k(function() {
+                if (0 === h) return this.hasRequireFailures() ? (this._timer = k(function () {
                     this.state = Vb, this.tryEmit();
                 }, b.interval, this), Sb) : Vb;
             }
             return Xb;
         },
-        failTimeout: function() {
-            return this._timer = k(function() {
+        failTimeout: function () {
+            return this._timer = k(function () {
                 this.state = Xb;
             }, this.options.interval, this), Xb;
         },
-        reset: function() {
+        reset: function () {
             clearTimeout(this._timer);
         },
-        emit: function() {
+        emit: function () {
             this.state == Vb && (this._input.tapCount = this.count, this.manager.emit(this.options.event, this._input));
         }
     }), hc.VERSION = "2.0.4", hc.defaults = {
@@ -1963,13 +1963,13 @@ jQuery.Velocity ? console.log("Velocity is already loaded. You may be needlessly
     var ic = 1,
         jc = 2;
     kc.prototype = {
-        set: function(a) {
+        set: function (a) {
             return n(this.options, a), a.touchAction && this.touchAction.update(), a.inputTarget && (this.input.destroy(), this.input.target = a.inputTarget, this.input.init()), this;
         },
-        stop: function(a) {
+        stop: function (a) {
             this.session.stopped = a ? jc : ic;
         },
-        recognize: function(a) {
+        recognize: function (a) {
             var b = this.session;
             if (!b.stopped) {
                 this.touchAction.preventDefaults(a);
@@ -1982,40 +1982,40 @@ jQuery.Velocity ? console.log("Velocity is already loaded. You may be needlessly
                 }
             }
         },
-        get: function(a) {
+        get: function (a) {
             if (a instanceof Yb) return a;
             for (var b = this.recognizers, c = 0; c < b.length; c++) {
                 if (b[c].options.event == a) return b[c];
             }
             return null;
         },
-        add: function(a) {
+        add: function (a) {
             if (l(a, "add", this)) return this;
             var b = this.get(a.options.event);
             return b && this.remove(b), this.recognizers.push(a), a.manager = this, this.touchAction.update(), a;
         },
-        remove: function(a) {
+        remove: function (a) {
             if (l(a, "remove", this)) return this;
             var b = this.recognizers;
             return a = this.get(a), b.splice(y(b, a), 1), this.touchAction.update(), this;
         },
-        on: function(a, b) {
+        on: function (a, b) {
             var c = this.handlers;
-            return m(x(a), function(a) {
+            return m(x(a), function (a) {
                 c[a] = c[a] || [], c[a].push(b);
             }), this;
         },
-        off: function(a, b) {
+        off: function (a, b) {
             var c = this.handlers;
-            return m(x(a), function(a) {
+            return m(x(a), function (a) {
                 b ? c[a].splice(y(c[a], b), 1) : delete c[a];
             }), this;
         },
-        emit: function(a, b) {
+        emit: function (a, b) {
             this.options.domEvents && mc(a, b);
             var c = this.handlers[a] && this.handlers[a].slice();
             if (c && c.length) {
-                b.type = a, b.preventDefault = function() {
+                b.type = a, b.preventDefault = function () {
                     b.srcEvent.preventDefault();
                 };
                 for (var d = 0; d < c.length;) {
@@ -2023,14 +2023,14 @@ jQuery.Velocity ? console.log("Velocity is already loaded. You may be needlessly
                 }
             }
         },
-        destroy: function() {
+        destroy: function () {
             this.element && lc(this, !1), this.handlers = {}, this.session = {}, this.input.destroy(), this.element = null;
         }
-    }, n(hc, { INPUT_START: O, INPUT_MOVE: P, INPUT_END: Q, INPUT_CANCEL: R, STATE_POSSIBLE: Rb, STATE_BEGAN: Sb, STATE_CHANGED: Tb, STATE_ENDED: Ub, STATE_RECOGNIZED: Vb, STATE_CANCELLED: Wb, STATE_FAILED: Xb, DIRECTION_NONE: S, DIRECTION_LEFT: T, DIRECTION_RIGHT: U, DIRECTION_UP: V, DIRECTION_DOWN: W, DIRECTION_HORIZONTAL: X, DIRECTION_VERTICAL: Y, DIRECTION_ALL: Z, Manager: kc, Input: ab, TouchAction: Pb, TouchInput: Eb, MouseInput: rb, PointerEventInput: wb, TouchMouseInput: Gb, SingleTouchInput: Ab, Recognizer: Yb, AttrRecognizer: ac, Tap: gc, Pan: bc, Swipe: fc, Pinch: cc, Rotate: ec, Press: dc, on: t, off: u, each: m, merge: o, extend: n, inherit: p, bindFn: q, prefixed: B }), typeof define == g && define.amd ? define(function() {
+    }, n(hc, { INPUT_START: O, INPUT_MOVE: P, INPUT_END: Q, INPUT_CANCEL: R, STATE_POSSIBLE: Rb, STATE_BEGAN: Sb, STATE_CHANGED: Tb, STATE_ENDED: Ub, STATE_RECOGNIZED: Vb, STATE_CANCELLED: Wb, STATE_FAILED: Xb, DIRECTION_NONE: S, DIRECTION_LEFT: T, DIRECTION_RIGHT: U, DIRECTION_UP: V, DIRECTION_DOWN: W, DIRECTION_HORIZONTAL: X, DIRECTION_VERTICAL: Y, DIRECTION_ALL: Z, Manager: kc, Input: ab, TouchAction: Pb, TouchInput: Eb, MouseInput: rb, PointerEventInput: wb, TouchMouseInput: Gb, SingleTouchInput: Ab, Recognizer: Yb, AttrRecognizer: ac, Tap: gc, Pan: bc, Swipe: fc, Pinch: cc, Rotate: ec, Press: dc, on: t, off: u, each: m, merge: o, extend: n, inherit: p, bindFn: q, prefixed: B }), typeof define == g && define.amd ? define(function () {
         return hc;
     }) : "undefined" != typeof module && module.exports ? module.exports = hc : a[c] = hc;
 }(window, document, "Hammer");;
-(function(factory) {
+(function (factory) {
     if (typeof define === 'function' && define.amd) {
         define(['jquery', 'hammerjs'], factory);
     } else if (typeof exports === 'object') {
@@ -2038,7 +2038,7 @@ jQuery.Velocity ? console.log("Velocity is already loaded. You may be needlessly
     } else {
         factory(jQuery, Hammer);
     }
-})(function($, Hammer) {
+})(function ($, Hammer) {
     function hammerify(el, options) {
         var $el = $(el);
         if (!$el.data("hammer")) {
@@ -2046,15 +2046,15 @@ jQuery.Velocity ? console.log("Velocity is already loaded. You may be needlessly
         }
     }
 
-    $.fn.hammer = function(options) {
-        return this.each(function() {
+    $.fn.hammer = function (options) {
+        return this.each(function () {
             hammerify(this, options);
         });
     };
 
     // extend the emit method to also trigger jQuery events
-    Hammer.Manager.prototype.emit = function(originalEmit) {
-        return function(type, data) {
+    Hammer.Manager.prototype.emit = function (originalEmit) {
+        return function (type, data) {
             originalEmit.call(this, type, data);
             $(this.element).trigger({
                 type: type,
@@ -2063,7 +2063,7 @@ jQuery.Velocity ? console.log("Velocity is already loaded. You may be needlessly
         };
     }(Hammer.Manager.prototype.emit);
 });; // Required for Meteor package, the use of window prevents export by Meteor
-(function(window) {
+(function (window) {
     if (window.Package) {
         Materialize = {};
     } else {
@@ -2088,7 +2088,7 @@ if (typeof exports !== 'undefined' && !exports.nodeType) {
  * Copyright (c) 2013 ngryman
  * Licensed under the MIT license.
  */
-(function(window) {
+(function (window) {
     var lastTime = 0,
         vendors = ['webkit', 'moz'],
         requestAnimationFrame = window.requestAnimationFrame,
@@ -2104,10 +2104,10 @@ if (typeof exports !== 'undefined' && !exports.nodeType) {
     // polyfill with setTimeout fallback
     // heavily inspired from @darius gist mod: https://gist.github.com/paulirish/1579671#comment-837945
     if (!requestAnimationFrame || !cancelAnimationFrame) {
-        requestAnimationFrame = function(callback) {
+        requestAnimationFrame = function (callback) {
             var now = +Date.now(),
                 nextTime = Math.max(lastTime + 16, now);
-            return setTimeout(function() {
+            return setTimeout(function () {
                 callback(lastTime = nextTime);
             }, nextTime - now);
         };
@@ -2125,7 +2125,7 @@ if (typeof exports !== 'undefined' && !exports.nodeType) {
  * @param {jQuery} obj  jQuery object to be parsed
  * @returns {string}
  */
-Materialize.objectSelectorString = function(obj) {
+Materialize.objectSelectorString = function (obj) {
     var tagStr = obj.prop('tagName') || '';
     var idStr = obj.attr('id') || '';
     var classStr = obj.attr('class') || '';
@@ -2133,11 +2133,11 @@ Materialize.objectSelectorString = function(obj) {
 };
 
 // Unique Random ID
-Materialize.guid = function() {
+Materialize.guid = function () {
     function s4() {
         return Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1);
     }
-    return function() {
+    return function () {
         return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
     };
 }();
@@ -2147,15 +2147,15 @@ Materialize.guid = function() {
  * @param {string} hash  String returned from this.hash
  * @returns {string}
  */
-Materialize.escapeHash = function(hash) {
+Materialize.escapeHash = function (hash) {
     return hash.replace(/(:|\.|\[|\]|,|=)/g, "\\$1");
 };
 
-Materialize.elementOrParentIsFixed = function(element) {
+Materialize.elementOrParentIsFixed = function (element) {
     var $element = $(element);
     var $checkElements = $element.add($element.parents());
     var isFixed = false;
-    $checkElements.each(function() {
+    $checkElements.each(function () {
         if ($(this).css("position") === "fixed") {
             isFixed = true;
             return false;
@@ -2170,7 +2170,7 @@ Materialize.elementOrParentIsFixed = function(element) {
  * @type {function}
  * @return {number}
  */
-var getTime = Date.now || function() {
+var getTime = Date.now || function () {
     return new Date().getTime();
 };
 
@@ -2186,18 +2186,18 @@ var getTime = Date.now || function() {
  * @param {Object=} options
  * @returns {Function}
  */
-Materialize.throttle = function(func, wait, options) {
+Materialize.throttle = function (func, wait, options) {
     var context, args, result;
     var timeout = null;
     var previous = 0;
     options || (options = {});
-    var later = function() {
+    var later = function () {
         previous = options.leading === false ? 0 : getTime();
         timeout = null;
         result = func.apply(context, args);
         context = args = null;
     };
-    return function() {
+    return function () {
         var now = getTime();
         if (!previous && options.leading === false) previous = now;
         var remaining = wait - (now - previous);
@@ -2232,8 +2232,8 @@ if (Vel) {
 } else {
     Materialize.Vel = Velocity;
 };
-(function($) {
-    $.fn.collapsible = function(options, methodParam) {
+(function ($) {
+    $.fn.collapsible = function (options, methodParam) {
         var defaults = {
             accordion: undefined,
             onOpen: undefined,
@@ -2243,7 +2243,7 @@ if (Vel) {
         var methodName = options;
         options = $.extend(defaults, options);
 
-        return this.each(function() {
+        return this.each(function () {
 
             var $this = $(this);
 
@@ -2268,7 +2268,7 @@ if (Vel) {
                         duration: 350,
                         easing: "easeOutQuart",
                         queue: false,
-                        complete: function() {
+                        complete: function () {
                             $(this).css('height', '');
                         }
                     });
@@ -2277,7 +2277,7 @@ if (Vel) {
                         duration: 350,
                         easing: "easeOutQuart",
                         queue: false,
-                        complete: function() {
+                        complete: function () {
                             $(this).css('height', '');
                         }
                     });
@@ -2286,13 +2286,13 @@ if (Vel) {
                 $panel_headers.not(object).removeClass('active').parent().removeClass('active');
 
                 // Close previously open accordion elements.
-                $panel_headers.not(object).parent().children('.collapsible-body').stop(true, false).each(function() {
+                $panel_headers.not(object).parent().children('.collapsible-body').stop(true, false).each(function () {
                     if ($(this).is(':visible')) {
                         $(this).slideUp({
                             duration: 350,
                             easing: "easeOutQuart",
                             queue: false,
-                            complete: function() {
+                            complete: function () {
                                 $(this).css('height', '');
                                 execCallbacks($(this).siblings('.collapsible-header'));
                             }
@@ -2313,7 +2313,7 @@ if (Vel) {
                         duration: 350,
                         easing: "easeOutQuart",
                         queue: false,
-                        complete: function() {
+                        complete: function () {
                             $(this).css('height', '');
                         }
                     });
@@ -2322,7 +2322,7 @@ if (Vel) {
                         duration: 350,
                         easing: "easeOutQuart",
                         queue: false,
-                        complete: function() {
+                        complete: function () {
                             $(this).css('height', '');
                         }
                     });
@@ -2403,7 +2403,7 @@ if (Vel) {
             removeEventHandlers();
 
             // Add click handler to only direct collapsible header children
-            $this.on('click.collapse', '> li > .collapsible-header', function(e) {
+            $this.on('click.collapse', '> li > .collapsible-header', function (e) {
                 var element = $(e.target);
 
                 if (isChildrenOfPanelHeader(element)) {
@@ -2419,27 +2419,27 @@ if (Vel) {
                 collapsibleOpen($panel_headers.filter('.active').first(), true);
             } else {
                 // Handle Expandables
-                $panel_headers.filter('.active').each(function() {
+                $panel_headers.filter('.active').each(function () {
                     collapsibleOpen($(this), true);
                 });
             }
         });
     };
 
-    $(document).ready(function() {
+    $(document).ready(function () {
         $('.collapsible').collapsible();
     });
 })(jQuery);;
-(function($) {
+(function ($) {
 
     // Add posibility to scroll to selected option
     // usefull for select for example
-    $.fn.scrollTo = function(elem) {
+    $.fn.scrollTo = function (elem) {
         $(this).scrollTop($(this).scrollTop() - $(this).offset().top + $(elem).offset().top);
         return this;
     };
 
-    $.fn.dropdown = function(options) {
+    $.fn.dropdown = function (options) {
         var defaults = {
             inDuration: 300,
             outDuration: 225,
@@ -2453,7 +2453,7 @@ if (Vel) {
 
         // Open dropdown.
         if (options === "open") {
-            this.each(function() {
+            this.each(function () {
                 $(this).trigger('open');
             });
             return false;
@@ -2461,13 +2461,13 @@ if (Vel) {
 
         // Close dropdown.
         if (options === "close") {
-            this.each(function() {
+            this.each(function () {
                 $(this).trigger('close');
             });
             return false;
         }
 
-        this.each(function() {
+        this.each(function () {
             var origin = $(this);
             var curr_options = $.extend({}, defaults, options);
             var isFocused = false;
@@ -2595,14 +2595,14 @@ if (Vel) {
                     queue: false,
                     duration: curr_options.inDuration,
                     easing: 'easeOutCubic',
-                    complete: function() {
+                    complete: function () {
                         $(this).css('height', '');
                     }
                 }).animate({ opacity: 1 }, { queue: false, duration: curr_options.inDuration, easing: 'easeOutSine' });
 
                 // Add click close handler to document
-                setTimeout(function() {
-                    $(document).on('click.' + activates.attr('id'), function(e) {
+                setTimeout(function () {
+                    $(document).on('click.' + activates.attr('id'), function (e) {
                         hideDropdown();
                         $(document).off('click.' + activates.attr('id'));
                     });
@@ -2616,7 +2616,7 @@ if (Vel) {
                 activates.removeClass('active');
                 origin.removeClass('active');
                 $(document).off('click.' + activates.attr('id'));
-                setTimeout(function() {
+                setTimeout(function () {
                     activates.css('max-height', '');
                 }, curr_options.outDuration);
             }
@@ -2626,14 +2626,14 @@ if (Vel) {
                 var open = false;
                 origin.off('click.' + origin.attr('id'));
                 // Hover handler to show dropdown
-                origin.on('mouseenter', function(e) {
+                origin.on('mouseenter', function (e) {
                     // Mouse over
                     if (open === false) {
                         placeDropdown();
                         open = true;
                     }
                 });
-                origin.on('mouseleave', function(e) {
+                origin.on('mouseleave', function (e) {
                     // If hover on origin then to something other than dropdown content, then close
                     var toEl = e.toElement || e.relatedTarget; // added browser compatibility for target element
                     if (!$(toEl).closest('.dropdown-content').is(activates)) {
@@ -2643,7 +2643,7 @@ if (Vel) {
                     }
                 });
 
-                activates.on('mouseleave', function(e) {
+                activates.on('mouseleave', function (e) {
                     // Mouse out
                     var toEl = e.toElement || e.relatedTarget;
                     if (!$(toEl).closest('.dropdown-button').is(origin)) {
@@ -2657,7 +2657,7 @@ if (Vel) {
             } else {
                 // Click handler to show dropdown
                 origin.off('click.' + origin.attr('id'));
-                origin.on('click.' + origin.attr('id'), function(e) {
+                origin.on('click.' + origin.attr('id'), function (e) {
                     if (!isFocused) {
                         if (origin[0] == e.currentTarget && !origin.hasClass('active') && $(e.target).closest('.dropdown-content').length === 0) {
                             e.preventDefault(); // Prevents button click from moving window
@@ -2676,18 +2676,18 @@ if (Vel) {
             } // End else
 
             // Listen to open and close event - useful for select component
-            origin.on('open', function(e, eventType) {
+            origin.on('open', function (e, eventType) {
                 placeDropdown(eventType);
             });
             origin.on('close', hideDropdown);
         });
     }; // End dropdown plugin
 
-    $(document).ready(function() {
+    $(document).ready(function () {
         $('.dropdown-button').dropdown();
     });
 })(jQuery);;
-(function($, Vel) {
+(function ($, Vel) {
     'use strict';
 
     var _defaults = {
@@ -2706,7 +2706,7 @@ if (Vel) {
      *
      */
 
-    var Modal = function() {
+    var Modal = function () {
         /**
          * Construct Modal instance and set up overlay
          * @constructor
@@ -2909,7 +2909,7 @@ if (Vel) {
                     queue: false,
                     ease: 'easeOutCubic',
                     // Handle modal ready callback
-                    complete: function() {
+                    complete: function () {
                         if (typeof _this.options.ready === 'function') {
                             _this.options.ready.call(_this, _this.$el, _this.openingTrigger);
                         }
@@ -2946,7 +2946,7 @@ if (Vel) {
                     queue: false,
                     ease: 'easeOutCubic',
                     // Handle modal ready callback
-                    complete: function() {
+                    complete: function () {
                         _this2.$el[0].style.display = 'none';
                         // Call complete callback
                         if (typeof _this2.options.complete === 'function') {
@@ -3024,14 +3024,14 @@ if (Vel) {
             key: 'init',
             value: function init($els, options) {
                 var arr = [];
-                $els.each(function() {
+                $els.each(function () {
                     arr.push(new Modal($(this), options));
                 });
                 return arr;
             }
         }, {
             key: 'defaults',
-            get: function() {
+            get: function () {
                 return _defaults;
             }
         }]);
@@ -3055,7 +3055,7 @@ if (Vel) {
 
     Materialize.Modal = Modal;
 
-    $.fn.modal = function(methodOrOptions) {
+    $.fn.modal = function (methodOrOptions) {
         // Call plugin method if valid method name is passed in
         if (Modal.prototype[methodOrOptions]) {
             // Getter methods
@@ -3064,7 +3064,7 @@ if (Vel) {
 
                 // Void methods
             } else {
-                return this.each(function() {
+                return this.each(function () {
                     this.M_Modal[methodOrOptions]();
                 });
             }
@@ -3080,11 +3080,11 @@ if (Vel) {
         }
     };
 })(jQuery, Materialize.Vel);;
-(function($) {
+(function ($) {
 
-    $.fn.materialbox = function() {
+    $.fn.materialbox = function () {
 
-        return this.each(function() {
+        return this.each(function () {
 
             if ($(this).hasClass('initialized')) {
                 return;
@@ -3106,7 +3106,7 @@ if (Vel) {
             origin.wrap(placeholder);
 
             // Start click handler
-            origin.on('click', function() {
+            origin.on('click', function () {
                 var placeholder = origin.parent('.material-placeholder');
                 var windowWidth = window.innerWidth;
                 var windowHeight = window.innerHeight;
@@ -3163,7 +3163,7 @@ if (Vel) {
                 // Add overlay
                 var overlay = $('<div id="materialbox-overlay"></div>').css({
                     opacity: 0
-                }).click(function() {
+                }).click(function () {
                     if (doneAnimating === true) returnToOriginal();
                 });
 
@@ -3213,21 +3213,21 @@ if (Vel) {
                     origin.velocity({ 'max-width': newWidth, 'width': originalWidth }, {
                         duration: 0,
                         queue: false,
-                        complete: function() {
-                                origin.css({ left: 0, top: 0 }).velocity({
-                                    height: newHeight,
-                                    width: newWidth,
-                                    left: $(document).scrollLeft() + windowWidth / 2 - origin.parent('.material-placeholder').offset().left - newWidth / 2,
-                                    top: $(document).scrollTop() + windowHeight / 2 - origin.parent('.material-placeholder').offset().top - newHeight / 2
-                                }, {
+                        complete: function () {
+                            origin.css({ left: 0, top: 0 }).velocity({
+                                height: newHeight,
+                                width: newWidth,
+                                left: $(document).scrollLeft() + windowWidth / 2 - origin.parent('.material-placeholder').offset().left - newWidth / 2,
+                                top: $(document).scrollTop() + windowHeight / 2 - origin.parent('.material-placeholder').offset().top - newHeight / 2
+                            }, {
                                     duration: inDuration,
                                     queue: false,
                                     easing: 'easeOutQuad',
-                                    complete: function() {
+                                    complete: function () {
                                         doneAnimating = true;
                                     }
                                 });
-                            } // End Complete
+                        } // End Complete
                     }); // End Velocity
                 } else {
                     origin.css('left', 0).css('top', 0).velocity({
@@ -3236,29 +3236,29 @@ if (Vel) {
                         left: $(document).scrollLeft() + windowWidth / 2 - origin.parent('.material-placeholder').offset().left - newWidth / 2,
                         top: $(document).scrollTop() + windowHeight / 2 - origin.parent('.material-placeholder').offset().top - newHeight / 2
                     }, {
-                        duration: inDuration,
-                        queue: false,
-                        easing: 'easeOutQuad',
-                        complete: function() {
-                            doneAnimating = true;
-                        }
-                    }); // End Velocity
+                            duration: inDuration,
+                            queue: false,
+                            easing: 'easeOutQuad',
+                            complete: function () {
+                                doneAnimating = true;
+                            }
+                        }); // End Velocity
                 }
 
                 // Handle Exit triggers
-                $(window).on('scroll.materialbox', function() {
+                $(window).on('scroll.materialbox', function () {
                     if (overlayActive) {
                         returnToOriginal();
                     }
                 });
 
-                $(window).on('resize.materialbox', function() {
+                $(window).on('resize.materialbox', function () {
                     if (overlayActive) {
                         returnToOriginal();
                     }
                 });
 
-                $(document).on('keyup.materialbox', function(e) {
+                $(document).on('keyup.materialbox', function (e) {
                     // ESC key
                     if (e.keyCode === 27 && doneAnimating === true && overlayActive) {
                         returnToOriginal();
@@ -3291,7 +3291,7 @@ if (Vel) {
                     duration: outDuration, // Delay prevents animation overlapping
                     queue: false,
                     easing: 'easeOutQuad',
-                    complete: function() {
+                    complete: function () {
                         // Remove Overlay
                         overlayActive = false;
                         $(this).remove();
@@ -3305,38 +3305,38 @@ if (Vel) {
                     left: 0,
                     top: 0
                 }, {
-                    duration: outDuration,
-                    queue: false,
-                    easing: 'easeOutQuad',
-                    complete: function() {
-                        placeholder.css({
-                            height: '',
-                            width: '',
-                            position: '',
-                            top: '',
-                            left: ''
-                        });
+                        duration: outDuration,
+                        queue: false,
+                        easing: 'easeOutQuad',
+                        complete: function () {
+                            placeholder.css({
+                                height: '',
+                                width: '',
+                                position: '',
+                                top: '',
+                                left: ''
+                            });
 
-                        origin.removeAttr('style');
-                        origin.attr('style', originInlineStyles);
+                            origin.removeAttr('style');
+                            origin.attr('style', originInlineStyles);
 
-                        // Remove class
-                        origin.removeClass('active');
-                        doneAnimating = true;
+                            // Remove class
+                            origin.removeClass('active');
+                            doneAnimating = true;
 
-                        // Remove overflow overrides on ancestors
-                        if (ancestorsChanged) {
-                            ancestorsChanged.css('overflow', '');
+                            // Remove overflow overrides on ancestors
+                            if (ancestorsChanged) {
+                                ancestorsChanged.css('overflow', '');
+                            }
                         }
-                    }
-                });
+                    });
 
                 // Remove Caption + reset css settings on image
                 $('.materialbox-caption').velocity({ opacity: 0 }, {
                     duration: outDuration, // Delay prevents animation overlapping
                     queue: false,
                     easing: 'easeOutQuad',
-                    complete: function() {
+                    complete: function () {
                         $(this).remove();
                     }
                 });
@@ -3344,16 +3344,16 @@ if (Vel) {
         });
     };
 
-    $(document).ready(function() {
+    $(document).ready(function () {
         $('.materialboxed').materialbox();
     });
 })(jQuery);;
-(function($) {
+(function ($) {
 
-    $.fn.parallax = function() {
+    $.fn.parallax = function () {
         var window_width = $(window).width();
         // Parallax Scripts
-        return this.each(function(i) {
+        return this.each(function (i) {
             var $this = $(this);
             $this.addClass('parallax');
 
@@ -3384,28 +3384,28 @@ if (Vel) {
             }
 
             // Wait for image load
-            $this.children("img").one("load", function() {
+            $this.children("img").one("load", function () {
                 updateParallax(true);
-            }).each(function() {
+            }).each(function () {
                 if (this.complete) $(this).trigger("load");
             });
 
-            $(window).scroll(function() {
+            $(window).scroll(function () {
                 window_width = $(window).width();
                 updateParallax(false);
             });
 
-            $(window).resize(function() {
+            $(window).resize(function () {
                 window_width = $(window).width();
                 updateParallax(false);
             });
         });
     };
 })(jQuery);;
-(function($) {
+(function ($) {
 
     var methods = {
-        init: function(options) {
+        init: function (options) {
             var defaults = {
                 onShow: null,
                 swipeable: false,
@@ -3414,7 +3414,7 @@ if (Vel) {
             options = $.extend(defaults, options);
             var namespace = Materialize.objectSelectorString($(this));
 
-            return this.each(function(i) {
+            return this.each(function (i) {
 
                 var uniqueNamespace = namespace + i;
 
@@ -3439,19 +3439,19 @@ if (Vel) {
 
                 // Finds right attribute for indicator based on active tab.
                 // el: jQuery Object
-                var calcRightPos = function(el) {
+                var calcRightPos = function (el) {
                     return Math.ceil($tabs_width - el.position().left - el[0].getBoundingClientRect().width - $this.scrollLeft());
                 };
 
                 // Finds left attribute for indicator based on active tab.
                 // el: jQuery Object
-                var calcLeftPos = function(el) {
+                var calcLeftPos = function (el) {
                     return Math.floor(el.position().left + $this.scrollLeft());
                 };
 
                 // Animates Indicator to active tab.
                 // prev_index: Number
-                var animateIndicator = function(prev_index) {
+                var animateIndicator = function (prev_index) {
                     if (index - prev_index >= 0) {
                         $indicator.velocity({ "right": calcRightPos($active) }, { duration: transition, queue: false, easing: 'easeOutQuad' });
                         $indicator.velocity({ "left": calcLeftPos($active) }, { duration: transition, queue: false, easing: 'easeOutQuad', delay: 90 });
@@ -3502,12 +3502,12 @@ if (Vel) {
                 if ($this.is(":visible")) {
                     // $indicator.css({"right": $tabs_width - ((index + 1) * $tab_width)});
                     // $indicator.css({"left": index * $tab_width});
-                    setTimeout(function() {
+                    setTimeout(function () {
                         $indicator.css({ "right": calcRightPos($active) });
                         $indicator.css({ "left": calcLeftPos($active) });
                     }, 0);
                 }
-                $(window).off('resize.tabs-' + uniqueNamespace).on('resize.tabs-' + uniqueNamespace, function() {
+                $(window).off('resize.tabs-' + uniqueNamespace).on('resize.tabs-' + uniqueNamespace, function () {
                     $tabs_width = $this.width();
                     $tab_width = Math.max($tabs_width, $this[0].scrollWidth) / $links.length;
                     if (index < 0) {
@@ -3522,7 +3522,7 @@ if (Vel) {
                 // Initialize Tabs Content.
                 if (options.swipeable) {
                     // TODO: Duplicate calls with swipeable? handle multiple div wrapping.
-                    $links.each(function() {
+                    $links.each(function () {
                         var $curr_content = $(Materialize.escapeHash(this.hash));
                         $curr_content.addClass('carousel-item');
                         $tabs_content = $tabs_content.add($curr_content);
@@ -3532,7 +3532,7 @@ if (Vel) {
                     $('.tabs-content.carousel').carousel({
                         fullWidth: true,
                         noWrap: true,
-                        onCycleTo: function(item) {
+                        onCycleTo: function (item) {
                             if (!clicked) {
                                 var prev_index = index;
                                 index = $tabs_wrapper.index(item);
@@ -3548,13 +3548,13 @@ if (Vel) {
                     });
                 } else {
                     // Hide the remaining content
-                    $links.not($active).each(function() {
+                    $links.not($active).each(function () {
                         $(Materialize.escapeHash(this.hash)).hide();
                     });
                 }
 
                 // Bind the click event handler
-                $this.off('click.tabs').on('click.tabs', 'a', function(e) {
+                $this.off('click.tabs').on('click.tabs', 'a', function (e) {
                     if ($(this).parent().hasClass('disabled')) {
                         e.preventDefault();
                         return;
@@ -3592,7 +3592,7 @@ if (Vel) {
                     // Swap content
                     if (options.swipeable) {
                         if ($tabs_content.length) {
-                            $tabs_content.carousel('set', index, function() {
+                            $tabs_content.carousel('set', index, function () {
                                 if (typeof options.onShow === "function") {
                                     options.onShow.call($this[0], $content);
                                 }
@@ -3614,7 +3614,7 @@ if (Vel) {
                     }
 
                     // Reset clicked state
-                    clickedTimeout = setTimeout(function() {
+                    clickedTimeout = setTimeout(function () {
                         clicked = false;
                     }, transition);
 
@@ -3626,12 +3626,12 @@ if (Vel) {
                 });
             });
         },
-        select_tab: function(id) {
+        select_tab: function (id) {
             this.find('a[href="#' + id + '"]').trigger('click');
         }
     };
 
-    $.fn.tabs = function(methodOrOptions) {
+    $.fn.tabs = function (methodOrOptions) {
         if (methods[methodOrOptions]) {
             return methods[methodOrOptions].apply(this, Array.prototype.slice.call(arguments, 1));
         } else if (typeof methodOrOptions === 'object' || !methodOrOptions) {
@@ -3642,12 +3642,12 @@ if (Vel) {
         }
     };
 
-    $(document).ready(function() {
+    $(document).ready(function () {
         $('ul.tabs').tabs();
     });
 })(jQuery);;
-(function($) {
-    $.fn.tooltip = function(options) {
+(function ($) {
+    $.fn.tooltip = function (options) {
         var timeout = null,
             margin = 5;
 
@@ -3661,7 +3661,7 @@ if (Vel) {
 
         // Remove tooltip from the activator
         if (options === "remove") {
-            this.each(function() {
+            this.each(function () {
                 $('#' + $(this).attr('data-tooltip-id')).remove();
                 $(this).removeAttr('data-tooltip-id');
                 $(this).off('mouseenter.tooltip mouseleave.tooltip');
@@ -3671,7 +3671,7 @@ if (Vel) {
 
         options = $.extend(defaults, options);
 
-        return this.each(function() {
+        return this.each(function () {
             var tooltipId = Materialize.guid();
             var origin = $(this);
 
@@ -3684,7 +3684,7 @@ if (Vel) {
 
             // Get attributes.
             var allowHtml, tooltipDelay, tooltipPosition, tooltipText, tooltipEl, backdrop;
-            var setAttributes = function() {
+            var setAttributes = function () {
                 allowHtml = origin.attr('data-html') ? origin.attr('data-html') === 'true' : options.html;
                 tooltipDelay = origin.attr('data-delay');
                 tooltipDelay = tooltipDelay === undefined || tooltipDelay === '' ? options.delay : tooltipDelay;
@@ -3695,7 +3695,7 @@ if (Vel) {
             };
             setAttributes();
 
-            var renderTooltipEl = function() {
+            var renderTooltipEl = function () {
                 var tooltip = $('<div class="material-tooltip"></div>');
 
                 // Create Text span
@@ -3721,8 +3721,8 @@ if (Vel) {
             var started = false,
                 timeoutRef;
             origin.on({
-                'mouseenter.tooltip': function(e) {
-                    var showTooltip = function() {
+                'mouseenter.tooltip': function (e) {
+                    var showTooltip = function () {
                         setAttributes();
                         started = true;
                         tooltipEl.velocity('stop');
@@ -3825,13 +3825,13 @@ if (Vel) {
 
                     // Mouse Out
                 },
-                'mouseleave.tooltip': function() {
+                'mouseleave.tooltip': function () {
                     // Reset State
                     started = false;
                     clearTimeout(timeoutRef);
 
                     // Animate back
-                    setTimeout(function() {
+                    setTimeout(function () {
                         if (started !== true) {
                             tooltipEl.velocity({
                                 opacity: 0,
@@ -3841,7 +3841,7 @@ if (Vel) {
                             backdrop.velocity({ opacity: 0, scaleX: 1, scaleY: 1 }, {
                                 duration: 225,
                                 queue: false,
-                                complete: function() {
+                                complete: function () {
                                     backdrop.css({ visibility: 'hidden' });
                                     tooltipEl.css({ visibility: 'hidden' });
                                     started = false;
@@ -3854,7 +3854,7 @@ if (Vel) {
         });
     };
 
-    var repositionWithinScreen = function(x, y, width, height) {
+    var repositionWithinScreen = function (x, y, width, height) {
         var newX = x;
         var newY = y;
 
@@ -3873,7 +3873,7 @@ if (Vel) {
         return { x: newX, y: newY };
     };
 
-    $(document).ready(function() {
+    $(document).ready(function () {
         $('.tooltipped').tooltip();
     });
 })(jQuery);;
@@ -3887,7 +3887,7 @@ if (Vel) {
  */
 
 ;
-(function(window) {
+(function (window) {
     'use strict';
 
     var Waves = Waves || {};
@@ -3937,7 +3937,7 @@ if (Vel) {
         // Effect delay
         duration: 750,
 
-        show: function(e, element) {
+        show: function (e, element) {
 
             // Disable right click
             if (e.button === 2) {
@@ -4000,7 +4000,7 @@ if (Vel) {
             ripple.setAttribute('style', convertStyle(rippleStyle));
         },
 
-        hide: function(e) {
+        hide: function (e) {
             TouchHandler.touchup(e);
 
             var el = this;
@@ -4028,7 +4028,7 @@ if (Vel) {
             }
 
             // Fade out ripple after delay
-            setTimeout(function() {
+            setTimeout(function () {
                 var style = {
                     'top': relativeY + 'px',
                     'left': relativeX + 'px',
@@ -4048,7 +4048,7 @@ if (Vel) {
 
                 ripple.setAttribute('style', convertStyle(style));
 
-                setTimeout(function() {
+                setTimeout(function () {
                     try {
                         el.removeChild(ripple);
                     } catch (e) {
@@ -4059,7 +4059,7 @@ if (Vel) {
         },
 
         // Little hack to make <input> can perform waves effect
-        wrapInput: function(elements) {
+        wrapInput: function (elements) {
             for (var a = 0; a < elements.length; a++) {
                 var el = elements[a];
 
@@ -4103,13 +4103,13 @@ if (Vel) {
          * within the 500ms. Cannot mouseup between touchstart and
          * touchend, nor in the 500ms after touchend. */
         touches: 0,
-        allowEvent: function(e) {
+        allowEvent: function (e) {
             var allow = true;
 
             if (e.type === 'touchstart') {
                 TouchHandler.touches += 1; //push
             } else if (e.type === 'touchend' || e.type === 'touchcancel') {
-                setTimeout(function() {
+                setTimeout(function () {
                     if (TouchHandler.touches > 0) {
                         TouchHandler.touches -= 1; //pop after 500ms
                     }
@@ -4120,7 +4120,7 @@ if (Vel) {
 
             return allow;
         },
-        touchup: function(e) {
+        touchup: function (e) {
             TouchHandler.allowEvent(e);
         }
     };
@@ -4167,7 +4167,7 @@ if (Vel) {
         }
     }
 
-    Waves.displayEffect = function(options) {
+    Waves.displayEffect = function (options) {
         options = options || {};
 
         if ('duration' in options) {
@@ -4190,7 +4190,7 @@ if (Vel) {
      *   Intended to be used with dynamically loaded forms/inputs, or
      * where the user doesn't want a delegated click handler.
      */
-    Waves.attach = function(element) {
+    Waves.attach = function (element) {
         //FUTURE: automatically add waves classes and allow users
         // to specify them with an options param? Eg. light/classic/button
         if (element.tagName.toLowerCase() === 'input') {
@@ -4207,11 +4207,11 @@ if (Vel) {
 
     window.Waves = Waves;
 
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function () {
         Waves.displayEffect();
     }, false);
 })(window);;
-(function($, Vel) {
+(function ($, Vel) {
     'use strict';
 
     var _defaults = {
@@ -4223,7 +4223,7 @@ if (Vel) {
         activationPercent: 0.8
     };
 
-    var Toast = function() {
+    var Toast = function () {
         function Toast(message, displayLength, className, completeCallback) {
             _classCallCheck(this, Toast);
 
@@ -4333,7 +4333,7 @@ if (Vel) {
                 var _this3 = this;
 
                 if (this.timeRemaining !== Infinity) {
-                    this.counterInterval = setInterval(function() {
+                    this.counterInterval = setInterval(function () {
                         // If toast is not being dragged, decrease its time remaining
                         if (!_this3.panning) {
                             _this3.timeRemaining -= 20;
@@ -4369,7 +4369,7 @@ if (Vel) {
                     duration: this.options.outDuration,
                     easing: 'easeOutExpo',
                     queue: false,
-                    complete: function() {
+                    complete: function () {
                         // Call the optional callback
                         if (typeof _this4.options.completeCallback === 'function') {
                             _this4.options.completeCallback();
@@ -4495,7 +4495,7 @@ if (Vel) {
                     options.config.left = position.left;
 
                     console.log(options.config)
-                        // Remove toast
+                    // Remove toast
                     if (shouldBeDismissed) {
                         // toast.wasSwiped = true;
                         //  toast.remove();
@@ -4538,7 +4538,7 @@ if (Vel) {
             }
         }, {
             key: 'defaults',
-            get: function() {
+            get: function () {
                 return _defaults;
             }
         }]);
@@ -4569,14 +4569,14 @@ if (Vel) {
     Toast._draggedToast = null;
 
     Materialize.Toast = Toast;
-    Materialize.toast = function(message, displayLength, className, completeCallback) {
+    Materialize.toast = function (message, displayLength, className, completeCallback) {
         return new Toast(message, displayLength, className, completeCallback);
     };
 })(jQuery, Materialize.Vel);;
-(function($) {
+(function ($) {
 
     var methods = {
-        init: function(options) {
+        init: function (options) {
             var defaults = {
                 menuWidth: 300,
                 edge: 'left',
@@ -4587,7 +4587,7 @@ if (Vel) {
             };
             options = $.extend(defaults, options);
 
-            $(this).each(function() {
+            $(this).each(function () {
                 var $this = $(this);
                 var menuId = $this.attr('data-activates');
                 var menu = $("#" + menuId);
@@ -4629,7 +4629,7 @@ if (Vel) {
 
                 // Window resize to reset on large screens fixed
                 if (menu.hasClass('fixed')) {
-                    $(window).resize(function() {
+                    $(window).resize(function () {
                         if (window.innerWidth > 992) {
                             // Close menu if window is resized bigger than 992 and user has fixed sidenav
                             if ($('#sidenav-overlay').length !== 0 && menuOut) {
@@ -4651,14 +4651,14 @@ if (Vel) {
 
                 // if closeOnClick, then add close event for all a tags in side sideNav
                 if (options.closeOnClick === true) {
-                    menu.on("click.itemclick", "a:not(.collapsible-header)", function() {
+                    menu.on("click.itemclick", "a:not(.collapsible-header)", function () {
                         if (!(window.innerWidth > 992 && menu.hasClass('fixed'))) {
                             removeMenu();
                         }
                     });
                 }
 
-                var removeMenu = function(restoreNav) {
+                var removeMenu = function (restoreNav) {
                     panning = false;
                     menuOut = false;
                     // Reenable scrolling
@@ -4671,7 +4671,7 @@ if (Vel) {
                         duration: 200,
                         queue: false,
                         easing: 'easeOutQuad',
-                        complete: function() {
+                        complete: function () {
                             $(this).remove();
                         }
                     });
@@ -4682,7 +4682,7 @@ if (Vel) {
                             duration: 200,
                             queue: false,
                             easing: 'easeOutCubic',
-                            complete: function() {
+                            complete: function () {
                                 if (restoreNav === true) {
                                     // Restore Fixed sidenav
                                     menu.removeAttr('style');
@@ -4698,7 +4698,7 @@ if (Vel) {
                             duration: 200,
                             queue: false,
                             easing: 'easeOutCubic',
-                            complete: function() {
+                            complete: function () {
                                 if (restoreNav === true) {
                                     // Restore Fixed sidenav
                                     menu.removeAttr('style');
@@ -4719,7 +4719,7 @@ if (Vel) {
                 var menuOut = false;
 
                 if (options.draggable) {
-                    $dragTarget.on('click', function() {
+                    $dragTarget.on('click', function () {
                         if (menuOut) {
                             removeMenu();
                         }
@@ -4727,7 +4727,7 @@ if (Vel) {
 
                     $dragTarget.hammer({
                         prevent_default: false
-                    }).on('pan', function(e) {
+                    }).on('pan', function (e) {
 
                         if (e.gesture.pointerType == "touch") {
 
@@ -4751,7 +4751,7 @@ if (Vel) {
                             // If overlay does not exist, create one and if it is clicked, close menu
                             if ($overlay.length === 0) {
                                 $overlay = $('<div id="sidenav-overlay"></div>');
-                                $overlay.css('opacity', 0).click(function() {
+                                $overlay.css('opacity', 0).click(function () {
                                     removeMenu();
                                 });
 
@@ -4809,7 +4809,7 @@ if (Vel) {
                                 $overlay.velocity({ opacity: overlayPerc }, { duration: 10, queue: false, easing: 'easeOutQuad' });
                             }
                         }
-                    }).on('panend', function(e) {
+                    }).on('panend', function (e) {
 
                         if (e.gesture.pointerType == "touch") {
                             var $overlay = $('#sidenav-overlay');
@@ -4848,7 +4848,7 @@ if (Vel) {
                                         duration: 200,
                                         queue: false,
                                         easing: 'easeOutQuad',
-                                        complete: function() {
+                                        complete: function () {
                                             // Run 'onClose' when sidenav is closed via touch/swipe if applicable
                                             if (typeof options.onClose === 'function') {
                                                 options.onClose.call(this, menu);
@@ -4882,7 +4882,7 @@ if (Vel) {
                                         duration: 200,
                                         queue: false,
                                         easing: 'easeOutQuad',
-                                        complete: function() {
+                                        complete: function () {
                                             // Run 'onClose' when sidenav is closed via touch/swipe if applicable
                                             if (typeof options.onClose === 'function') {
                                                 options.onClose.call(this, menu);
@@ -4898,7 +4898,7 @@ if (Vel) {
                     });
                 }
 
-                $this.off('click.sidenav').on('click.sidenav', function() {
+                $this.off('click.sidenav').on('click.sidenav', function () {
                     if (menuOut === true) {
                         menuOut = false;
                         panning = false;
@@ -4924,7 +4924,7 @@ if (Vel) {
                         }
 
                         // Overlay close on click
-                        $overlay.css('opacity', 0).click(function() {
+                        $overlay.css('opacity', 0).click(function () {
                             menuOut = false;
                             panning = false;
                             removeMenu();
@@ -4932,7 +4932,7 @@ if (Vel) {
                                 duration: 300,
                                 queue: false,
                                 easing: 'easeOutQuad',
-                                complete: function() {
+                                complete: function () {
                                     $(this).remove();
                                 }
                             });
@@ -4944,7 +4944,7 @@ if (Vel) {
                             duration: 300,
                             queue: false,
                             easing: 'easeOutQuad',
-                            complete: function() {
+                            complete: function () {
                                 menuOut = true;
                                 panning = false;
                             }
@@ -4960,7 +4960,7 @@ if (Vel) {
                 });
             });
         },
-        destroy: function() {
+        destroy: function () {
             var $overlay = $('#sidenav-overlay');
             var $dragTarget = $('.drag-target[data-sidenav="' + $(this).attr('data-activates') + '"]');
             $overlay.trigger('click');
@@ -4968,15 +4968,15 @@ if (Vel) {
             $(this).off('click');
             $overlay.remove();
         },
-        show: function() {
+        show: function () {
             this.trigger('click');
         },
-        hide: function() {
+        hide: function () {
             $('#sidenav-overlay').trigger('click');
         }
     };
 
-    $.fn.sideNav = function(methodOrOptions) {
+    $.fn.sideNav = function (methodOrOptions) {
         if (methods[methodOrOptions]) {
             return methods[methodOrOptions].apply(this, Array.prototype.slice.call(arguments, 1));
         } else if (typeof methodOrOptions === 'object' || !methodOrOptions) {
@@ -4999,7 +4999,7 @@ if (Vel) {
  * @see https://github.com/thesmart
  * @version 0.1.2
  */
-(function($) {
+(function ($) {
 
     var jWindow = $(window);
     var elements = [];
@@ -5025,7 +5025,7 @@ if (Vel) {
 
     function findElements(top, right, bottom, left) {
         var hits = $();
-        $.each(elements, function(i, element) {
+        $.each(elements, function (i, element) {
             if (element.height() > 0) {
                 var elTop = element.offset().top,
                     elLeft = element.offset().left,
@@ -5058,7 +5058,7 @@ if (Vel) {
 
         // determine which elements are in view
         var intersections = findElements(top + offset.top + scrollOffset || 200, right + offset.right, bottom + offset.bottom, left + offset.left);
-        $.each(intersections, function(i, element) {
+        $.each(intersections, function (i, element) {
 
             var lastTick = element.data('scrollSpy:ticks');
             if (typeof lastTick != 'number') {
@@ -5071,7 +5071,7 @@ if (Vel) {
         });
 
         // determine which elements are no longer in view
-        $.each(elementsInView, function(i, element) {
+        $.each(elementsInView, function (i, element) {
             var lastTick = element.data('scrollSpy:ticks');
             if (typeof lastTick == 'number' && lastTick !== ticks) {
                 // exited from view
@@ -5103,12 +5103,12 @@ if (Vel) {
           activeClass : string -> Class name to be added to the active link. Default: active
      * @returns {jQuery}
      */
-    $.scrollSpy = function(selector, options) {
+    $.scrollSpy = function (selector, options) {
         var defaults = {
             throttle: 100,
             scrollOffset: 200, // offset - 200 allows elements near bottom of page to scroll
             activeClass: 'active',
-            getActiveElement: function(id) {
+            getActiveElement: function (id) {
                 return 'a[href="#' + id + '"]';
             }
         };
@@ -5116,11 +5116,11 @@ if (Vel) {
 
         var visible = [];
         selector = $(selector);
-        selector.each(function(i, element) {
+        selector.each(function (i, element) {
             elements.push($(element));
             $(element).data("scrollSpy:id", i);
             // Smooth scroll to section
-            $('a[href="#' + $(element).attr('id') + '"]').click(function(e) {
+            $('a[href="#' + $(element).attr('id') + '"]').click(function (e) {
                 e.preventDefault();
                 var offset = $(Materialize.escapeHash(this.hash)).offset().top + 1;
                 $('html, body').animate({ scrollTop: offset - options.scrollOffset }, { duration: 400, queue: false, easing: 'easeOutCubic' });
@@ -5132,10 +5132,10 @@ if (Vel) {
         offset.bottom = options.offsetBottom || 0;
         offset.left = options.offsetLeft || 0;
 
-        var throttledScroll = Materialize.throttle(function() {
+        var throttledScroll = Materialize.throttle(function () {
             onScroll(options.scrollOffset);
         }, options.throttle || 100);
-        var readyScroll = function() {
+        var readyScroll = function () {
             $(document).ready(throttledScroll);
         };
 
@@ -5148,8 +5148,8 @@ if (Vel) {
         // perform a scan once, after current execution context, and after dom is ready
         setTimeout(readyScroll, 0);
 
-        selector.on('scrollSpy:enter', function() {
-            visible = $.grep(visible, function(value) {
+        selector.on('scrollSpy:enter', function () {
+            visible = $.grep(visible, function (value) {
                 return value.height() != 0;
             });
 
@@ -5168,15 +5168,15 @@ if (Vel) {
 
             $(options.getActiveElement(visible[0].attr('id'))).addClass(options.activeClass);
         });
-        selector.on('scrollSpy:exit', function() {
-            visible = $.grep(visible, function(value) {
+        selector.on('scrollSpy:exit', function () {
+            visible = $.grep(visible, function (value) {
                 return value.height() != 0;
             });
 
             if (visible[0]) {
                 $(options.getActiveElement(visible[0].attr('id'))).removeClass(options.activeClass);
                 var $this = $(this);
-                visible = $.grep(visible, function(value) {
+                visible = $.grep(visible, function (value) {
                     return value.attr('id') != $this.attr('id');
                 });
                 if (visible[0]) {
@@ -5194,8 +5194,8 @@ if (Vel) {
      * @param {Object=} options           Optional. Set { throttle: number } to change throttling. Default: 100 ms
      * @returns {jQuery}    $(window)
      */
-    $.winSizeSpy = function(options) {
-        $.winSizeSpy = function() {
+    $.winSizeSpy = function (options) {
+        $.winSizeSpy = function () {
             return jWindow;
         }; // lock from multiple calls
         options = options || {
@@ -5215,17 +5215,17 @@ if (Vel) {
                         offsetLeft : number -> offset from left. Default: 0
      * @returns {jQuery}
      */
-    $.fn.scrollSpy = function(options) {
+    $.fn.scrollSpy = function (options) {
         return $.scrollSpy($(this), options);
     };
 })(jQuery);;
-(function($) {
-    $(document).ready(function() {
+(function ($) {
+    $(document).ready(function () {
 
         // Function to update labels of text fields
-        Materialize.updateTextFields = function() {
+        Materialize.updateTextFields = function () {
             var input_selector = 'input[type=text], input[type=password], input[type=email], input[type=url], input[type=tel], input[type=number], input[type=search], textarea';
-            $(input_selector).each(function(index, element) {
+            $(input_selector).each(function (index, element) {
                 var $this = $(this);
                 if ($(element).val().length > 0 || $(element).is(':focus') || element.autofocus || $this.attr('placeholder') !== undefined) {
                     $this.siblings('label').addClass('active');
@@ -5241,7 +5241,7 @@ if (Vel) {
         var input_selector = 'input[type=text], input[type=password], input[type=email], input[type=url], input[type=tel], input[type=number], input[type=search], textarea';
 
         // Add active if form auto complete
-        $(document).on('change', input_selector, function() {
+        $(document).on('change', input_selector, function () {
             if ($(this).val().length !== 0 || $(this).attr('placeholder') !== undefined) {
                 $(this).siblings('label').addClass('active');
             }
@@ -5249,23 +5249,23 @@ if (Vel) {
         });
 
         // Add active if input element has been pre-populated on document ready
-        $(document).ready(function() {
+        $(document).ready(function () {
             Materialize.updateTextFields();
         });
 
         // HTML DOM FORM RESET handling
-        $(document).on('reset', function(e) {
+        $(document).on('reset', function (e) {
             var formReset = $(e.target);
             if (formReset.is('form')) {
                 formReset.find(input_selector).removeClass('valid').removeClass('invalid');
-                formReset.find(input_selector).each(function() {
+                formReset.find(input_selector).each(function () {
                     if ($(this).attr('value') === '') {
                         $(this).siblings('label').removeClass('active');
                     }
                 });
 
                 // Reset select
-                formReset.find('select.initialized').each(function() {
+                formReset.find('select.initialized').each(function () {
                     var reset_text = formReset.find('option[selected]').text();
                     formReset.siblings('input.select-dropdown').val(reset_text);
                 });
@@ -5273,11 +5273,11 @@ if (Vel) {
         });
 
         // Add active when element has focus
-        $(document).on('focus', input_selector, function() {
+        $(document).on('focus', input_selector, function () {
             $(this).siblings('label, .prefix').addClass('active');
         });
 
-        $(document).on('blur', input_selector, function() {
+        $(document).on('blur', input_selector, function () {
             var $inputElement = $(this);
             var selector = ".prefix";
 
@@ -5290,7 +5290,7 @@ if (Vel) {
             validate_field($inputElement);
         });
 
-        window.validate_field = function(object) {
+        window.validate_field = function (object) {
             var hasLength = object.attr('data-length') !== undefined;
             var lenAttr = parseInt(object.attr('data-length'));
             var len = object.val().length;
@@ -5316,12 +5316,12 @@ if (Vel) {
 
         // Radio and Checkbox focus class
         var radio_checkbox = 'input[type=radio], input[type=checkbox]';
-        $(document).on('keyup.radio', radio_checkbox, function(e) {
+        $(document).on('keyup.radio', radio_checkbox, function (e) {
             // TAB, check if tabbing to radio or checkbox.
             if (e.which === 9) {
                 $(this).addClass('tabbed');
                 var $this = $(this);
-                $this.one('blur', function(e) {
+                $this.one('blur', function (e) {
 
                     $(this).removeClass('tabbed');
                 });
@@ -5397,7 +5397,7 @@ if (Vel) {
             $textarea.data('previous-length', $textarea.val().length);
         }
 
-        $(text_area_selector).each(function() {
+        $(text_area_selector).each(function () {
             var $textarea = $(this);
             /**
              * Instead of resizing textarea on document load,
@@ -5407,12 +5407,12 @@ if (Vel) {
             $textarea.data('previous-length', $textarea.val().length);
         });
 
-        $('body').on('keyup keydown autoresize', text_area_selector, function() {
+        $('body').on('keyup keydown autoresize', text_area_selector, function () {
             textareaAutoResize($(this));
         });
 
         // File Input Path
-        $(document).on('change', '.file-field input[type="file"]', function() {
+        $(document).on('change', '.file-field input[type="file"]', function () {
             var file_field = $(this).closest('.file-field');
             var path_input = file_field.find('input.file-path');
             var files = $(this)[0].files;
@@ -5432,18 +5432,18 @@ if (Vel) {
         var range_mousedown = false;
         var left;
 
-        $(range_type).each(function() {
+        $(range_type).each(function () {
             var thumb = $('<span class="thumb"><span class="value"></span></span>');
             $(this).after(thumb);
         });
 
-        var showRangeBubble = function(thumb) {
+        var showRangeBubble = function (thumb) {
             var paddingLeft = parseInt(thumb.parent().css('padding-left'));
             var marginLeft = -7 + paddingLeft + 'px';
             thumb.velocity({ height: "30px", width: "30px", top: "-30px", marginLeft: marginLeft }, { duration: 300, easing: 'easeOutExpo' });
         };
 
-        var calcRangeOffset = function(range) {
+        var calcRangeOffset = function (range) {
             var width = range.width() - 15;
             var max = parseFloat(range.attr('max'));
             var min = parseFloat(range.attr('min'));
@@ -5452,7 +5452,7 @@ if (Vel) {
         };
 
         var range_wrapper = '.range-field';
-        $(document).on('change', range_type, function(e) {
+        $(document).on('change', range_type, function (e) {
             var thumb = $(this).siblings('.thumb');
             thumb.find('.value').html($(this).val());
 
@@ -5464,7 +5464,7 @@ if (Vel) {
             thumb.addClass('active').css('left', offsetLeft);
         });
 
-        $(document).on('mousedown touchstart', range_type, function(e) {
+        $(document).on('mousedown touchstart', range_type, function (e) {
             var thumb = $(this).siblings('.thumb');
 
             // If thumb indicator does not exist yet, create it
@@ -5489,12 +5489,12 @@ if (Vel) {
             }
         });
 
-        $(document).on('mouseup touchend', range_wrapper, function() {
+        $(document).on('mouseup touchend', range_wrapper, function () {
             range_mousedown = false;
             $(this).removeClass('active');
         });
 
-        $(document).on('input mousemove touchmove', range_wrapper, function(e) {
+        $(document).on('input mousemove touchmove', range_wrapper, function (e) {
             var thumb = $(this).children('.thumb');
             var left;
             var input = $(this).find(range_type);
@@ -5510,7 +5510,7 @@ if (Vel) {
             }
         });
 
-        $(document).on('mouseout touchleave', range_wrapper, function() {
+        $(document).on('mouseout touchleave', range_wrapper, function () {
             if (!range_mousedown) {
 
                 var thumb = $(this).children('.thumb');
@@ -5527,7 +5527,7 @@ if (Vel) {
         /**************************
          * Auto complete plugin  *
          *************************/
-        $.fn.autocomplete = function(options) {
+        $.fn.autocomplete = function (options) {
             // Defaults
             var defaults = {
                 data: {},
@@ -5538,7 +5538,7 @@ if (Vel) {
 
             options = $.extend(defaults, options);
 
-            return this.each(function() {
+            return this.each(function () {
                 var $input = $(this);
                 var data = options.data,
                     count = 0,
@@ -5569,7 +5569,7 @@ if (Vel) {
                     }
 
                     // Highlight partial match.
-                    var highlight = function(string, $el) {
+                    var highlight = function (string, $el) {
                         var img = $el.find('img');
                         var matchStart = $el.text().toLowerCase().indexOf("" + string.toLowerCase() + ""),
                             matchEnd = matchStart + string.length - 1,
@@ -5583,24 +5583,24 @@ if (Vel) {
                     };
 
                     // Reset current element position
-                    var resetCurrentElement = function() {
+                    var resetCurrentElement = function () {
                         activeIndex = -1;
                         $autocomplete.find('.active').removeClass('active');
                     };
 
                     // Remove autocomplete elements
-                    var removeAutocomplete = function() {
+                    var removeAutocomplete = function () {
                         $autocomplete.empty();
                         resetCurrentElement();
                         oldVal = undefined;
                     };
 
-                    $input.off('blur.autocomplete').on('blur.autocomplete', function() {
+                    $input.off('blur.autocomplete').on('blur.autocomplete', function () {
                         removeAutocomplete();
                     });
 
                     // Perform search
-                    $input.off('keyup.autocomplete focus.autocomplete').on('keyup.autocomplete focus.autocomplete', function(e) {
+                    $input.off('keyup.autocomplete focus.autocomplete').on('keyup.autocomplete focus.autocomplete', function (e) {
                         // Reset count.
                         count = 0;
                         var val = $input.val().toLowerCase();
@@ -5641,7 +5641,7 @@ if (Vel) {
                         oldVal = val;
                     });
 
-                    $input.off('keydown.autocomplete').on('keydown.autocomplete', function(e) {
+                    $input.off('keydown.autocomplete').on('keydown.autocomplete', function (e) {
                         // Arrow keys and enter key usage
                         var keyCode = e.which,
                             liElement,
@@ -5678,7 +5678,7 @@ if (Vel) {
                     });
 
                     // Set input value
-                    $autocomplete.off('mousedown.autocomplete touchstart.autocomplete').on('mousedown.autocomplete touchstart.autocomplete', 'li', function() {
+                    $autocomplete.off('mousedown.autocomplete touchstart.autocomplete').on('mousedown.autocomplete touchstart.autocomplete', 'li', function () {
                         var text = $(this).text().trim();
                         $input.val(text);
                         $input.trigger('change');
@@ -5701,14 +5701,19 @@ if (Vel) {
     /*******************
      *  Select Plugin  *
      ******************/
-    $.fn.material_select = function(options, callback) {
+    $.fn.material_select = function (options, callback) {
 
-        $(this).each(function() {
+        $(this).each(function () {
             var $select = $(this);
-            if ($select.parents().closest('.sel_table_goal').length > 0) {
+            console.info($select.attr('class'))
+            //if ($select.parents().closest('.sel_table_goal').length > 0) 
+            if ($select.hasClass('rect_select')) {
                 var target_select = true;
             } else {
+                //satellite_rect or icons
                 var target_select = false;
+
+
             }
 
 
@@ -5736,11 +5741,16 @@ if (Vel) {
 
             var uniqueID = Materialize.guid();
             $select.attr('data-select-id', uniqueID);
-
-            // if ($select.hasClass('rect_select'))
-            //     console.log('rect_sellect')
             var wrapper = $('<div class="select-wrapper"></div>');
-            wrapper.addClass($select.attr('class'));
+            if ($select.hasClass('satellite_select')) {
+                wrapper.addClass('satellite_select');
+            }
+            else {
+                wrapper.addClass($select.attr('class'));
+            }
+
+
+
             if ($select.is(':disabled')) wrapper.addClass('disabled');
             var options = $('<ul id="select-options-' + uniqueID + '" class="dropdown-content select-dropdown ' + (multiple ? 'multiple-select-dropdown' : '') + '"></ul>'),
                 selectChildren = $select.children('option, optgroup'),
@@ -5751,7 +5761,7 @@ if (Vel) {
 
             // Function that renders and appends the option taking into
             // account type and possible image icon.
-            var appendOptionWithIcon = function(select, option, type) {
+            var appendOptionWithIcon = function (select, option, type) {
                 // Add disabled attr if disabled
 
                 var disabledClass = option.is(':disabled') ? 'disabled ' : '';
@@ -5766,17 +5776,28 @@ if (Vel) {
                     var classString = '';
                     if (!!classes) classString = ' class="' + classes + '"';
 
+                    console.log(option.value)
+                    console.warn($select.attr('class'))
                     // Check for multiple type.
-                    if ($select.hasClass('rect_select'))
-                        options.append($('<li value="' + option.value + '" class="' + disabledClass + optgroupClass + '"><img alt="" src="' + icon_url + '"' + classString + '><span>' + multipleCheckbox + option.html() + '</span></li>'));
-                    else
-                        options.append($('<li class="' + disabledClass + optgroupClass + '"><img alt="" src="' + icon_url + '"' + classString + '><span>' + multipleCheckbox + option.html() + '</span></li>'));
+                    if ($select.hasClass('rect_select')) {
+                        options.append($('<li value="' + option.value + '" class="' + disabledClass + optgroupClass + '"><img alt="" src="' + icon_url + '"' + classString + '><span>Rect' + multipleCheckbox + option.html() + '</span></li>'));
+                    } else {
+                        if ($select.hasClass('satellite_select')) {
+
+                            console.log('satellite select ' + option.value)
+                            options.append($('<li value="' + option.value + '" class="' + disabledClass + optgroupClass + '"><img alt="" src="' + icon_url + '"' + classString + '><span>' + multipleCheckbox + option.html() + '</span></li>'));
+                        } else {
+
+                            options.append($('<li class="' + disabledClass + optgroupClass + '"><img alt="" src="' + icon_url + '"' + classString + '><span>' + multipleCheckbox + option.html() + '</span></li>'));
+                        }
+
+                    }
 
                     return true;
                 }
 
                 // Check for multiple type??
-                if (target_select == true) {
+                if ($select.hasClass('rect_select')) {
                     options.append($('<li class="' + disabledClass + optgroupClass + selectedClass + '"><span>' + multipleCheckbox + option.html() + '</span></li>'));
                     if (selectedClass) {
                         // console.info(wrapper.prev())
@@ -5786,14 +5807,22 @@ if (Vel) {
 
                     }
                 } else {
-                    options.append($('<li class="' + disabledClass + optgroupClass + '"><span>' + multipleCheckbox + option.html() + '</span></li>'));
+
+                    if ($select.hasClass('satellite_select')) {
+                        console.info(option)
+                        console.log('satellite select ' + option[0].value)
+                        options.append($('<li value="' + option[0].value + '" class="' + disabledClass + optgroupClass + '"><img alt="" src="' + icon_url + '"' + classString + '><span>' + multipleCheckbox + option.html() + '</span></li>'));
+                    } else {
+                        options.append($('<li class="' + disabledClass + optgroupClass + '"><span>' + multipleCheckbox + option.html() + '</span></li>'));
+                    }
+
                 }
 
             };
 
             /* Create dropdown structure. */
             if (selectChildren.length) {
-                selectChildren.each(function() {
+                selectChildren.each(function () {
                     if ($(this).is('option')) {
                         // Direct descendant option.
                         if (multiple) {
@@ -5810,7 +5839,7 @@ if (Vel) {
                         var selectOptions = $(this).children('option');
                         options.append($('<li class="optgroup"><span>' + $(this).attr('label') + '</span></li>'));
 
-                        selectOptions.each(function() {
+                        selectOptions.each(function () {
                             appendOptionWithIcon($select, $(this), 'optgroup-option');
                         });
                     }
@@ -5824,8 +5853,11 @@ if (Vel) {
 
             }
 
-            options.find('li:not(.optgroup)').each(function(i) {
-                $(this).click(function(e) {
+            options.find('li:not(.optgroup)').each(function (i) {
+                $(this).click(function (e) {
+                    console.log(this)
+                    console.warn('clicking??')
+                    console.log(wrapper)
 
                     // Check if option element is disabled
                     if (!$(this).hasClass('disabled') && !$(this).hasClass('optgroup')) {
@@ -5837,8 +5869,8 @@ if (Vel) {
                             if ($('.last_changed_sel_val').length > 0) {
                                 var t = container.find('ul.select-dropdown li.last_changed_sel_val').text();
                                 console.log(structural_data.colors_obj.data)
-                                    //{legend_val:-3,counts:0,percent_val:0,color:"#d73027",legend_text:"Strongly restricting"},
-                                prev_sel = structural_data.colors_obj.data.filter(function(info) {
+                                //{legend_val:-3,counts:0,percent_val:0,color:"#d73027",legend_text:"Strongly restricting"},
+                                prev_sel = structural_data.colors_obj.data.filter(function (info) {
 
                                     if (info.legend_text == t) {
                                         return info;
@@ -5867,7 +5899,7 @@ if (Vel) {
                             $(this).addClass('last_changed');
 
 
-                            $('input[type="checkbox"]', this).prop('checked', function(i, v) {
+                            $('input[type="checkbox"]', this).prop('checked', function (i, v) {
                                 return !v;
                             });
                             selected = toggleEntryFromArray(valuesSelected, i, $select);
@@ -5878,14 +5910,10 @@ if (Vel) {
                             options.find('li').removeClass('active');
                             $(this).toggleClass('active');
 
-
-                            //$(this) refers to li
-
                             $newSelect.val($(this).text());
                         }
 
                         activateOption(options, $(this));
-
 
 
                         // Trigger onchange() event
@@ -5894,9 +5922,11 @@ if (Vel) {
 
                             var data_selector = $newSelect.parents().closest('.input-field');
                             var data = data_selector.attr('data_val');
+
+                            //$(this) refers to li    
                             var t = $(this).text();
                             //{legend_val:-3,counts:0,percent_val:0,color:"#d73027",legend_text:"Strongly restricting"},
-                            var _sel = structural_data.colors_obj.data.filter(function(info) {
+                            var _sel = structural_data.colors_obj.data.filter(function (info) {
                                 // console.warn(info)
                                 if (info.legend_text == t) {
                                     return info;
@@ -5907,15 +5937,15 @@ if (Vel) {
 
                             var svg = d3v5.select(".svg-container")
                             var cards = svg.selectAll(".link");
-                            var visible_cards = cards.filter(function(d) {
-                                    return d.visualized == true;
-                                })
-                                //visible_cards.style('opacity', 0.8)
+                            var visible_cards = cards.filter(function (d) {
+                                return d.visualized == true;
+                            })
+                            //visible_cards.style('opacity', 0.8)
 
                             var prev_card_val;
                             console.log($('svg rect').length)
 
-                            var sel = visible_cards.filter(function(card) {
+                            var sel = visible_cards.filter(function (card) {
                                 if (data == card.data) {
 
                                     // prev_card_val = card.value;
@@ -5927,14 +5957,15 @@ if (Vel) {
                             var current_data;
 
                             sel.style('opacity', 1) //.classed('just_changed');
-                            sel.style('fill', function(d) {
+                            sel.style('fill', function (d) {
                                 //necessary?
                                 d.visualized = true;
+                                console.warn(d)
                                 d.value = _sel.legend_val;
                                 data_selector.attr('val', d.value);
                                 current_data = d;
 
-                                return _sel.color;
+                                return d.color;
                             });
 
                             var pos = app_data.entered_data.ids.indexOf(current_data.data);
@@ -5966,6 +5997,19 @@ if (Vel) {
 
                                 params.data = current_data;
 
+                                sel.style('fill', function (d) {
+                                    //necessary?
+                                    d.visualized = true;
+                                    d.value = _sel.legend_val;
+                                    console.log(d)
+
+                                    var color = app.sel_color(current_data).color;
+                                    d.color = color;
+
+                                    return color;
+
+                                })
+
 
                                 app.update_progress_bars('update', current_data, params);
 
@@ -5980,9 +6024,14 @@ if (Vel) {
 
 
                             } else {
-                                console.warn('not from select')
+                                console.warn('from A RECTANGLE select')
                                 var current_data = dynamic_data.update_params;
                                 console.warn(current_data)
+
+                                app.update_assoc_rect(current_data);
+
+                                //  app.update_progress_bars('update', current_data, params);
+
                                 for (var p in dynamic_data.from_ids_counts) {
                                     console.log(dynamic_data.from_ids_counts[p].id)
                                     if (dynamic_data.from_ids_counts[p].id == current_data.data.from_id) {
@@ -6009,7 +6058,7 @@ if (Vel) {
                             //  alert('trigger??')
                             /*    setTimeout(function()
                                 {
-
+ 
                                   var new_p=window.options.config.get_params()
                                   console.warn(new_p)
                                   console.info(new_p.objects)
@@ -6017,14 +6066,40 @@ if (Vel) {
                                   {
                                     console.log(d)
                                   })
-
+ 
                                 },1000)*/
-                            console.warn('TRIGGERING SELECT CHANGE from materialize.js when from_csv is TRUE')
-                                //    $select.trigger('change', { _type: 'csv_sel' });
+                            if (wrapper.hasClass('satellite_select')) {
+
+                                if ($('#satellite_selects_opt .btn').hasClass('off')) {
 
 
-                            return false;
-                            //   
+                                    var t = $(this) //.text();
+                                    console.log(t)
+                                    var data_id = t[0].innerText.split('Target ')[1]
+
+                                    //if (data_id == 'empty') return false;
+
+                                    var _type = $('#satellite_selects_opt form input:checked').attr('id');
+                                    // if ($('#satellite_selects_opt .btn.off'))
+                                    //     $('#satellite_selects_opt .btn.off').removeClass('off').addClass('on').text('Reset')
+                                    create_satellite(data_id, _type);
+                                }
+                                //{legend_val:-3,counts:0,percent_val:0,color:"#d73027",legend_text:"Strongly restricting"},
+
+                                //     var data_id = $(this).find('option:selected')[0].value;
+                                //     console.warn(data_id)
+
+                                //     if (data_id == 'empty') return false;
+
+                                //     var _type = $('#satellite_selects_opt form input:checked').attr('id')
+                                //     create_satellite(data_id, _type, e);
+                                // console.warn('TRIGGERING SELECT CHANGE from materialize.js when from_csv is TRUE')
+                                //$select.trigger('change', { _type: 'csv_sel' });
+
+
+                                // return false;
+                                //   
+                            }
                         }
 
 
@@ -6063,7 +6138,7 @@ if (Vel) {
             $select.addClass('initialized');
 
             $newSelect.on({
-                'focus': function() {
+                'focus': function () {
 
                     if ($('ul.select-dropdown').not(options[0]).is(':visible')) {
                         $('input.select-dropdown').trigger('close');
@@ -6076,24 +6151,24 @@ if (Vel) {
                             label = label.split(',')[0];
                         }
 
-                        var selectedOption = options.find('li').filter(function() {
+                        var selectedOption = options.find('li').filter(function () {
                             return $(this).text().toLowerCase() === label.toLowerCase();
                         })[0];
                         activateOption(options, selectedOption, true);
 
-                        $(window).off('click.select').on('click.select', function() {
+                        $(window).off('click.select').on('click.select', function () {
                             multiple && (optionsHover || $newSelect.trigger('close'));
                             $(window).off('click.select');
                         });
                     }
                 },
-                'click': function(e) {
+                'click': function (e) {
 
                     e.stopPropagation();
                 }
             });
 
-            $newSelect.on('blur', function() {
+            $newSelect.on('blur', function () {
                 if (!multiple) {
                     $(this).trigger('close');
                     $(window).off('click.select');
@@ -6103,16 +6178,16 @@ if (Vel) {
 
 
 
-            options.hover(function(e) {
+            options.hover(function (e) {
 
                 optionsHover = true;
-            }, function() {
+            }, function () {
                 optionsHover = false;
             });
 
             // Add initial multiple selections.
             if (multiple) {
-                $select.find("option:selected:not(:disabled)").each(function() {
+                $select.find("option:selected:not(:disabled)").each(function () {
                     var index = this.index;
 
                     toggleEntryFromArray(valuesSelected, index, $select);
@@ -6126,7 +6201,7 @@ if (Vel) {
              * @param {Element} newOption  element of the new option
              * @param {Boolean} firstActivation  If on first activation of select
              */
-            var activateOption = function(collection, newOption, firstActivation) {
+            var activateOption = function (collection, newOption, firstActivation) {
                 if (newOption) {
                     collection.find('li.selected').removeClass('selected');
                     var option = $(newOption);
@@ -6140,7 +6215,7 @@ if (Vel) {
             // Allow user to search by typing
             // this array is cleared after 1 second
             var filterQuery = [],
-                onKeyDown = function(e) {
+                onKeyDown = function (e) {
                     // TAB - switch to another input
                     if (e.which == 9) {
                         $newSelect.trigger('close');
@@ -6167,7 +6242,7 @@ if (Vel) {
                         filterQuery.push(letter);
 
                         var string = filterQuery.join(''),
-                            newOption = options.find('li').filter(function() {
+                            newOption = options.find('li').filter(function () {
                                 return $(this).text().toLowerCase().indexOf(string) === 0;
                             })[0];
 
@@ -6209,7 +6284,7 @@ if (Vel) {
                     }
 
                     // Automaticaly clean filter query so user can search again by starting letters
-                    setTimeout(function() {
+                    setTimeout(function () {
                         filterQuery = [];
                     }, 1000);
                 };
@@ -6253,11 +6328,11 @@ if (Vel) {
         }
     };
 })(jQuery);;
-(function($) {
+(function ($) {
 
     var methods = {
 
-        init: function(options) {
+        init: function (options) {
             var defaults = {
                 indicators: true,
                 height: 400,
@@ -6266,7 +6341,7 @@ if (Vel) {
             };
             options = $.extend(defaults, options);
 
-            return this.each(function() {
+            return this.each(function () {
 
                 // For each slider, we want to keep track of
                 // which slide is active and its associated content
@@ -6308,7 +6383,7 @@ if (Vel) {
                             duration: options.transition,
                             queue: false,
                             easing: 'easeOutQuad',
-                            complete: function() {
+                            complete: function () {
                                 $slides.not('.active').velocity({ opacity: 0, translateX: 0, translateY: 0 }, { duration: 0, queue: false });
                             }
                         });
@@ -6343,12 +6418,12 @@ if (Vel) {
                 }
 
                 // Set initial positions of captions
-                $slides.find('.caption').each(function() {
+                $slides.find('.caption').each(function () {
                     captionTransition($(this), 0);
                 });
 
                 // Move img src into background-image
-                $slides.find('img').each(function() {
+                $slides.find('img').each(function () {
                     var placeholderBase64 = 'data:image/gif;base64,R0lGODlhAQABAIABAP///wAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==';
                     if ($(this).attr('src') !== placeholderBase64) {
                         $(this).css('background-image', 'url("' + $(this).attr('src') + '")');
@@ -6359,18 +6434,18 @@ if (Vel) {
                 // dynamically add indicators
                 if (options.indicators) {
                     $indicators = $('<ul class="indicators"></ul>');
-                    $slides.each(function(index) {
+                    $slides.each(function (index) {
                         var $indicator = $('<li class="indicator-item"></li>');
 
                         // Handle clicks on indicators
-                        $indicator.click(function() {
+                        $indicator.click(function () {
                             var $parent = $slider.parent();
                             var curr_index = $parent.find($(this)).index();
                             moveToSlide(curr_index);
 
                             // reset interval
                             clearInterval($interval);
-                            $interval = setInterval(function() {
+                            $interval = setInterval(function () {
                                 $active_index = $slider.find('.active').index();
                                 if ($slides.length == $active_index + 1) $active_index = 0; // loop to start
                                 else $active_index += 1;
@@ -6399,12 +6474,12 @@ if (Vel) {
                 }
 
                 // Adjust height to current slide
-                $active.find('img').each(function() {
+                $active.find('img').each(function () {
                     $active.find('.caption').velocity({ opacity: 1, translateX: 0, translateY: 0 }, { duration: options.transition, queue: false, easing: 'easeOutQuad' });
                 });
 
                 // auto scroll
-                $interval = setInterval(function() {
+                $interval = setInterval(function () {
                     $active_index = $slider.find('.active').index();
                     moveToSlide($active_index + 1);
                 }, options.transition + options.interval);
@@ -6418,7 +6493,7 @@ if (Vel) {
 
                 $this.hammer({
                     prevent_default: false
-                }).on('pan', function(e) {
+                }).on('pan', function (e) {
                     if (e.gesture.pointerType === "touch") {
 
                         // reset interval
@@ -6466,7 +6541,7 @@ if (Vel) {
                             }, { duration: 300, queue: false, easing: 'easeOutQuad' });
                         }
                     }
-                }).on('panend', function(e) {
+                }).on('panend', function (e) {
                     if (e.gesture.pointerType === "touch") {
 
                         $curr_slide = $slider.find('.active');
@@ -6484,7 +6559,7 @@ if (Vel) {
                                 duration: 300,
                                 queue: false,
                                 easing: 'easeOutQuad',
-                                complete: function() {
+                                complete: function () {
                                     $curr_slide.velocity({ opacity: 0, translateX: 0 }, { duration: 0, queue: false });
                                 }
                             });
@@ -6494,7 +6569,7 @@ if (Vel) {
                                 duration: 300,
                                 queue: false,
                                 easing: 'easeOutQuad',
-                                complete: function() {
+                                complete: function () {
                                     $curr_slide.velocity({ opacity: 0, translateX: 0 }, { duration: 0, queue: false });
                                 }
                             });
@@ -6504,7 +6579,7 @@ if (Vel) {
 
                         // Restart interval
                         clearInterval($interval);
-                        $interval = setInterval(function() {
+                        $interval = setInterval(function () {
                             $active_index = $slider.find('.active').index();
                             if ($slides.length == $active_index + 1) $active_index = 0; // loop to start
                             else $active_index += 1;
@@ -6514,13 +6589,13 @@ if (Vel) {
                     }
                 });
 
-                $this.on('sliderPause', function() {
+                $this.on('sliderPause', function () {
                     clearInterval($interval);
                 });
 
-                $this.on('sliderStart', function() {
+                $this.on('sliderStart', function () {
                     clearInterval($interval);
-                    $interval = setInterval(function() {
+                    $interval = setInterval(function () {
                         $active_index = $slider.find('.active').index();
                         if ($slides.length == $active_index + 1) $active_index = 0; // loop to start
                         else $active_index += 1;
@@ -6529,32 +6604,32 @@ if (Vel) {
                     }, options.transition + options.interval);
                 });
 
-                $this.on('sliderNext', function() {
+                $this.on('sliderNext', function () {
                     $active_index = $slider.find('.active').index();
                     moveToSlide($active_index + 1);
                 });
 
-                $this.on('sliderPrev', function() {
+                $this.on('sliderPrev', function () {
                     $active_index = $slider.find('.active').index();
                     moveToSlide($active_index - 1);
                 });
             });
         },
-        pause: function() {
+        pause: function () {
             $(this).trigger('sliderPause');
         },
-        start: function() {
+        start: function () {
             $(this).trigger('sliderStart');
         },
-        next: function() {
+        next: function () {
             $(this).trigger('sliderNext');
         },
-        prev: function() {
+        prev: function () {
             $(this).trigger('sliderPrev');
         }
     };
 
-    $.fn.slider = function(methodOrOptions) {
+    $.fn.slider = function (methodOrOptions) {
         if (methods[methodOrOptions]) {
             return methods[methodOrOptions].apply(this, Array.prototype.slice.call(arguments, 1));
         } else if (typeof methodOrOptions === 'object' || !methodOrOptions) {
@@ -6565,10 +6640,10 @@ if (Vel) {
         }
     }; // Plugin end
 })(jQuery);;
-(function($) {
-    $(document).ready(function() {
+(function ($) {
+    $(document).ready(function () {
 
-        $(document).on('click.card', '.card', function(e) {
+        $(document).on('click.card', '.card', function (e) {
             if ($(this).find('> .card-reveal').length) {
                 var $card = $(e.target).closest('.card');
                 if ($card.data('initialOverflow') === undefined) {
@@ -6580,7 +6655,7 @@ if (Vel) {
                         duration: 225,
                         queue: false,
                         easing: 'easeInOutQuad',
-                        complete: function() {
+                        complete: function () {
                             $(this).css({ display: 'none' });
                             $card.css('overflow', $card.data('initialOverflow'));
                         }
@@ -6593,7 +6668,7 @@ if (Vel) {
         });
     });
 })(jQuery);;
-(function($) {
+(function ($) {
     var materialChipsDefaults = {
         data: [],
         placeholder: '',
@@ -6601,9 +6676,9 @@ if (Vel) {
         autocompleteOptions: {}
     };
 
-    $(document).ready(function() {
+    $(document).ready(function () {
         // Handle removal of static chips.
-        $(document).on('click', '.chip .close', function(e) {
+        $(document).on('click', '.chip .close', function (e) {
             var $chips = $(this).closest('.chips');
             if ($chips.attr('data-initialized')) {
                 return;
@@ -6612,7 +6687,7 @@ if (Vel) {
         });
     });
 
-    $.fn.material_chip = function(options) {
+    $.fn.material_chip = function (options) {
         var self = this;
         this.$el = $(this);
         this.$document = $(document);
@@ -6632,10 +6707,10 @@ if (Vel) {
         self.hasAutocomplete = !$.isEmptyObject(curr_options.autocompleteOptions.data);
 
         // Initialize
-        this.init = function() {
+        this.init = function () {
             var i = 0;
             var chips;
-            self.$el.each(function() {
+            self.$el.each(function () {
                 var $chips = $(this);
                 var chipId = Materialize.guid();
                 self.chipId = chipId;
@@ -6656,14 +6731,14 @@ if (Vel) {
             });
         };
 
-        this.handleEvents = function() {
+        this.handleEvents = function () {
             var SELS = self.SELS;
 
-            self.$document.off('click.chips-focus', SELS.CHIPS).on('click.chips-focus', SELS.CHIPS, function(e) {
+            self.$document.off('click.chips-focus', SELS.CHIPS).on('click.chips-focus', SELS.CHIPS, function (e) {
                 $(e.target).find(SELS.INPUT).focus();
             });
 
-            self.$document.off('click.chips-select', SELS.CHIP).on('click.chips-select', SELS.CHIP, function(e) {
+            self.$document.off('click.chips-select', SELS.CHIP).on('click.chips-select', SELS.CHIP, function (e) {
                 var $chip = $(e.target);
                 if ($chip.length) {
                     var wasSelected = $chip.hasClass('selected');
@@ -6676,7 +6751,7 @@ if (Vel) {
                 }
             });
 
-            self.$document.off('keydown.chips').on('keydown.chips', function(e) {
+            self.$document.off('keydown.chips').on('keydown.chips', function (e) {
                 if ($(e.target).is('input, textarea')) {
                     return;
                 }
@@ -6732,14 +6807,14 @@ if (Vel) {
                 }
             });
 
-            self.$document.off('focusin.chips', SELS.CHIPS + ' ' + SELS.INPUT).on('focusin.chips', SELS.CHIPS + ' ' + SELS.INPUT, function(e) {
+            self.$document.off('focusin.chips', SELS.CHIPS + ' ' + SELS.INPUT).on('focusin.chips', SELS.CHIPS + ' ' + SELS.INPUT, function (e) {
                 var $currChips = $(e.target).closest(SELS.CHIPS);
                 $currChips.addClass('focus');
                 $currChips.siblings('label, .prefix').addClass('active');
                 $(SELS.CHIP).removeClass('selected');
             });
 
-            self.$document.off('focusout.chips', SELS.CHIPS + ' ' + SELS.INPUT).on('focusout.chips', SELS.CHIPS + ' ' + SELS.INPUT, function(e) {
+            self.$document.off('focusout.chips', SELS.CHIPS + ' ' + SELS.INPUT).on('focusout.chips', SELS.CHIPS + ' ' + SELS.INPUT, function (e) {
                 var $currChips = $(e.target).closest(SELS.CHIPS);
                 $currChips.removeClass('focus');
 
@@ -6750,7 +6825,7 @@ if (Vel) {
                 $currChips.siblings('.prefix').removeClass('active');
             });
 
-            self.$document.off('keydown.chips-add', SELS.CHIPS + ' ' + SELS.INPUT).on('keydown.chips-add', SELS.CHIPS + ' ' + SELS.INPUT, function(e) {
+            self.$document.off('keydown.chips-add', SELS.CHIPS + ' ' + SELS.INPUT).on('keydown.chips-add', SELS.CHIPS + ' ' + SELS.INPUT, function (e) {
                 var $target = $(e.target);
                 var $chips = $target.closest(SELS.CHIPS);
                 var chipsLength = $chips.children(SELS.CHIP).length;
@@ -6778,7 +6853,7 @@ if (Vel) {
             });
 
             // Click on delete icon in chip.
-            self.$document.off('click.chips-delete', SELS.CHIPS + ' ' + SELS.DELETE).on('click.chips-delete', SELS.CHIPS + ' ' + SELS.DELETE, function(e) {
+            self.$document.off('click.chips-delete', SELS.CHIPS + ' ' + SELS.DELETE).on('click.chips-delete', SELS.CHIPS + ' ' + SELS.DELETE, function (e) {
                 var $target = $(e.target);
                 var $chips = $target.closest(SELS.CHIPS);
                 var $chip = $target.closest(SELS.CHIP);
@@ -6788,9 +6863,9 @@ if (Vel) {
             });
         };
 
-        this.chips = function($chips, chipId) {
+        this.chips = function ($chips, chipId) {
             $chips.empty();
-            $chips.data('chips').forEach(function(elem) {
+            $chips.data('chips').forEach(function (elem) {
                 $chips.append(self.renderChip(elem));
             });
             $chips.append($('<input id="' + chipId + '" class="input" placeholder="">'));
@@ -6809,7 +6884,7 @@ if (Vel) {
             // Setup autocomplete if needed.
             var input = $('#' + chipId);
             if (self.hasAutocomplete) {
-                curr_options.autocompleteOptions.onAutocomplete = function(val) {
+                curr_options.autocompleteOptions.onAutocomplete = function (val) {
                     self.addChip({ tag: val }, $chips);
                     input.val('');
                     input.focus();
@@ -6823,7 +6898,7 @@ if (Vel) {
          * @param {Object} elem
          * @return {jQuery}
          */
-        this.renderChip = function(elem) {
+        this.renderChip = function (elem) {
             if (!elem.tag) return;
 
             var $renderedChip = $('<div class="chip"></div>');
@@ -6835,7 +6910,7 @@ if (Vel) {
             return $renderedChip;
         };
 
-        this.setPlaceholder = function($chips) {
+        this.setPlaceholder = function ($chips) {
             if ($chips.data('chips') !== undefined && !$chips.data('chips').length && curr_options.placeholder) {
                 $chips.find('input').prop('placeholder', curr_options.placeholder);
             } else if (($chips.data('chips') === undefined || !!$chips.data('chips').length) && curr_options.secondaryPlaceholder) {
@@ -6843,7 +6918,7 @@ if (Vel) {
             }
         };
 
-        this.isValid = function($chips, elem) {
+        this.isValid = function ($chips, elem) {
             var chips = $chips.data('chips');
             var exists = false;
             for (var i = 0; i < chips.length; i++) {
@@ -6855,7 +6930,7 @@ if (Vel) {
             return '' !== elem.tag && !exists;
         };
 
-        this.addChip = function(elem, $chips) {
+        this.addChip = function (elem, $chips) {
             if (!self.isValid($chips, elem)) {
                 return;
             }
@@ -6873,7 +6948,7 @@ if (Vel) {
             self.setPlaceholder($chips);
         };
 
-        this.deleteChip = function(chipIndex, $chips) {
+        this.deleteChip = function (chipIndex, $chips) {
             var chip = $chips.data('chips')[chipIndex];
             $chips.find('.chip').eq(chipIndex).remove();
 
@@ -6890,7 +6965,7 @@ if (Vel) {
             self.setPlaceholder($chips);
         };
 
-        this.selectChip = function(chipIndex, $chips) {
+        this.selectChip = function (chipIndex, $chips) {
             var $chip = $chips.find('.chip').eq(chipIndex);
             if ($chip && false === $chip.hasClass('selected')) {
                 $chip.addClass('selected');
@@ -6898,7 +6973,7 @@ if (Vel) {
             }
         };
 
-        this.getChipsElement = function(index, $chips) {
+        this.getChipsElement = function (index, $chips) {
             return $chips.eq(index);
         };
 
@@ -6908,8 +6983,8 @@ if (Vel) {
         this.handleEvents();
     };
 })(jQuery);;
-(function($) {
-    $.fn.pushpin = function(options) {
+(function ($) {
+    $.fn.pushpin = function (options) {
         // Defaults
         var defaults = {
             top: 0,
@@ -6919,7 +6994,7 @@ if (Vel) {
 
         // Remove pushpin event and classes
         if (options === "remove") {
-            this.each(function() {
+            this.each(function () {
                 if (id = $(this).data('pushpin-id')) {
                     $(window).off('scroll.' + id);
                     $(this).removeData('pushpin-id').removeClass('pin-top pinned pin-bottom').removeAttr('style');
@@ -6931,7 +7006,7 @@ if (Vel) {
         options = $.extend(defaults, options);
 
         $index = 0;
-        return this.each(function() {
+        return this.each(function () {
             var $uniqueId = Materialize.guid(),
                 $this = $(this),
                 $original_offset = $(this).offset().top;
@@ -6943,7 +7018,7 @@ if (Vel) {
             }
 
             function updateElements(objects, scrolled) {
-                objects.each(function() {
+                objects.each(function () {
                     // Add position fixed (because its between top and bottom)
                     if (options.top <= scrolled && options.bottom >= scrolled && !$(this).hasClass('pinned')) {
                         removePinClasses($(this));
@@ -6969,31 +7044,31 @@ if (Vel) {
 
             $(this).data('pushpin-id', $uniqueId);
             updateElements($this, $(window).scrollTop());
-            $(window).on('scroll.' + $uniqueId, function() {
+            $(window).on('scroll.' + $uniqueId, function () {
                 var $scrolled = $(window).scrollTop() + options.offset;
                 updateElements($this, $scrolled);
             });
         });
     };
 })(jQuery);;
-(function($) {
-    $(document).ready(function() {
+(function ($) {
+    $(document).ready(function () {
 
         // jQuery reverse
         $.fn.reverse = [].reverse;
 
         // Hover behaviour: make sure this doesn't work on .click-to-toggle FABs!
-        $(document).on('mouseenter.fixedActionBtn', '.fixed-action-btn:not(.click-to-toggle):not(.toolbar)', function(e) {
+        $(document).on('mouseenter.fixedActionBtn', '.fixed-action-btn:not(.click-to-toggle):not(.toolbar)', function (e) {
             var $this = $(this);
             openFABMenu($this);
         });
-        $(document).on('mouseleave.fixedActionBtn', '.fixed-action-btn:not(.click-to-toggle):not(.toolbar)', function(e) {
+        $(document).on('mouseleave.fixedActionBtn', '.fixed-action-btn:not(.click-to-toggle):not(.toolbar)', function (e) {
             var $this = $(this);
             closeFABMenu($this);
         });
 
         // Toggle-on-click behaviour.
-        $(document).on('click.fabClickToggle', '.fixed-action-btn.click-to-toggle > a', function(e) {
+        $(document).on('click.fabClickToggle', '.fixed-action-btn.click-to-toggle > a', function (e) {
             var $this = $(this);
             var $menu = $this.parent();
             if ($menu.hasClass('active')) {
@@ -7004,7 +7079,7 @@ if (Vel) {
         });
 
         // Toolbar transition behaviour.
-        $(document).on('click.fabToolbar', '.fixed-action-btn.toolbar > a', function(e) {
+        $(document).on('click.fabToolbar', '.fixed-action-btn.toolbar > a', function (e) {
             var $this = $(this);
             var $menu = $this.parent();
             FABtoToolbar($menu);
@@ -7012,21 +7087,21 @@ if (Vel) {
     });
 
     $.fn.extend({
-        openFAB: function() {
+        openFAB: function () {
             openFABMenu($(this));
         },
-        closeFAB: function() {
+        closeFAB: function () {
             closeFABMenu($(this));
         },
-        openToolbar: function() {
+        openToolbar: function () {
             FABtoToolbar($(this));
         },
-        closeToolbar: function() {
+        closeToolbar: function () {
             toolbarToFAB($(this));
         }
     });
 
-    var openFABMenu = function(btn) {
+    var openFABMenu = function (btn) {
         var $this = btn;
         if ($this.hasClass('active') === false) {
 
@@ -7044,14 +7119,14 @@ if (Vel) {
             $this.find('ul .btn-floating').velocity({ scaleY: ".4", scaleX: ".4", translateY: offsetY + 'px', translateX: offsetX + 'px' }, { duration: 0 });
 
             var time = 0;
-            $this.find('ul .btn-floating').reverse().each(function() {
+            $this.find('ul .btn-floating').reverse().each(function () {
                 $(this).velocity({ opacity: "1", scaleX: "1", scaleY: "1", translateY: "0", translateX: '0' }, { duration: 80, delay: time });
                 time += 40;
             });
         }
     };
 
-    var closeFABMenu = function(btn) {
+    var closeFABMenu = function (btn) {
         var $this = btn;
         // Get direction option
         var horizontal = $this.hasClass('horizontal');
@@ -7073,7 +7148,7 @@ if (Vel) {
      * Transform FAB into toolbar
      * @param  {Object}  object jQuery object
      */
-    var FABtoToolbar = function(btn) {
+    var FABtoToolbar = function (btn) {
         if (btn.attr('data-open') === "true") {
             return;
         }
@@ -7114,7 +7189,7 @@ if (Vel) {
             'background-color': fabColor
         });
 
-        setTimeout(function() {
+        setTimeout(function () {
             btn.css({
                 transform: '',
                 transition: 'transform .2s cubic-bezier(0.550, 0.085, 0.680, 0.530), background-color 0s linear .2s'
@@ -7125,7 +7200,7 @@ if (Vel) {
                 transition: 'transform .2s'
             });
 
-            setTimeout(function() {
+            setTimeout(function () {
                 btn.css({
                     overflow: 'hidden',
                     'background-color': fabColor
@@ -7139,13 +7214,13 @@ if (Vel) {
                 });
 
                 // Scroll to close.
-                $(window).on('scroll.fabToolbarClose', function() {
+                $(window).on('scroll.fabToolbarClose', function () {
                     toolbarToFAB(btn);
                     $(window).off('scroll.fabToolbarClose');
                     $(document).off('click.fabToolbarClose');
                 });
 
-                $(document).on('click.fabToolbarClose', function(e) {
+                $(document).on('click.fabToolbarClose', function (e) {
                     if (!$(e.target).closest(menu).length) {
                         toolbarToFAB(btn);
                         $(window).off('scroll.fabToolbarClose');
@@ -7160,7 +7235,7 @@ if (Vel) {
      * Transform toolbar back into FAB
      * @param  {Object}  object jQuery object
      */
-    var toolbarToFAB = function(btn) {
+    var toolbarToFAB = function (btn) {
         if (btn.attr('data-open') !== "true") {
             return;
         }
@@ -7198,7 +7273,7 @@ if (Vel) {
             opacity: ''
         });
 
-        setTimeout(function() {
+        setTimeout(function () {
             backdrop.remove();
 
             // Set initial state.
@@ -7216,7 +7291,7 @@ if (Vel) {
                 transform: 'translate3d(0,' + offsetY + 'px,0)'
             });
 
-            setTimeout(function() {
+            setTimeout(function () {
                 btn.css({
                     transform: 'translate3d(0,0,0)',
                     transition: 'transform .2s'
@@ -7229,9 +7304,9 @@ if (Vel) {
         }, 200);
     };
 })(jQuery);;
-(function($) {
+(function ($) {
     // Image transition function
-    Materialize.fadeInImage = function(selectorOrEl) {
+    Materialize.fadeInImage = function (selectorOrEl) {
         var element;
         if (typeof selectorOrEl === 'string') {
             element = $(selectorOrEl);
@@ -7250,7 +7325,7 @@ if (Vel) {
             duration: 1300,
             queue: false,
             easing: 'swing',
-            step: function(now, fx) {
+            step: function (now, fx) {
                 fx.start = 100;
                 var grayscale_setting = now / 100;
                 var brightness_setting = 150 - (100 - now) / 1.75;
@@ -7269,7 +7344,7 @@ if (Vel) {
     };
 
     // Horizontal staggered list
-    Materialize.showStaggeredList = function(selectorOrEl) {
+    Materialize.showStaggeredList = function (selectorOrEl) {
         var element;
         if (typeof selectorOrEl === 'string') {
             element = $(selectorOrEl);
@@ -7281,13 +7356,13 @@ if (Vel) {
         var time = 0;
         element.find('li').velocity({ translateX: "-100px" }, { duration: 0 });
 
-        element.find('li').each(function() {
+        element.find('li').each(function () {
             $(this).velocity({ opacity: "1", translateX: "0" }, { duration: 800, delay: time, easing: [60, 10] });
             time += 120;
         });
     };
 
-    $(document).ready(function() {
+    $(document).ready(function () {
         // Hardcoded .staggered-list scrollFire
         // var staggeredListOptions = [];
         // $('ul.staggered-list').each(function (i) {
@@ -7308,10 +7383,10 @@ if (Vel) {
         var swipeRight = false;
 
         // Dismissible Collections
-        $('.dismissable').each(function() {
+        $('.dismissable').each(function () {
             $(this).hammer({
                 prevent_default: false
-            }).on('pan', function(e) {
+            }).on('pan', function (e) {
                 if (e.gesture.pointerType === "touch") {
                     var $this = $(this);
                     var direction = e.gesture.direction;
@@ -7332,7 +7407,7 @@ if (Vel) {
                         swipeRight = true;
                     }
                 }
-            }).on('panend', function(e) {
+            }).on('panend', function (e) {
                 // Reset if collection is moved back into original position
                 if (Math.abs(e.gesture.deltaX) < $(this).innerWidth() / 2) {
                     swipeRight = false;
@@ -7352,24 +7427,24 @@ if (Vel) {
                         $this.velocity({
                             translateX: fullWidth
                         }, {
-                            duration: 100,
-                            queue: false,
-                            easing: 'easeOutQuad',
-                            complete: function() {
-                                $this.css('border', 'none');
-                                $this.velocity({
-                                    height: 0,
-                                    padding: 0
-                                }, {
-                                    duration: 200,
-                                    queue: false,
-                                    easing: 'easeOutQuad',
-                                    complete: function() {
-                                        $this.remove();
-                                    }
-                                });
-                            }
-                        });
+                                duration: 100,
+                                queue: false,
+                                easing: 'easeOutQuad',
+                                complete: function () {
+                                    $this.css('border', 'none');
+                                    $this.velocity({
+                                        height: 0,
+                                        padding: 0
+                                    }, {
+                                            duration: 200,
+                                            queue: false,
+                                            easing: 'easeOutQuad',
+                                            complete: function () {
+                                                $this.remove();
+                                            }
+                                        });
+                                }
+                            });
                     } else {
                         $this.velocity({
                             translateX: 0
@@ -7405,13 +7480,13 @@ if (Vel) {
         // });
     });
 })(jQuery);;
-(function($) {
+(function ($) {
 
     var scrollFireEventsHandled = false;
 
     // Input: Array of JSON objects {selector, offset, callback}
-    Materialize.scrollFire = function(options) {
-        var onScroll = function() {
+    Materialize.scrollFire = function (options) {
+        var onScroll = function () {
             var windowScroll = window.pageYOffset + window.innerHeight;
 
             for (var i = 0; i < options.length; i++) {
@@ -7440,7 +7515,7 @@ if (Vel) {
             }
         };
 
-        var throttledScroll = Materialize.throttle(function() {
+        var throttledScroll = Materialize.throttle(function () {
             onScroll();
         }, options.throttle || 100);
 
@@ -7461,10 +7536,10 @@ if (Vel) {
  * Licensed under MIT
  */
 
-(function(factory) {
+(function (factory) {
 
     Materialize.Picker = factory(jQuery);
-})(function($) {
+})(function ($) {
 
     var $window = $(window);
     var $document = $(document);
@@ -7500,7 +7575,7 @@ if (Vel) {
 
 
             // Pseudo picker constructor.
-            PickerInstance = function() {
+            PickerInstance = function () {
                 return this.start();
             },
 
@@ -7515,7 +7590,7 @@ if (Vel) {
                 /**
                  * Initialize everything
                  */
-                start: function() {
+                start: function () {
 
                     // If it’s already started, do nothing.
                     if (STATE && STATE.start) return P;
@@ -7587,7 +7662,7 @@ if (Vel) {
                 /**
                  * Render a new picker
                  */
-                render: function(entireComponent) {
+                render: function (entireComponent) {
 
                     // Insert a new component holder in the root or box.
                     if (entireComponent) P.$root.html(createWrappedComponent());
@@ -7601,7 +7676,7 @@ if (Vel) {
                 /**
                  * Destroy everything
                  */
-                stop: function() {
+                stop: function () {
 
                     // If it’s already stopped, do nothing.
                     if (!STATE.start) return P;
@@ -7620,7 +7695,7 @@ if (Vel) {
                     // Remove the input class, remove the stored data, and unbind
                     // the events (after a tick for IE - see `P.close`).
                     $ELEMENT.removeClass(CLASSES.input).removeData(NAME);
-                    setTimeout(function() {
+                    setTimeout(function () {
                         $ELEMENT.off('.' + STATE.id);
                     }, 0);
 
@@ -7642,7 +7717,7 @@ if (Vel) {
                 /**
                  * Open up the picker
                  */
-                open: function(dontGiveFocus) {
+                open: function (dontGiveFocus) {
 
                     // If it’s already open, do nothing.
                     if (STATE.open) return P;
@@ -7654,7 +7729,7 @@ if (Vel) {
                     // * A Firefox bug, when `html` has `overflow:hidden`, results in
                     //   killing transitions :(. So add the “opened” state on the next tick.
                     //   Bug: https://bugzilla.mozilla.org/show_bug.cgi?id=625289
-                    setTimeout(function() {
+                    setTimeout(function () {
 
                         // Add the “opened” class to the picker root.
                         P.$root.addClass(CLASSES.opened);
@@ -7677,7 +7752,7 @@ if (Vel) {
                         P.$root.eq(0).focus();
 
                         // Bind the document events.
-                        $document.on('click.' + STATE.id + ' focusin.' + STATE.id, function(event) {
+                        $document.on('click.' + STATE.id + ' focusin.' + STATE.id, function (event) {
 
                             var target = event.target;
 
@@ -7694,10 +7769,10 @@ if (Vel) {
                                 // keep the element focused to maintain tabindex.
                                 P.close(target === P.$root.children()[0]);
                             }
-                        }).on('keydown.' + STATE.id, function(event) {
+                        }).on('keydown.' + STATE.id, function (event) {
 
                             var
-                            // Get the keycode.
+                                // Get the keycode.
                                 keycode = event.keyCode,
 
 
@@ -7750,7 +7825,7 @@ if (Vel) {
                 /**
                  * Close the picker
                  */
-                close: function(giveFocus) {
+                close: function (giveFocus) {
 
                     // If we need to give focus, do it before changing states.
                     if (giveFocus) {
@@ -7758,7 +7833,7 @@ if (Vel) {
                         // The focus is triggered *after* the close has completed - causing it
                         // to open again. So unbind and rebind the event at the next tick.
                         P.$root.off('focus.toOpen').eq(0).focus();
-                        setTimeout(function() {
+                        setTimeout(function () {
                             P.$root.on('focus.toOpen', handleFocusToOpenEvent);
                         }, 0);
                     }
@@ -7770,7 +7845,7 @@ if (Vel) {
                     // * A Firefox bug, when `html` has `overflow:hidden`, results in
                     //   killing transitions :(. So remove the “opened” state on the next tick.
                     //   Bug: https://bugzilla.mozilla.org/show_bug.cgi?id=625289
-                    setTimeout(function() {
+                    setTimeout(function () {
 
                         // Remove the “opened” and “focused” class from the picker root.
                         P.$root.removeClass(CLASSES.opened + ' ' + CLASSES.focused);
@@ -7799,7 +7874,7 @@ if (Vel) {
                 /**
                  * Clear the values
                  */
-                clear: function(options) {
+                clear: function (options) {
                     return P.set('clear', null, options);
                 }, //clear
 
@@ -7807,7 +7882,7 @@ if (Vel) {
                 /**
                  * Set something
                  */
-                set: function(thing, value, options) {
+                set: function (thing, value, options) {
 
                     var thingItem,
                         thingValue,
@@ -7854,7 +7929,7 @@ if (Vel) {
                 /**
                  * Get something
                  */
-                get: function(thing, format) {
+                get: function (thing, format) {
 
                     // Make sure there’s something to get.
                     thing = thing || 'value';
@@ -7891,7 +7966,7 @@ if (Vel) {
                 /**
                  * Bind events on the things.
                  */
-                on: function(thing, method, internal) {
+                on: function (thing, method, internal) {
 
                     var thingName,
                         thingMethod,
@@ -7931,7 +8006,7 @@ if (Vel) {
                 /**
                  * Unbind events on the things.
                  */
-                off: function() {
+                off: function () {
                     var i,
                         thingName,
                         names = arguments;
@@ -7947,20 +8022,20 @@ if (Vel) {
                 /**
                  * Fire off method events.
                  */
-                trigger: function(name, data) {
-                        var _trigger = function(name) {
-                            var methodList = STATE.methods[name];
-                            if (methodList) {
-                                methodList.map(function(method) {
-                                    PickerConstructor._.trigger(method, P, [data]);
-                                });
-                            }
-                        };
-                        _trigger('_' + name);
-                        _trigger(name);
-                        return P;
-                    } //trigger
-                    //PickerInstance.prototype
+                trigger: function (name, data) {
+                    var _trigger = function (name) {
+                        var methodList = STATE.methods[name];
+                        if (methodList) {
+                            methodList.map(function (method) {
+                                PickerConstructor._.trigger(method, P, [data]);
+                            });
+                        }
+                    };
+                    _trigger('_' + name);
+                    _trigger(name);
+                    return P;
+                } //trigger
+                //PickerInstance.prototype
 
 
                 /**
@@ -8006,31 +8081,31 @@ if (Vel) {
 
             $ELEMENT.
 
-            // Store the picker data by component name.
-            data(NAME, P).
+                // Store the picker data by component name.
+                data(NAME, P).
 
-            // Add the “input” class name.
-            addClass(CLASSES.input).
+                // Add the “input” class name.
+                addClass(CLASSES.input).
 
-            // Remove the tabindex.
-            attr('tabindex', -1).
+                // Remove the tabindex.
+                attr('tabindex', -1).
 
-            // If there’s a `data-value`, update the value of the element.
-            val($ELEMENT.data('value') ? P.get('select', SETTINGS.format) : ELEMENT.value);
+                // If there’s a `data-value`, update the value of the element.
+                val($ELEMENT.data('value') ? P.get('select', SETTINGS.format) : ELEMENT.value);
 
             // Only bind keydown events if the element isn’t editable.
             if (!SETTINGS.editable) {
 
                 $ELEMENT.
 
-                // On focus/click, focus onto the root to open it up.
-                on('focus.' + STATE.id + ' click.' + STATE.id, function(event) {
-                    event.preventDefault();
-                    P.$root.eq(0).focus();
-                }).
+                    // On focus/click, focus onto the root to open it up.
+                    on('focus.' + STATE.id + ' click.' + STATE.id, function (event) {
+                        event.preventDefault();
+                        P.$root.eq(0).focus();
+                    }).
 
-                // Handle keyboard event based on the picker being opened or not.
-                on('keydown.' + STATE.id, handleKeydownEvent);
+                    // Handle keyboard event based on the picker being opened or not.
+                    on('keydown.' + STATE.id, handleKeydownEvent);
             }
 
             // Update the aria attributes.
@@ -8054,14 +8129,14 @@ if (Vel) {
 
                 // When something within the root is focused, stop from bubbling
                 // to the doc and remove the “focused” state from the root.
-                focusin: function(event) {
+                focusin: function (event) {
                     P.$root.removeClass(CLASSES.focused);
                     event.stopPropagation();
                 },
 
                 // When something within the root holder is clicked, stop it
                 // from bubbling to the doc.
-                'mousedown click': function(event) {
+                'mousedown click': function (event) {
 
                     var target = event.target;
 
@@ -8086,60 +8161,60 @@ if (Vel) {
                 }
             }).
 
-            // Add/remove the “target” class on focus and blur.
-            on({
-                focus: function() {
-                    $ELEMENT.addClass(CLASSES.target);
-                },
-                blur: function() {
-                    $ELEMENT.removeClass(CLASSES.target);
-                }
-            }).
+                // Add/remove the “target” class on focus and blur.
+                on({
+                    focus: function () {
+                        $ELEMENT.addClass(CLASSES.target);
+                    },
+                    blur: function () {
+                        $ELEMENT.removeClass(CLASSES.target);
+                    }
+                }).
 
-            // Open the picker and adjust the root “focused” state
-            on('focus.toOpen', handleFocusToOpenEvent).
+                // Open the picker and adjust the root “focused” state
+                on('focus.toOpen', handleFocusToOpenEvent).
 
-            // If there’s a click on an actionable element, carry out the actions.
-            on('click', '[data-pick], [data-nav], [data-clear], [data-close]', function() {
+                // If there’s a click on an actionable element, carry out the actions.
+                on('click', '[data-pick], [data-nav], [data-clear], [data-close]', function () {
 
-                var $target = $(this),
-                    targetData = $target.data(),
-                    targetDisabled = $target.hasClass(CLASSES.navDisabled) || $target.hasClass(CLASSES.disabled),
+                    var $target = $(this),
+                        targetData = $target.data(),
+                        targetDisabled = $target.hasClass(CLASSES.navDisabled) || $target.hasClass(CLASSES.disabled),
 
 
-                    // * For IE, non-focusable elements can be active elements as well
-                    //   (http://stackoverflow.com/a/2684561).
-                    activeElement = getActiveElement();
-                activeElement = activeElement && (activeElement.type || activeElement.href) && activeElement;
+                        // * For IE, non-focusable elements can be active elements as well
+                        //   (http://stackoverflow.com/a/2684561).
+                        activeElement = getActiveElement();
+                    activeElement = activeElement && (activeElement.type || activeElement.href) && activeElement;
 
-                // If it’s disabled or nothing inside is actively focused, re-focus the element.
-                if (targetDisabled || activeElement && !$.contains(P.$root[0], activeElement)) {
-                    P.$root.eq(0).focus();
-                }
+                    // If it’s disabled or nothing inside is actively focused, re-focus the element.
+                    if (targetDisabled || activeElement && !$.contains(P.$root[0], activeElement)) {
+                        P.$root.eq(0).focus();
+                    }
 
-                // If something is superficially changed, update the `highlight` based on the `nav`.
-                if (!targetDisabled && targetData.nav) {
-                    P.set('highlight', P.component.item.highlight, { nav: targetData.nav });
-                }
+                    // If something is superficially changed, update the `highlight` based on the `nav`.
+                    if (!targetDisabled && targetData.nav) {
+                        P.set('highlight', P.component.item.highlight, { nav: targetData.nav });
+                    }
 
-                // If something is picked, set `select` then close with focus.
-                else if (!targetDisabled && 'pick' in targetData) {
-                    P.set('select', targetData.pick);
-                    if (SETTINGS.closeOnSelect) {
+                    // If something is picked, set `select` then close with focus.
+                    else if (!targetDisabled && 'pick' in targetData) {
+                        P.set('select', targetData.pick);
+                        if (SETTINGS.closeOnSelect) {
+                            P.close(true);
+                        }
+                    }
+
+                    // If a “clear” button is pressed, empty the values and close with focus.
+                    else if (targetData.clear) {
+                        P.clear();
+                        if (SETTINGS.closeOnSelect) {
+                            P.close(true);
+                        }
+                    } else if (targetData.close) {
                         P.close(true);
                     }
-                }
-
-                // If a “clear” button is pressed, empty the values and close with focus.
-                else if (targetData.clear) {
-                    P.clear();
-                    if (SETTINGS.closeOnSelect) {
-                        P.close(true);
-                    }
-                } else if (targetData.close) {
-                    P.close(true);
-                }
-            }); //P.$root
+                }); //P.$root
 
             aria(P.$root[0], 'hidden', true);
         }
@@ -8169,10 +8244,10 @@ if (Vel) {
 
             $ELEMENT.
 
-            // If the value changes, update the hidden input with the correct format.
-            on('change.' + STATE.id, function() {
-                P._hidden.value = ELEMENT.value ? P.get('select', SETTINGS.formatSubmit) : '';
-            });
+                // If the value changes, update the hidden input with the correct format.
+                on('change.' + STATE.id, function () {
+                    P._hidden.value = ELEMENT.value ? P.get('select', SETTINGS.formatSubmit) : '';
+                });
 
             // Insert the hidden input as specified in the settings.
             if (SETTINGS.container) $(SETTINGS.container).append(P._hidden);
@@ -8234,7 +8309,7 @@ if (Vel) {
     /**
      * The default classes and prefix to use for the HTML classes.
      */
-    PickerConstructor.klasses = function(prefix) {
+    PickerConstructor.klasses = function (prefix) {
         prefix = prefix || 'picker';
         return {
 
@@ -8325,10 +8400,10 @@ if (Vel) {
             }
          * `
          */
-        group: function(groupObject) {
+        group: function (groupObject) {
 
             var
-            // Scope for the looped object
+                // Scope for the looped object
                 loopObjectScope,
 
 
@@ -8360,7 +8435,7 @@ if (Vel) {
         /**
          * Create a dom node string
          */
-        node: function(wrapper, item, klass, attribute) {
+        node: function (wrapper, item, klass, attribute) {
 
             // If the item is false-y, just return an empty string
             if (!item) return '';
@@ -8382,35 +8457,35 @@ if (Vel) {
         /**
          * Lead numbers below 10 with a zero.
          */
-        lead: function(number) {
+        lead: function (number) {
             return (number < 10 ? '0' : '') + number;
         },
 
         /**
          * Trigger a function otherwise return the value.
          */
-        trigger: function(callback, scope, args) {
+        trigger: function (callback, scope, args) {
             return typeof callback == 'function' ? callback.apply(scope, args || []) : callback;
         },
 
         /**
          * If the second character is a digit, length is 2 otherwise 1.
          */
-        digits: function(string) {
+        digits: function (string) {
             return (/\d/.test(string[1]) ? 2 : 1);
         },
 
         /**
          * Tell if something is a date object.
          */
-        isDate: function(value) {
+        isDate: function (value) {
             return {}.toString.call(value).indexOf('Date') > -1 && this.isInteger(value.getDate());
         },
 
         /**
          * Tell if something is an integer.
          */
-        isInteger: function(value) {
+        isInteger: function (value) {
             return {}.toString.call(value).indexOf('Number') > -1 && value % 1 === 0;
         },
 
@@ -8424,10 +8499,10 @@ if (Vel) {
          * Extend the picker with a component and defaults.
          */
     };
-    PickerConstructor.extend = function(name, Component) {
+    PickerConstructor.extend = function (name, Component) {
 
         // Extend jQuery.
-        $.fn[name] = function(options, action) {
+        $.fn[name] = function (options, action) {
 
             // Grab the component data.
             var componentData = this.data(name);
@@ -8445,7 +8520,7 @@ if (Vel) {
             // Otherwise go through each matched element and if the component
             // doesn’t exist, create a new picker using `this` element
             // and merging the defaults and options with a deep copy.
-            return this.each(function() {
+            return this.each(function () {
                 var $this = $(this);
                 if (!$this.data(name)) {
                     new PickerConstructor(this, name, Component, options);
@@ -8489,7 +8564,7 @@ if (Vel) {
     function getActiveElement() {
         try {
             return document.activeElement;
-        } catch (err) {}
+        } catch (err) { }
     }
 
     // Expose the picker constructor.
@@ -8500,9 +8575,9 @@ if (Vel) {
  * http://amsul.github.io/pickadate.js/date.htm
  */
 
-(function(factory) {
+(function (factory) {
     factory(Materialize.Picker, jQuery);
-})(function(Picker, $) {
+})(function (Picker, $) {
 
     /**
      * Globals and constants
@@ -8522,7 +8597,7 @@ if (Vel) {
             elementDataValue = picker.$node.data('value'),
             valueString = elementDataValue || elementValue,
             formatString = elementDataValue ? settings.formatSubmit : settings.format,
-            isRTL = function() {
+            isRTL = function () {
 
                 return element.currentStyle ?
 
@@ -8553,7 +8628,7 @@ if (Vel) {
 
         calendar.item.clear = null;
         calendar.item.disable = (settings.disable || []).slice(0);
-        calendar.item.enable = - function(collectionDisabled) {
+        calendar.item.enable = - function (collectionDisabled) {
             return collectionDisabled[0] === true ? collectionDisabled.shift() : -1;
         }(calendar.item.disable);
 
@@ -8574,13 +8649,13 @@ if (Vel) {
         calendar.key = {
             40: 7, // Down
             38: -7, // Up
-            39: function() {
+            39: function () {
                 return isRTL() ? -1 : 1;
             }, // Right
-            37: function() {
+            37: function () {
                 return isRTL() ? 1 : -1;
             }, // Left
-            go: function(timeChange) {
+            go: function (timeChange) {
                 var highlightedObject = calendar.item.highlight,
                     targetDate = new Date(highlightedObject.year, highlightedObject.month, highlightedObject.date + timeChange);
                 calendar.set('highlight', targetDate, { interval: timeChange });
@@ -8589,28 +8664,28 @@ if (Vel) {
 
             // Bind some picker events.
         };
-        picker.on('render', function() {
-            picker.$root.find('.' + settings.klass.selectMonth).on('change', function() {
+        picker.on('render', function () {
+            picker.$root.find('.' + settings.klass.selectMonth).on('change', function () {
                 var value = this.value;
                 if (value) {
                     picker.set('highlight', [picker.get('view').year, value, picker.get('highlight').date]);
                     picker.$root.find('.' + settings.klass.selectMonth).trigger('focus');
                 }
             });
-            picker.$root.find('.' + settings.klass.selectYear).on('change', function() {
+            picker.$root.find('.' + settings.klass.selectYear).on('change', function () {
                 var value = this.value;
                 if (value) {
                     picker.set('highlight', [value, picker.get('view').month, picker.get('highlight').date]);
                     picker.$root.find('.' + settings.klass.selectYear).trigger('focus');
                 }
             });
-        }, 1).on('open', function() {
+        }, 1).on('open', function () {
             var includeToday = '';
             if (calendar.disabled(calendar.get('now'))) {
                 includeToday = ':not(.' + settings.klass.buttonToday + ')';
             }
             picker.$root.find('button' + includeToday + ', select').attr('disabled', false);
-        }, 1).on('close', function() {
+        }, 1).on('close', function () {
             picker.$root.find('button, select').attr('disabled', true);
         }, 1);
     } //DatePicker
@@ -8619,7 +8694,7 @@ if (Vel) {
     /**
      * Set a datepicker item object.
      */
-    DatePicker.prototype.set = function(type, value, options) {
+    DatePicker.prototype.set = function (type, value, options) {
 
         var calendar = this,
             calendarItem = calendar.item;
@@ -8635,7 +8710,7 @@ if (Vel) {
         // Update this as the time unit, and set the final value as this item.
         // * In the case of `enable`, keep the queue but set `disable` instead.
         //   And in the case of `flip`, keep the queue but set `enable` instead.
-        calendarItem[type == 'enable' ? 'disable' : type == 'flip' ? 'enable' : type] = calendar.queue[type].split(' ').map(function(method) {
+        calendarItem[type == 'enable' ? 'disable' : type == 'flip' ? 'enable' : type] = calendar.queue[type].split(' ').map(function (method) {
             value = calendar[method](type, value, options);
             return value;
         }).pop();
@@ -8661,7 +8736,7 @@ if (Vel) {
     /**
      * Get a datepicker item object.
      */
-    DatePicker.prototype.get = function(type) {
+    DatePicker.prototype.get = function (type) {
         return this.item[type];
     }; //DatePicker.prototype.get
 
@@ -8669,7 +8744,7 @@ if (Vel) {
     /**
      * Create a picker date object.
      */
-    DatePicker.prototype.create = function(type, value, options) {
+    DatePicker.prototype.create = function (type, value, options) {
 
         var isInfiniteValue,
             calendar = this;
@@ -8720,10 +8795,10 @@ if (Vel) {
      * Create a range limit object using an array, date object,
      * literal “true”, or integer relative to another time.
      */
-    DatePicker.prototype.createRange = function(from, to) {
+    DatePicker.prototype.createRange = function (from, to) {
 
         var calendar = this,
-            createDate = function(date) {
+            createDate = function (date) {
                 if (date === true || $.isArray(date) || _.isDate(date)) {
                     return calendar.create(date);
                 }
@@ -8755,7 +8830,7 @@ if (Vel) {
     /**
      * Check if a date unit falls within a date range object.
      */
-    DatePicker.prototype.withinRange = function(range, dateUnit) {
+    DatePicker.prototype.withinRange = function (range, dateUnit) {
         range = this.createRange(range.from, range.to);
         return dateUnit.pick >= range.from.pick && dateUnit.pick <= range.to.pick;
     };
@@ -8763,7 +8838,7 @@ if (Vel) {
     /**
      * Check if two date range objects overlap.
      */
-    DatePicker.prototype.overlapRanges = function(one, two) {
+    DatePicker.prototype.overlapRanges = function (one, two) {
 
         var calendar = this;
 
@@ -8777,7 +8852,7 @@ if (Vel) {
     /**
      * Get the date today.
      */
-    DatePicker.prototype.now = function(type, value, options) {
+    DatePicker.prototype.now = function (type, value, options) {
         value = new Date();
         if (options && options.rel) {
             value.setDate(value.getDate() + options.rel);
@@ -8788,7 +8863,7 @@ if (Vel) {
     /**
      * Navigate to next/prev month.
      */
-    DatePicker.prototype.navigate = function(type, value, options) {
+    DatePicker.prototype.navigate = function (type, value, options) {
 
         var targetDateObject,
             targetYear,
@@ -8844,7 +8919,7 @@ if (Vel) {
     /**
      * Normalize a date by setting the hours to midnight.
      */
-    DatePicker.prototype.normalize = function(value /*, options*/ ) {
+    DatePicker.prototype.normalize = function (value /*, options*/) {
         value.setHours(0, 0, 0, 0);
         return value;
     };
@@ -8852,7 +8927,7 @@ if (Vel) {
     /**
      * Measure the range of dates.
      */
-    DatePicker.prototype.measure = function(type, value /*, options*/ ) {
+    DatePicker.prototype.measure = function (type, value /*, options*/) {
 
         var calendar = this;
 
@@ -8878,14 +8953,14 @@ if (Vel) {
     /**
      * Create a viewset object based on navigation.
      */
-    DatePicker.prototype.viewset = function(type, dateObject /*, options*/ ) {
+    DatePicker.prototype.viewset = function (type, dateObject /*, options*/) {
         return this.create([dateObject.year, dateObject.month, 1]);
     };
 
     /**
      * Validate a date as enabled and shift if needed.
      */
-    DatePicker.prototype.validate = function(type, dateObject, options) {
+    DatePicker.prototype.validate = function (type, dateObject, options) {
 
         var calendar = this,
 
@@ -8918,7 +8993,7 @@ if (Vel) {
 
 
             // Check if the calendar is inverted and at least one weekday is enabled.
-            hasEnabledWeekdays = isFlippedBase && calendar.item.disable.filter(function(value) {
+            hasEnabledWeekdays = isFlippedBase && calendar.item.disable.filter(function (value) {
 
                 // If there’s a date, check where it is relative to the target.
                 if ($.isArray(value)) {
@@ -8994,7 +9069,7 @@ if (Vel) {
             } //endif
 
 
-            // Return the date object settled on.
+        // Return the date object settled on.
         return dateObject;
     }; //DatePicker.prototype.validate
 
@@ -9002,13 +9077,13 @@ if (Vel) {
     /**
      * Check if a date is disabled.
      */
-    DatePicker.prototype.disabled = function(dateToVerify) {
+    DatePicker.prototype.disabled = function (dateToVerify) {
 
         var calendar = this,
 
 
             // Filter through the disabled dates to check if this is one.
-            isDisabledMatch = calendar.item.disable.filter(function(dateToDisable) {
+            isDisabledMatch = calendar.item.disable.filter(function (dateToDisable) {
 
                 // If the date is a number, match the weekday with 0index and `firstDay` check.
                 if (_.isInteger(dateToDisable)) {
@@ -9027,7 +9102,7 @@ if (Vel) {
             });
 
         // If this date matches a disabled date, confirm it’s not inverted.
-        isDisabledMatch = isDisabledMatch.length && !isDisabledMatch.filter(function(dateToDisable) {
+        isDisabledMatch = isDisabledMatch.length && !isDisabledMatch.filter(function (dateToDisable) {
             return $.isArray(dateToDisable) && dateToDisable[3] == 'inverted' || $.isPlainObject(dateToDisable) && dateToDisable.inverted;
         }).length;
 
@@ -9040,7 +9115,7 @@ if (Vel) {
     /**
      * Parse a string into a usable type.
      */
-    DatePicker.prototype.parse = function(type, value, options) {
+    DatePicker.prototype.parse = function (type, value, options) {
 
         var calendar = this,
             parsingObject = {};
@@ -9057,10 +9132,10 @@ if (Vel) {
         }
 
         // Convert the format into an array and then map through it.
-        calendar.formats.toArray(options.format).map(function(label) {
+        calendar.formats.toArray(options.format).map(function (label) {
 
             var
-            // Grab the formatting label.
+                // Grab the formatting label.
                 formattingLabel = calendar.formats[label],
 
 
@@ -9086,7 +9161,7 @@ if (Vel) {
     /**
      * Various formats to display the object in.
      */
-    DatePicker.prototype.formats = function() {
+    DatePicker.prototype.formats = function () {
 
         // Return the length of the first word in a collection.
         function getWordLengthFromCollection(string, collection, dateObject) {
@@ -9110,43 +9185,43 @@ if (Vel) {
 
         return {
 
-            d: function(string, dateObject) {
+            d: function (string, dateObject) {
 
                 // If there's string, then get the digits length.
                 // Otherwise return the selected date.
                 return string ? _.digits(string) : dateObject.date;
             },
-            dd: function(string, dateObject) {
+            dd: function (string, dateObject) {
 
                 // If there's a string, then the length is always 2.
                 // Otherwise return the selected date with a leading zero.
                 return string ? 2 : _.lead(dateObject.date);
             },
-            ddd: function(string, dateObject) {
+            ddd: function (string, dateObject) {
 
                 // If there's a string, then get the length of the first word.
                 // Otherwise return the short selected weekday.
                 return string ? getFirstWordLength(string) : this.settings.weekdaysShort[dateObject.day];
             },
-            dddd: function(string, dateObject) {
+            dddd: function (string, dateObject) {
 
                 // If there's a string, then get the length of the first word.
                 // Otherwise return the full selected weekday.
                 return string ? getFirstWordLength(string) : this.settings.weekdaysFull[dateObject.day];
             },
-            m: function(string, dateObject) {
+            m: function (string, dateObject) {
 
                 // If there's a string, then get the length of the digits
                 // Otherwise return the selected month with 0index compensation.
                 return string ? _.digits(string) : dateObject.month + 1;
             },
-            mm: function(string, dateObject) {
+            mm: function (string, dateObject) {
 
                 // If there's a string, then the length is always 2.
                 // Otherwise return the selected month with 0index and leading zero.
                 return string ? 2 : _.lead(dateObject.month + 1);
             },
-            mmm: function(string, dateObject) {
+            mmm: function (string, dateObject) {
 
                 var collection = this.settings.monthsShort;
 
@@ -9154,7 +9229,7 @@ if (Vel) {
                 // months collection. Otherwise return the selected month from that collection.
                 return string ? getWordLengthFromCollection(string, collection, dateObject) : collection[dateObject.month];
             },
-            mmmm: function(string, dateObject) {
+            mmmm: function (string, dateObject) {
 
                 var collection = this.settings.monthsFull;
 
@@ -9162,13 +9237,13 @@ if (Vel) {
                 // months collection. Otherwise return the selected month from that collection.
                 return string ? getWordLengthFromCollection(string, collection, dateObject) : collection[dateObject.month];
             },
-            yy: function(string, dateObject) {
+            yy: function (string, dateObject) {
 
                 // If there's a string, then the length is always 2.
                 // Otherwise return the selected year by slicing out the first 2 digits.
                 return string ? 2 : ('' + dateObject.year).slice(2);
             },
-            yyyy: function(string, dateObject) {
+            yyyy: function (string, dateObject) {
 
                 // If there's a string, then the length is always 4.
                 // Otherwise return the selected year.
@@ -9176,14 +9251,14 @@ if (Vel) {
             },
 
             // Create an array by splitting the formatting string passed.
-            toArray: function(formatString) {
+            toArray: function (formatString) {
                 return formatString.split(/(d{1,4}|m{1,4}|y{4}|yy|!.)/g);
             },
 
             // Format an object into a string using the formatting options.
-            toString: function(formatString, itemObject) {
+            toString: function (formatString, itemObject) {
                 var calendar = this;
-                return calendar.formats.toArray(formatString).map(function(label) {
+                return calendar.formats.toArray(formatString).map(function (label) {
                     return _.trigger(calendar.formats[label], calendar, [0, itemObject]) || label.replace(/^!/, '');
                 }).join('');
             }
@@ -9194,7 +9269,7 @@ if (Vel) {
     /**
      * Check if two date units are the exact.
      */
-    DatePicker.prototype.isDateExact = function(one, two) {
+    DatePicker.prototype.isDateExact = function (one, two) {
 
         var calendar = this;
 
@@ -9219,7 +9294,7 @@ if (Vel) {
     /**
      * Check if two date units overlap.
      */
-    DatePicker.prototype.isDateOverlap = function(one, two) {
+    DatePicker.prototype.isDateOverlap = function (one, two) {
 
         var calendar = this,
             firstDay = calendar.settings.firstDay ? 1 : 0;
@@ -9245,7 +9320,7 @@ if (Vel) {
     /**
      * Flip the “enabled” state.
      */
-    DatePicker.prototype.flipEnable = function(val) {
+    DatePicker.prototype.flipEnable = function (val) {
         var itemObject = this.item;
         itemObject.enable = val || (itemObject.enable == -1 ? 1 : -1);
     };
@@ -9253,7 +9328,7 @@ if (Vel) {
     /**
      * Mark a collection of dates as “disabled”.
      */
-    DatePicker.prototype.deactivate = function(type, datesToDisable) {
+    DatePicker.prototype.deactivate = function (type, datesToDisable) {
 
         var calendar = this,
             disabledItems = calendar.item.disable.slice(0);
@@ -9272,7 +9347,7 @@ if (Vel) {
         // Otherwise go through the dates to disable.
         else {
 
-            datesToDisable.map(function(unitToDisable) {
+            datesToDisable.map(function (unitToDisable) {
 
                 var matchFound;
 
@@ -9302,7 +9377,7 @@ if (Vel) {
     /**
      * Mark a collection of dates as “enabled”.
      */
-    DatePicker.prototype.activate = function(type, datesToEnable) {
+    DatePicker.prototype.activate = function (type, datesToEnable) {
 
         var calendar = this,
             disabledItems = calendar.item.disable,
@@ -9322,7 +9397,7 @@ if (Vel) {
         // Otherwise go through the disabled dates.
         else {
 
-            datesToEnable.map(function(unitToEnable) {
+            datesToEnable.map(function (unitToEnable) {
 
                 var matchFound, disabledUnit, index, isExactRange;
 
@@ -9380,7 +9455,7 @@ if (Vel) {
         }
 
         // Return the updated collection.
-        return disabledItems.filter(function(val) {
+        return disabledItems.filter(function (val) {
             return val != null;
         });
     }; //DatePicker.prototype.activate
@@ -9389,7 +9464,7 @@ if (Vel) {
     /**
      * Create a string for the nodes in the picker.
      */
-    DatePicker.prototype.nodes = function(isOpen) {
+    DatePicker.prototype.nodes = function (isOpen) {
 
         var calendar = this,
             settings = calendar.settings,
@@ -9405,7 +9480,7 @@ if (Vel) {
 
             // Create the calendar table head using a copy of weekday labels collection.
             // * We do a copy so we don't mutate the original array.
-            tableHead = function(collection, fullCollection) {
+            tableHead = function (collection, fullCollection) {
 
                 // If the first day should be Monday, move Sunday to the end.
                 if (settings.firstDay) {
@@ -9419,7 +9494,7 @@ if (Vel) {
                     max: DAYS_IN_WEEK - 1,
                     i: 1,
                     node: 'th',
-                    item: function(counter) {
+                    item: function (counter) {
                         return [collection[counter], settings.klass.weekdays, 'scope=col title="' + fullCollection[counter] + '"'];
                     }
                 }))); //endreturn
@@ -9430,23 +9505,23 @@ if (Vel) {
 
 
             // Create the nav for next/prev month.
-            createMonthNav = function(next) {
+            createMonthNav = function (next) {
 
                 // Otherwise, return the created month tag.
                 return _.node('div', ' ', settings.klass['nav' + (next ? 'Next' : 'Prev')] + (
 
                     // If the focused month is outside the range, disabled the button.
                     next && viewsetObject.year >= maxLimitObject.year && viewsetObject.month >= maxLimitObject.month || !next && viewsetObject.year <= minLimitObject.year && viewsetObject.month <= minLimitObject.month ? ' ' + settings.klass.navDisabled : ''), 'data-nav=' + (next || -1) + ' ' + _.ariaAttr({
-                    role: 'button',
-                    controls: calendar.$node[0].id + '_table'
-                }) + ' ' + 'title="' + (next ? settings.labelMonthNext : settings.labelMonthPrev) + '"'); //endreturn
+                        role: 'button',
+                        controls: calendar.$node[0].id + '_table'
+                    }) + ' ' + 'title="' + (next ? settings.labelMonthNext : settings.labelMonthPrev) + '"'); //endreturn
             },
             //createMonthNav
 
 
             // Create the month label.
             //Materialize modified
-            createMonthLabel = function(override) {
+            createMonthLabel = function (override) {
 
                 var monthsCollection = settings.showMonthsShort ? settings.monthsShort : settings.monthsFull;
 
@@ -9463,7 +9538,7 @@ if (Vel) {
                         max: 11,
                         i: 1,
                         node: 'option',
-                        item: function(loopedMonth) {
+                        item: function (loopedMonth) {
 
                             return [
 
@@ -9482,7 +9557,7 @@ if (Vel) {
                     if (selectedObject != null) return monthsCollection[selectedObject.month];
                     else return monthsCollection[viewsetObject.month];
 
-                    // If there's a need for a month selector
+                // If there's a need for a month selector
                 return _.node('div', monthsCollection[viewsetObject.month], settings.klass.month);
             },
             //createMonthLabel
@@ -9490,7 +9565,7 @@ if (Vel) {
 
             // Create the year label.
             // Materialize modified
-            createYearLabel = function(override) {
+            createYearLabel = function (override) {
 
                 var focusedYear = viewsetObject.year,
 
@@ -9532,7 +9607,7 @@ if (Vel) {
                             max: highestYear,
                             i: 1,
                             node: 'option',
-                            item: function(loopedYear) {
+                            item: function (loopedYear) {
                                 return [
 
                                     // The looped year and no classes.
@@ -9557,11 +9632,11 @@ if (Vel) {
 
 
         // Materialize modified
-        createDayLabel = function() {
+        createDayLabel = function () {
             if (selectedObject != null) return selectedObject.date;
             else return nowObject.date;
         };
-        createWeekdayLabel = function() {
+        createWeekdayLabel = function () {
             var display_day;
 
             if (selectedObject != null) display_day = selectedObject.day;
@@ -9573,83 +9648,83 @@ if (Vel) {
         // Create and return the entire calendar.
 
         return _.node(
-                // Date presentation View
-                'div', _.node(
-                    // Div for Year
-                    'div', createYearLabel("raw"), settings.klass.year_display) + _.node('span', createWeekdayLabel() + ', ', "picker__weekday-display") + _.node(
+            // Date presentation View
+            'div', _.node(
+                // Div for Year
+                'div', createYearLabel("raw"), settings.klass.year_display) + _.node('span', createWeekdayLabel() + ', ', "picker__weekday-display") + _.node(
                     // Div for short Month
                     'span', createMonthLabel("short_months") + ' ', settings.klass.month_display) + _.node(
-                    // Div for Day
-                    'span', createDayLabel(), settings.klass.day_display), settings.klass.date_display) +
+                        // Div for Day
+                        'span', createDayLabel(), settings.klass.day_display), settings.klass.date_display) +
             // Calendar container
             _.node('div', _.node('div', _.node('div', (settings.selectYears ? createMonthLabel() + createYearLabel() : createMonthLabel() + createYearLabel()) + createMonthNav() + createMonthNav(1), settings.klass.header) + _.node('table', tableHead + _.node('tbody', _.group({
-                    min: 0,
-                    max: WEEKS_IN_CALENDAR - 1,
-                    i: 1,
-                    node: 'tr',
-                    item: function(rowCounter) {
+                min: 0,
+                max: WEEKS_IN_CALENDAR - 1,
+                i: 1,
+                node: 'tr',
+                item: function (rowCounter) {
 
-                        // If Monday is the first day and the month starts on Sunday, shift the date back a week.
-                        var shiftDateBy = settings.firstDay && calendar.create([viewsetObject.year, viewsetObject.month, 1]).day === 0 ? -7 : 0;
+                    // If Monday is the first day and the month starts on Sunday, shift the date back a week.
+                    var shiftDateBy = settings.firstDay && calendar.create([viewsetObject.year, viewsetObject.month, 1]).day === 0 ? -7 : 0;
 
-                        return [_.group({
-                            min: DAYS_IN_WEEK * rowCounter - viewsetObject.day + shiftDateBy + 1, // Add 1 for weekday 0index
-                            max: function() {
-                                return this.min + DAYS_IN_WEEK - 1;
-                            },
-                            i: 1,
-                            node: 'td',
-                            item: function(targetDate) {
+                    return [_.group({
+                        min: DAYS_IN_WEEK * rowCounter - viewsetObject.day + shiftDateBy + 1, // Add 1 for weekday 0index
+                        max: function () {
+                            return this.min + DAYS_IN_WEEK - 1;
+                        },
+                        i: 1,
+                        node: 'td',
+                        item: function (targetDate) {
 
-                                // Convert the time date from a relative date to a target date.
-                                targetDate = calendar.create([viewsetObject.year, viewsetObject.month, targetDate + (settings.firstDay ? 1 : 0)]);
+                            // Convert the time date from a relative date to a target date.
+                            targetDate = calendar.create([viewsetObject.year, viewsetObject.month, targetDate + (settings.firstDay ? 1 : 0)]);
 
-                                var isSelected = selectedObject && selectedObject.pick == targetDate.pick,
-                                    isHighlighted = highlightedObject && highlightedObject.pick == targetDate.pick,
-                                    isDisabled = disabledCollection && calendar.disabled(targetDate) || targetDate.pick < minLimitObject.pick || targetDate.pick > maxLimitObject.pick,
-                                    formattedDate = _.trigger(calendar.formats.toString, calendar, [settings.format, targetDate]);
+                            var isSelected = selectedObject && selectedObject.pick == targetDate.pick,
+                                isHighlighted = highlightedObject && highlightedObject.pick == targetDate.pick,
+                                isDisabled = disabledCollection && calendar.disabled(targetDate) || targetDate.pick < minLimitObject.pick || targetDate.pick > maxLimitObject.pick,
+                                formattedDate = _.trigger(calendar.formats.toString, calendar, [settings.format, targetDate]);
 
-                                return [_.node('div', targetDate.date, function(klasses) {
+                            return [_.node('div', targetDate.date, function (klasses) {
 
-                                    // Add the `infocus` or `outfocus` classes based on month in view.
-                                    klasses.push(viewsetObject.month == targetDate.month ? settings.klass.infocus : settings.klass.outfocus);
+                                // Add the `infocus` or `outfocus` classes based on month in view.
+                                klasses.push(viewsetObject.month == targetDate.month ? settings.klass.infocus : settings.klass.outfocus);
 
-                                    // Add the `today` class if needed.
-                                    if (nowObject.pick == targetDate.pick) {
-                                        klasses.push(settings.klass.now);
-                                    }
+                                // Add the `today` class if needed.
+                                if (nowObject.pick == targetDate.pick) {
+                                    klasses.push(settings.klass.now);
+                                }
 
-                                    // Add the `selected` class if something's selected and the time matches.
-                                    if (isSelected) {
-                                        klasses.push(settings.klass.selected);
-                                    }
+                                // Add the `selected` class if something's selected and the time matches.
+                                if (isSelected) {
+                                    klasses.push(settings.klass.selected);
+                                }
 
-                                    // Add the `highlighted` class if something's highlighted and the time matches.
-                                    if (isHighlighted) {
-                                        klasses.push(settings.klass.highlighted);
-                                    }
+                                // Add the `highlighted` class if something's highlighted and the time matches.
+                                if (isHighlighted) {
+                                    klasses.push(settings.klass.highlighted);
+                                }
 
-                                    // Add the `disabled` class if something's disabled and the object matches.
-                                    if (isDisabled) {
-                                        klasses.push(settings.klass.disabled);
-                                    }
+                                // Add the `disabled` class if something's disabled and the object matches.
+                                if (isDisabled) {
+                                    klasses.push(settings.klass.disabled);
+                                }
 
-                                    return klasses.join(' ');
-                                }([settings.klass.day]), 'data-pick=' + targetDate.pick + ' ' + _.ariaAttr({
-                                    role: 'gridcell',
-                                    label: formattedDate,
-                                    selected: isSelected && calendar.$node.val() === formattedDate ? true : null,
-                                    activedescendant: isHighlighted ? true : null,
-                                    disabled: isDisabled ? true : null
-                                }) + ' ' + (isDisabled ? '' : 'tabindex="0"')), '', _.ariaAttr({ role: 'presentation' })]; //endreturn
-                            }
-                        })]; //endreturn
-                    }
-                })), settings.klass.table, 'id="' + calendar.$node[0].id + '_table' + '" ' + _.ariaAttr({
-                    role: 'grid',
-                    controls: calendar.$node[0].id,
-                    readonly: true
-                })), settings.klass.calendar_container) // end calendar
+                                return klasses.join(' ');
+                            }([settings.klass.day]), 'data-pick=' + targetDate.pick + ' ' + _.ariaAttr({
+                                role: 'gridcell',
+                                label: formattedDate,
+                                selected: isSelected && calendar.$node.val() === formattedDate ? true : null,
+                                activedescendant: isHighlighted ? true : null,
+                                disabled: isDisabled ? true : null
+                            }) + ' ' + (isDisabled ? '' : 'tabindex="0"')), '', _.ariaAttr({ role: 'presentation' })]; //endreturn
+                        }
+                    })]; //endreturn
+                }
+            })), settings.klass.table, 'id="' + calendar.$node[0].id + '_table' + '" ' + _.ariaAttr({
+                role: 'grid',
+                controls: calendar.$node[0].id,
+                readonly: true
+            })), settings.klass.calendar_container) // end calendar
 
                 +
 
@@ -9661,7 +9736,7 @@ if (Vel) {
     /**
      * The date picker defaults.
      */
-    DatePicker.defaults = function(prefix) {
+    DatePicker.defaults = function (prefix) {
 
         return {
 
@@ -9752,13 +9827,13 @@ if (Vel) {
  * Copyright 2015 Ching Yaw Hao.
  */
 
-(function($) {
+(function ($) {
     var $win = $(window),
         $doc = $(document);
 
     // Can I use inline svg ?
     var svgNS = 'http://www.w3.org/2000/svg',
-        svgSupported = 'SVGAngle' in window && function() {
+        svgSupported = 'SVGAngle' in window && function () {
             var supported,
                 el = document.createElement('div');
             el.innerHTML = '<svg/>';
@@ -9768,7 +9843,7 @@ if (Vel) {
         }();
 
     // Can I use transition ?
-    var transitionSupported = function() {
+    var transitionSupported = function () {
         var style = document.createElement('div').style;
         return 'transition' in style || 'WebkitTransition' in style || 'MozTransition' in style || 'msTransition' in style || 'OTransition' in style;
     }();
@@ -9853,12 +9928,12 @@ if (Vel) {
                 $('<div id="click-pm">PM</div>').appendTo(this.spanAmPm);
             } else {
                 this.spanAmPm.empty();
-                $('<div id="click-am">AM</div>').on("click", function() {
+                $('<div id="click-am">AM</div>').on("click", function () {
                     self.spanAmPm.children('#click-am').addClass("text-primary");
                     self.spanAmPm.children('#click-pm').removeClass("text-primary");
                     self.amOrPm = "AM";
                 }).appendTo(this.spanAmPm);
-                $('<div id="click-pm">PM</div>').on("click", function() {
+                $('<div id="click-pm">PM</div>').on("click", function () {
                     self.spanAmPm.children('#click-pm').addClass("text-primary");
                     self.spanAmPm.children('#click-am').removeClass("text-primary");
                     self.amOrPm = 'PM';
@@ -9928,7 +10003,7 @@ if (Vel) {
         }
 
         // Clicking on minutes view space
-        plate.on(mousedownEvent, function(e) {
+        plate.on(mousedownEvent, function (e) {
             if ($(e.target).closest('.clockpicker-tick').length === 0) {
                 mousedown(e, true);
             }
@@ -9952,7 +10027,7 @@ if (Vel) {
             e.preventDefault();
 
             // Set cursor style of body after 200ms
-            var movingTimer = setTimeout(function() {
+            var movingTimer = setTimeout(function () {
                 self.popover.addClass('clockpicker-moving');
             }, 200);
 
@@ -9960,7 +10035,7 @@ if (Vel) {
             self.setHand(dx, dy, !space, true);
 
             // Mousemove on document
-            $doc.off(mousemoveEvent).on(mousemoveEvent, function(e) {
+            $doc.off(mousemoveEvent).on(mousemoveEvent, function (e) {
                 e.preventDefault();
                 var isTouch = /^touch/.test(e.type),
                     x = (isTouch ? e.originalEvent.touches[0] : e).pageX - x0,
@@ -9974,7 +10049,7 @@ if (Vel) {
             });
 
             // Mouseup on document
-            $doc.off(mouseupEvent).on(mouseupEvent, function(e) {
+            $doc.off(mouseupEvent).on(mouseupEvent, function (e) {
                 $doc.off(mouseupEvent);
                 e.preventDefault();
                 var isTouch = /^touch/.test(e.type),
@@ -9988,7 +10063,7 @@ if (Vel) {
                     self.toggleView('minutes', duration / 2);
                 } else if (options.autoclose) {
                     self.minutesView.addClass('clockpicker-dial-out');
-                    setTimeout(function() {
+                    setTimeout(function () {
                         self.done();
                     }, duration / 2);
                 }
@@ -10058,12 +10133,12 @@ if (Vel) {
     };
 
     // Show or hide popover
-    ClockPicker.prototype.toggle = function() {
+    ClockPicker.prototype.toggle = function () {
         this[this.isShown ? 'hide' : 'show']();
     };
 
     // Set popover position
-    ClockPicker.prototype.locate = function() {
+    ClockPicker.prototype.locate = function () {
         var element = this.element,
             popover = this.popover,
             offset = element.offset(),
@@ -10076,13 +10151,13 @@ if (Vel) {
     };
 
     // Show popover
-    ClockPicker.prototype.show = function(e) {
+    ClockPicker.prototype.show = function (e) {
         // Not show again
         if (this.isShown) {
             return;
         }
         raiseCallback(this.options.beforeShow);
-        $(':input').each(function() {
+        $(':input').each(function () {
             $(this).attr('tabindex', -1);
         });
         var self = this;
@@ -10132,7 +10207,7 @@ if (Vel) {
                 }
             }
             // Reset position when resize
-            $win.on('resize.clockpicker' + this.id, function() {
+            $win.on('resize.clockpicker' + this.id, function () {
                 if (self.isShown) {
                     self.locate();
                 }
@@ -10145,14 +10220,14 @@ if (Vel) {
         this.locate();
         this.isShown = true;
         // Hide when clicking or tabbing on any element except the clock and input
-        $doc.on('click.clockpicker.' + this.id + ' focusin.clockpicker.' + this.id, function(e) {
+        $doc.on('click.clockpicker.' + this.id + ' focusin.clockpicker.' + this.id, function (e) {
             var target = $(e.target);
             if (target.closest(self.popover.find('.picker__wrap')).length === 0 && target.closest(self.input).length === 0) {
                 self.hide();
             }
         });
         // Hide when ESC is pressed
-        $doc.on('keyup.clockpicker.' + this.id, function(e) {
+        $doc.on('keyup.clockpicker.' + this.id, function (e) {
             if (e.keyCode === 27) {
                 self.hide();
             }
@@ -10160,13 +10235,13 @@ if (Vel) {
         raiseCallback(this.options.afterShow);
     };
     // Hide popover
-    ClockPicker.prototype.hide = function() {
+    ClockPicker.prototype.hide = function () {
         raiseCallback(this.options.beforeHide);
         this.input.removeClass('picker__input picker__input--active');
         this.popover.removeClass('picker--opened');
         $(document.body).css('overflow', 'visible');
         this.isShown = false;
-        $(':input').each(function(index) {
+        $(':input').each(function (index) {
             $(this).attr('tabindex', index + 1);
         });
         // Unbinding events on document
@@ -10176,7 +10251,7 @@ if (Vel) {
         raiseCallback(this.options.afterHide);
     };
     // Toggle to hours or minutes view
-    ClockPicker.prototype.toggleView = function(view, delay) {
+    ClockPicker.prototype.toggleView = function (view, delay) {
         var raiseAfterHourSelect = false;
         if (view === 'minutes' && $(this.hoursView).css("visibility") === "visible") {
             raiseCallback(this.options.beforeHourSelect);
@@ -10199,7 +10274,7 @@ if (Vel) {
 
         // After transitions ended
         clearTimeout(this.toggleViewTimer);
-        this.toggleViewTimer = setTimeout(function() {
+        this.toggleViewTimer = setTimeout(function () {
             hideView.css('visibility', 'hidden');
         }, duration);
 
@@ -10209,7 +10284,7 @@ if (Vel) {
     };
 
     // Reset clock hand
-    ClockPicker.prototype.resetClock = function(delay) {
+    ClockPicker.prototype.resetClock = function (delay) {
         var view = this.currentView,
             value = this[view],
             isHours = view === 'hours',
@@ -10222,7 +10297,7 @@ if (Vel) {
 
         if (svgSupported && delay) {
             self.canvas.addClass('clockpicker-canvas-out');
-            setTimeout(function() {
+            setTimeout(function () {
                 self.canvas.removeClass('clockpicker-canvas-out');
                 self.setHand(x, y);
             }, delay);
@@ -10230,7 +10305,7 @@ if (Vel) {
     };
 
     // Set clock hand to (x, y)
-    ClockPicker.prototype.setHand = function(x, y, roundBy5, dragging) {
+    ClockPicker.prototype.setHand = function (x, y, roundBy5, dragging) {
         var radian = Math.atan2(x, -y),
             isHours = this.currentView === 'hours',
             unit = Math.PI / (isHours || roundBy5 ? 6 : 30),
@@ -10279,7 +10354,7 @@ if (Vel) {
                 // Do not vibrate too frequently
                 if (!this.vibrateTimer) {
                     navigator[vibrate](10);
-                    this.vibrateTimer = setTimeout($.proxy(function() {
+                    this.vibrateTimer = setTimeout($.proxy(function () {
                         this.vibrateTimer = null;
                     }, this), 100);
                 }
@@ -10295,7 +10370,7 @@ if (Vel) {
 
         // If svg is not supported, just add an active class to the tick
         if (!svgSupported) {
-            this[isHours ? 'hoursView' : 'minutesView'].find('.clockpicker-tick').each(function() {
+            this[isHours ? 'hoursView' : 'minutesView'].find('.clockpicker-tick').each(function () {
                 var tick = $(this);
                 tick.toggleClass('active', value === +tick.html());
             });
@@ -10314,7 +10389,7 @@ if (Vel) {
     };
 
     // Hours and minutes are selected
-    ClockPicker.prototype.done = function() {
+    ClockPicker.prototype.done = function () {
         raiseCallback(this.options.beforeDone);
         this.hide();
         this.label.addClass('active');
@@ -10339,7 +10414,7 @@ if (Vel) {
     };
 
     // Clear input field
-    ClockPicker.prototype.clear = function() {
+    ClockPicker.prototype.clear = function () {
         this.hide();
         this.label.removeClass('active');
 
@@ -10360,7 +10435,7 @@ if (Vel) {
     };
 
     // Remove clockpicker from input
-    ClockPicker.prototype.remove = function() {
+    ClockPicker.prototype.remove = function () {
         this.element.removeData('clockpicker');
         this.input.off('focus.clockpicker click.clockpicker');
         if (this.isShown) {
@@ -10373,9 +10448,9 @@ if (Vel) {
     };
 
     // Extends $.fn.clockpicker
-    $.fn.pickatime = function(option) {
+    $.fn.pickatime = function (option) {
         var args = Array.prototype.slice.call(arguments, 1);
-        return this.each(function() {
+        return this.each(function () {
             var $this = $(this),
                 data = $this.data('clockpicker');
             if (!data) {
@@ -10390,10 +10465,10 @@ if (Vel) {
         });
     };
 })(jQuery);;
-(function($) {
+(function ($) {
 
-    $.fn.characterCounter = function() {
-        return this.each(function() {
+    $.fn.characterCounter = function () {
+        return this.each(function () {
             var $input = $(this);
             var $counterElement = $input.parent().find('span[class="character-counter"]');
 
@@ -10450,15 +10525,15 @@ if (Vel) {
         }
     }
 
-    $(document).ready(function() {
+    $(document).ready(function () {
         $('input, textarea').characterCounter();
     });
 })(jQuery);;
-(function($) {
+(function ($) {
 
     var methods = {
 
-        init: function(options) {
+        init: function (options) {
             var defaults = {
                 duration: 200, // ms
                 dist: -100, // zoom scale TODO: make this more intuitive as an option
@@ -10472,7 +10547,7 @@ if (Vel) {
             options = $.extend(defaults, options);
             var namespace = Materialize.objectSelectorString($(this));
 
-            return this.each(function(i) {
+            return this.each(function (i) {
 
                 var images, item_width, item_height, offset, center, pressed, dim, count, reference, referenceY, amplitude, target, velocity, scrolling, xform, frame, timestamp, ticker, dragged, vertical_dragged;
                 var $indicators = $('<ul class="indicators"></ul>');
@@ -10488,7 +10563,7 @@ if (Vel) {
                 view.attr('data-namespace', uniqueNamespace);
 
                 // Options
-                var setCarouselHeight = function(imageOnly) {
+                var setCarouselHeight = function (imageOnly) {
                     var firstSlide = view.find('.carousel-item.active').length ? view.find('.carousel-item.active').first() : view.find('.carousel-item').first();
                     var firstImage = firstSlide.find('img').first();
                     if (firstImage.length) {
@@ -10506,7 +10581,7 @@ if (Vel) {
                             }
                         } else {
                             // Get height when image is loaded normally
-                            firstImage.on('load', function() {
+                            firstImage.on('load', function () {
                                 view.css('height', $(this).height());
                             });
                         }
@@ -10544,7 +10619,7 @@ if (Vel) {
                 item_height = view.find('.carousel-item').first().innerHeight();
                 dim = item_width * 2 + options.padding;
 
-                view.find('.carousel-item').each(function(i) {
+                view.find('.carousel-item').each(function (i) {
                     images.push($(this)[0]);
                     if (showIndicators) {
                         var $indicator = $('<li class="indicator-item"></li>');
@@ -10555,7 +10630,7 @@ if (Vel) {
                         }
 
                         // Handle clicks on indicators.
-                        $indicator.click(function(e) {
+                        $indicator.click(function (e) {
                             e.stopPropagation();
 
                             var index = $(this).index();
@@ -10616,7 +10691,7 @@ if (Vel) {
                     if (scrollingTimeout != null) {
                         window.clearTimeout(scrollingTimeout);
                     }
-                    scrollingTimeout = window.setTimeout(function() {
+                    scrollingTimeout = window.setTimeout(function () {
                         scrolling = false;
                         view.removeClass('scrolling');
                     }, options.duration);
@@ -10891,7 +10966,7 @@ if (Vel) {
                 }
 
                 xform = 'transform';
-                ['webkit', 'Moz', 'O', 'ms'].every(function(prefix) {
+                ['webkit', 'Moz', 'O', 'ms'].every(function (prefix) {
                     var e = prefix + 'Transform';
                     if (typeof document.body.style[e] !== 'undefined') {
                         xform = e;
@@ -10900,7 +10975,7 @@ if (Vel) {
                     return true;
                 });
 
-                var throttledResize = Materialize.throttle(function() {
+                var throttledResize = Materialize.throttle(function () {
                     if (options.fullWidth) {
                         item_width = view.find('.carousel-item').first().innerWidth();
                         var imageHeight = view.find('.carousel-item.active').height();
@@ -10917,7 +10992,7 @@ if (Vel) {
                 setupEvents();
                 scroll(offset);
 
-                $(this).on('carouselNext', function(e, n, callback) {
+                $(this).on('carouselNext', function (e, n, callback) {
                     if (n === undefined) {
                         n = 1;
                     }
@@ -10933,7 +11008,7 @@ if (Vel) {
                     }
                 });
 
-                $(this).on('carouselPrev', function(e, n, callback) {
+                $(this).on('carouselPrev', function (e, n, callback) {
                     if (n === undefined) {
                         n = 1;
                     }
@@ -10949,7 +11024,7 @@ if (Vel) {
                     }
                 });
 
-                $(this).on('carouselSet', function(e, n, callback) {
+                $(this).on('carouselSet', function (e, n, callback) {
                     if (n === undefined) {
                         n = 0;
                     }
@@ -10961,16 +11036,16 @@ if (Vel) {
                 });
             });
         },
-        next: function(n, callback) {
+        next: function (n, callback) {
             $(this).trigger('carouselNext', [n, callback]);
         },
-        prev: function(n, callback) {
+        prev: function (n, callback) {
             $(this).trigger('carouselPrev', [n, callback]);
         },
-        set: function(n, callback) {
+        set: function (n, callback) {
             $(this).trigger('carouselSet', [n, callback]);
         },
-        destroy: function() {
+        destroy: function () {
             var uniqueNamespace = $(this).attr('data-namespace');
             $(this).removeAttr('data-namespace');
             $(this).removeClass('initialized');
@@ -10986,7 +11061,7 @@ if (Vel) {
         }
     };
 
-    $.fn.carousel = function(methodOrOptions) {
+    $.fn.carousel = function (methodOrOptions) {
         if (methods[methodOrOptions]) {
             return methods[methodOrOptions].apply(this, Array.prototype.slice.call(arguments, 1));
         } else if (typeof methodOrOptions === 'object' || !methodOrOptions) {
@@ -10997,11 +11072,11 @@ if (Vel) {
         }
     }; // Plugin end
 })(jQuery);;
-(function($) {
+(function ($) {
 
     var methods = {
-        init: function(options) {
-            return this.each(function() {
+        init: function (options) {
+            return this.each(function () {
                 var origin = $('#' + $(this).attr('data-activates'));
                 var screen = $('body');
 
@@ -11040,7 +11115,7 @@ if (Vel) {
                 }
 
                 // Open
-                var openTapTarget = function() {
+                var openTapTarget = function () {
                     if (tapTargetWrapper.is('.open')) {
                         return;
                     }
@@ -11048,18 +11123,18 @@ if (Vel) {
                     // Adding open class
                     tapTargetWrapper.addClass('open');
 
-                    setTimeout(function() {
-                        tapTargetOriginEl.off('click.tapTarget').on('click.tapTarget', function(e) {
+                    setTimeout(function () {
+                        tapTargetOriginEl.off('click.tapTarget').on('click.tapTarget', function (e) {
                             closeTapTarget();
                             tapTargetOriginEl.off('click.tapTarget');
                         });
 
-                        $(document).off('click.tapTarget').on('click.tapTarget', function(e) {
+                        $(document).off('click.tapTarget').on('click.tapTarget', function (e) {
                             closeTapTarget();
                             $(document).off('click.tapTarget');
                         });
 
-                        var throttledCalc = Materialize.throttle(function() {
+                        var throttledCalc = Materialize.throttle(function () {
                             calculateTapTarget();
                         }, 200);
                         $(window).off('resize.tapTarget').on('resize.tapTarget', throttledCalc);
@@ -11067,7 +11142,7 @@ if (Vel) {
                 };
 
                 // Close
-                var closeTapTarget = function() {
+                var closeTapTarget = function () {
                     if (!tapTargetWrapper.is('.open')) {
                         return;
                     }
@@ -11079,7 +11154,7 @@ if (Vel) {
                 };
 
                 // Pre calculate
-                var calculateTapTarget = function() {
+                var calculateTapTarget = function () {
                     // Element or parent is fixed position?
                     var isFixed = origin.css('position') === 'fixed';
                     if (!isFixed) {
@@ -11171,11 +11246,11 @@ if (Vel) {
                 if (options == 'close') closeTapTarget();
             });
         },
-        open: function() {},
-        close: function() {}
+        open: function () { },
+        close: function () { }
     };
 
-    $.fn.tapTarget = function(methodOrOptions) {
+    $.fn.tapTarget = function (methodOrOptions) {
         if (methods[methodOrOptions] || typeof methodOrOptions === 'object') return methods.init.apply(this, arguments);
 
         $.error('Method ' + methodOrOptions + ' does not exist on jQuery.tap-target');

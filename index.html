@@ -203,7 +203,7 @@
 
                                     <div class="satellite_options input-field col s12">
 
-                                        <select>
+                                        <select class='satellite_select'>
 
 
                                         </select>
@@ -379,6 +379,7 @@
             //all goals that contain at least a target active (lateral checkbox)
             selected_goals_arr: [],
             pushed_vis_targets: [],
+            from_ids_counts: null,
             update_params: {
                 data: null,
                 new: null,
@@ -523,55 +524,11 @@
             //on change
             app.associate_ev_mat_select = function (prev_sel_val, e, data, select_target, origin) {
                 console.log(arguments)
-                console.info(e)
                 var params = {};
                 params.prev_sel_val = prev_sel_val;
-
                 var val = parseInt(select_target.find('option:selected')[0].value);
-                console.info(val);
+
                 var goal = data.goal;
-
-                // var cards = svg.selectAll(".link");
-                // var visible_cards = cards.filter(function(d) {
-                //         return d.visualized == true;
-                //     })
-                //     //visible_cards.style('opacity', 0.8)
-
-                // var prev_card_val;
-                // console.log($('svg rect').length)
-
-                // var sel = visible_cards.filter(function(card) {
-                //     if (data.data == card.data) {
-                //         console.info(card)
-                //             // prev_card_val = card.value;
-                //         return this
-                //     }
-
-                // });
-                // console.info(sel)
-
-                // sel.style('opacity', 1).classed('just_changed');
-                // sel.attr('fill', function(d) {
-                //     //necessary?
-                //     d.visualized = true;
-
-                //     d.value = val;
-
-                //     if (prev_card_val == null) {
-                //         var action = 'add';
-                //     } else {
-                //         if (d.value !== prev_card_val) {
-                //             var action = 'update'
-                //         } else {
-                //             var action = 'nothing';
-                //         }
-                //     }
-
-                //     return app.sel_color({
-                //         value: val
-                //     }).color;
-                // });
-
             }
 
             function stripHTML(text) {
@@ -632,34 +589,34 @@
                               console.log(d)*/
 
                         if (info.legend_val == d.value) {
-                            if (options.config.from_csv) {
-                                colors_obj.total_records++;
-                                info.counts++;
+                            // if (options.config.from_csv) {
+                            //     colors_obj.total_records++;
+                            //     info.counts++;
 
-                                if (goal_stats.length == 0) {
-                                    goal_stats.push({
-                                        'goal': d.goal,
-                                        'count': 0
-                                    });
-                                } else {
-                                    var goal_arr = goal_stats.map(function (x) {
-                                        return x.goal;
-                                    });
+                            //     if (goal_stats.length == 0) {
+                            //         goal_stats.push({
+                            //             'goal': d.goal,
+                            //             'count': 0
+                            //         });
+                            //     } else {
+                            //         var goal_arr = goal_stats.map(function(x) {
+                            //             return x.goal;
+                            //         });
 
-                                    var pos = goal_arr.indexOf(d.goal);
-                                    if (pos == -1) {
-                                        goal_stats.push({
-                                            'goal': d.goal,
-                                            'count': 1
-                                        });
-                                    } else {
+                            //         var pos = goal_arr.indexOf(d.goal);
+                            //         if (pos == -1) {
+                            //             goal_stats.push({
+                            //                 'goal': d.goal,
+                            //                 'count': 1
+                            //             });
+                            //         } else {
 
-                                        goal_stats[pos].count++;
-                                    }
-                                }
-                                //end if config_csv                                                       
+                            //             goal_stats[pos].count++;
+                            //         }
+                            //     }
+                            //     //end if config_csv                                                       
 
-                            }
+                            // }
                             // console.log('total records ' + colors_obj.total_records + ' from sel_color_update')
                             return info;
                         }
@@ -766,7 +723,6 @@
 
                             var position = dynamic_data.pushed_vis_targets.indexOf(d2.id);
 
-
                             if (position !== -1) {
                                 //PUSHING TARGETS AND GOALS FROM .CSV 
                                 these_targets.push(d2);
@@ -794,7 +750,6 @@
                     // these_targets.push(d.targets)
                 })
 
-                // debugger;
 
                 //ALL combinations of targets from the selected groups
                 console.log(these_targets)
@@ -911,10 +866,13 @@
                                     _t.value = unique_id_arr.values[pos];
                                 }
                             } else {
-                                var pos = app_data.entered_data.ids.indexOf(unique_id)
+                                var pos = app_data.entered_data.ids.indexOf(unique_id);
 
-                                if (pos !== -1)
+                                if (pos !== -1) {
                                     _t.value = app_data.entered_data.values[pos];
+                                    _t.color = app.sel_color(_t).color;
+                                }
+
 
 
 
@@ -964,12 +922,14 @@
                                     // _t.visualized=true;
 
                                     _t.value = unique_id_arr.values[pos];
+                                    _t.color = app.sel_color(_t).color;
                                 }
                             } else {
                                 //_t.value = targets_to_plot.value;
                                 var pos = app_data.entered_data.ids.indexOf(unique_id)
                                 if (pos !== -1) {
                                     _t.value = app_data.entered_data.values[pos];
+                                    _t.color = app.sel_color(_t).color;
 
                                 }
 
@@ -1220,11 +1180,11 @@
 
                     //viewBox makes matrix unavailable for printing with html2canvas
                     /*
-                                The viewBox attribute defines the position and dimension, in user space, of an SVG viewport.
-                
-                                  The value of the viewBox attribute is a list of four numbers min-x, min-y, width and height, separated by whitespace and/or a comma,
-                                 which specify a rectangle in user space which is mapped to the bounds of the viewport established for the associated element.
-                                */
+                                    The viewBox attribute defines the position and dimension, in user space, of an SVG viewport.
+                        
+                                      The value of the viewBox attribute is a list of four numbers min-x, min-y, width and height, separated by whitespace and/or a comma,
+                                     which specify a rectangle in user space which is mapped to the bounds of the viewport established for the associated element.
+                                    */
                     .attr("viewBox", '0 0 ' + w + ' ' + h + '')
                     //class to make it responsive
                     .classed("svg-content-responsive", true)
@@ -1480,7 +1440,7 @@
                         }
 
                         app.all_goals_vis_fx(target);
-                        //  debugger
+
                     }
                 }
                 //<i class="material-icons all_goals_vis_icon off">visibility_off</i>
@@ -1849,16 +1809,57 @@
             }
 
             function update_progress_bars_csv() {
+                var goals_arr = [];
+                var colors_obj = structural_data.colors_obj;
+                var pos_colors = colors_obj.data.map(function (d) {
+                    return d.legend_val;
+                })
 
-                for (var p in goal_stats) {
+                for (var p in dynamic_data.from_ids_counts) {
+                    var _t = dynamic_data.from_ids_counts[p];
+                    var goal = _t.goal;
+
+                    var pos_goal = goals_arr.indexOf(goal);
+                    if (pos_goal == -1) {
+                        goals_arr.push(goal);
+                        goal_stats.push({
+                            'goal': goal,
+                            'count': 0
+                        });
+                    }
+
+                    var pos_goal = goals_arr.indexOf(goal);
+
+                    for (var x in _t.value_stats) {
+
+                        if (parseInt(_t.value_stats[x].sum) > 0) {
+                            var val = _t.value_stats[x].value;
+                            console.info(_t.value_stats[x])
+                            var pos = pos_colors.indexOf(val);
+
+                            colors_obj.data[pos].counts = colors_obj.data[pos].counts + _t.value_stats[x].sum;
+
+                            goal_stats[pos_goal].count = goal_stats[pos_goal].count + _t.value_stats[x].sum;
+                        }
+                    }
+
                     // $('.right_container_cards .ul_tables .li_goal_container.class_' + goal_stats[p].goal).find('.card_count').html('<b>' + goal_stats[p].count + ' record</b>');
                 }
+
                 var x_sel_labels = d3v5.selectAll(".xLabels_counter")
                 x_sel_labels.classed('with_data', true);
 
                 var y_sel_labels = d3v5.selectAll(".yLabels_counter");
                 y_sel_labels.classed('with_data', true);
-                var colors_obj = structural_data.colors_obj;
+
+
+
+
+                for (var p in goal_stats) {
+                    colors_obj.total_records += goal_stats[p].count;
+                }
+
+                console.warn(colors_obj)
 
                 colors_obj.data.forEach(function (d, i) {
                     d.percent_val = parseInt((d.counts / colors_obj.total_records) * 100) || 0;
@@ -1893,139 +1894,167 @@
             }
 
             app.update_progress_bars = function (action, data, params) {
-                //debugger;
+
+                //NOT WORKING
+
+                /* data
+                from_id: "1.1"
+                value: -3
+                */
+                var goals_arr = [];
                 console.trace();
                 console.warn(arguments)
 
                 console.log(action)
                 var colors_obj = structural_data.colors_obj;
-                console.log(colors_obj)
 
+                var pos_colors = colors_obj.data.map(function (d) {
+                    return d.legend_val;
+                })
 
                 var goal = data.goal;
-                /*
-                   unique_id_arr
-     
-                   ids: (3) ["1.3-1.b", "1.4-1.2", "1.2-1.2"]
-                  values: (3) ["3", "-3", "-2"]
-                */
-                console.log(data)
                 var li_container = $('.right_container_cards .ul_tables .li_goal_container.class_' + goal);
-                if (action == 'add') {
+                if (action === 'add') {
 
-                    dynamic_data.from_ids_counts.filter(function (d) {
-                        if (d.id == data.from_id) {
-                            for (var p in d.value_stats) {
-                                if (d.value_stats[p].value == data.value) {
-                                    d.value_stats[p].sum++;
-                                }
-                            }
-                        }
-                    });
+                    // var dynamic_data2 = {}
+                    // var xx = dynamic_data.from_ids_counts;
+
+                    // var index = {}
+                    // xx.forEach(function (d, i) {
+                    //     if (d.id == data.from_id) {
+                    //         console.warn(d)
+                    //         index.first = i;
+                    //         for (var p in d.value_stats) {
+                    //             if (d.value_stats[p].value == data.value) {
+                    //                 index.second = parseInt(p);
+                    //                 console.log('equal val ' + data.value + ' for ' + data.from_id)
+                    //                 //   d.value_stats[p].sum++;
+                    //             } else {
+                    //                 return false
+                    //             }
+                    //         }
+                    //     }
+                    // });
+                    // console.log(index)
+                    // console.log(dynamic_data.from_ids_counts[index.first].value_stats[index.second].length)
+                    // dynamic_data.from_ids_counts[index.first].value_stats[index.second].sum = dynamic_data.from_ids_counts[index.first].value_stats[index.second].sum + 1;
+                    // console.warn(dynamic_data)
+
+                    // dynamic_data.from_ids_counts.forEach(function (d, i) {
+                    //     var _this = d;
+                    //     if (_this.id == data.from_id) {
+                    //         console.info(_this)
+                    //         console.log(data)
+                    //         // for (var p in dynamic_data.from_ids_counts[i].value_stats) {
+                    //         for (var p = 0; p < dynamic_data.from_ids_counts[i].value_stats.length; p++) {
+                    //             if (dynamic_data.from_ids_counts[i].value_stats[p].value == data.value) {
+                    //                 console.warn(dynamic_data.from_ids_counts[i].value_stats[p])
+                    //                 dynamic_data.from_ids_counts[i].value_stats[p] = { test: 400 };
+                    //             }
+                    //             //  dynamic_data.from_ids_counts[i].value_stats[p].sum = dynamic_data.from_ids_counts[i].value_stats[p].sum + 1;
+                    //             //   }
+                    //         }
+                    //         console.log(JSON.stringify(dynamic_data.from_ids_counts))
+                    //     }
+                    //     else {
+                    //         console.warn('not selected ' + _this.from_id);
+                    //         return false;
+                    //     }
+                    // });
 
 
 
-                    colors_obj.total_records = colors_obj.total_records + 1;
-
-                    for (var p in goal_stats) {
-                        if (goal_stats[p].goal == goal) {
-                            goal_stats[p].count++;
-                            console.log(goal_stats[p])
-                            li_container.find('.card_count').html('<b>' + goal_stats[p].count + ' record</b>');
+                    // $('.right_container_cards .ul_tables .li_goal_container.class_' + goal_stats[p].goal).find('.card_count').html('<b>' + goal_stats[p].count + ' record</b>');
 
 
-                        }
-                    }
                 }
-                if (action == 'remove') {
+                // if (action == 'remove') {
 
-                    dynamic_data.from_ids_counts.filter(function (d) {
-                        if (d.id == data.from_id) {
-                            for (var p in d.value_stats) {
-                                if (d.value_stats[p].value == data.value) {
-                                    d.value_stats[p].sum--;
-                                }
-                            }
-                        }
-                    });
+                //     dynamic_data.from_ids_counts.filter(function (d) {
+                //         if (d.id == data.from_id) {
+                //             for (var p in d.value_stats) {
+                //                 if (d.value_stats[p].value == data.value) {
+                //                     if (d.value_stats[p].sum == 1)
+                //                         d.value_stats[p].sum = 0
+                //                     else
+                //                         d.value_stats[p].sum--;
 
-                    //to be executed when removing data ffrom tooltip
-                    if (colors_obj.total_records !== 0)
-                        colors_obj.total_records = colors_obj.total_records - 1;
-
-
-                    for (var p in goal_stats) {
-                        if (goal_stats[p].goal == goal) {
-                            goal_stats[p].count--;
-                            console.log(goal_stats[p])
-                            li_container.find('.card_count').html('<b>' + goal_stats[p].count + ' record</b>');
-
-
-                        }
-
-
-                    }
-                }
-
-                // .html(
-                //     function(d)
-                // {
-
-                //     return '<span class="stats">'+d.sum+'</span>';
+                //                 }
+                //             }
+                //         }
+                //     });
                 // }
-                // )
 
+                // if (action == 'update') {
 
-                if (action == 'update') {
+                //     var prev_value = parseInt(params.prev_card_val);
+                //     console.info('updating prev value ' + prev_value + ' to value ' + data.value)
 
-                    var prev_value = parseInt(params.prev_card_val);
-                    console.info('updating prev value ' + prev_value)
+                //     dynamic_data.from_ids_counts.filter(function (d) {
+                //         if (d.id == data.from_id) {
+                //             for (var p in d.value_stats) {
+                //                 if (d.value_stats[p].value == data.value) {
+                //                     d.value_stats[p].sum++;
+                //                 }
 
-                    dynamic_data.from_ids_counts.filter(function (d) {
-                        if (d.id == data.from_id) {
-                            for (var p in d.value_stats) {
-                                if (d.value_stats[p].value == data.value) {
-                                    d.value_stats[p].sum++;
-                                }
+                //                 if (d.value_stats[p].value == parseInt(prev_value)) {
 
-                                if (d.value_stats[p].value == prev_value) {
+                //                     if (d.value_stats[p].sum == 1)
+                //                         d.value_stats[p].sum = 0
+                //                     else
+                //                         d.value_stats[p].sum--;
+                //                     console.warn('minus ' + prev_value + ' new val ' + d.value_stats[p].sum)
+                //                 }
+                //             }
+                //         }
+                //     });
+                // }
 
-                                    d.value_stats[p].sum--;
-                                }
-                            }
-                        }
-                    });
+                for (var x in colors_obj.data) {
 
-
-
-                    console.log('update already existing progress BARs')
-
-
-                    /*  var pos=unique_id_arr.ids.indexOf(data.data);
-                      console.log('update from app.update_progress_bars')
-                      colors_obj.data.forEach(function(color,i)
-                                            {
-                                              if (parseInt(color.legend_val)==parseInt(prev_card_val))
-                                              {
-                                                //selected(updated color)
-                                                console.log('clicking on same color')
-                                                color.counts=color.counts+1;
-     
-     
-                                              }
-     
-                                              if (parseInt(color.legend_val)==parseInt(prev_card_val))
-                                              {
-                                                //selected(updated color)
-                                                console.log('update counts for prev_rect_val')
-                                                color.counts=color.counts-1;
-     
-                                              }
-     
-                                            });*/
+                    colors_obj.data[x].counts = 0;
                 }
 
+                // for (var p in dynamic_data.from_ids_counts) {
+                //     var _t = dynamic_data.from_ids_counts[p];
+                //     var goal = _t.goal;
 
+                //     var pos_goal = goals_arr.indexOf(goal);
+                //     if (pos_goal == -1) {
+                //         goals_arr.push(goal);
+                //         goal_stats.push({
+                //             'goal': goal,
+                //             'count': 0
+                //         });
+                //     }
+                //     else {
+
+                //         console.log('present ' + goal)
+                //     }
+
+                // }
+                // for (var p in dynamic_data.from_ids_counts) {
+                //     var _t = dynamic_data.from_ids_counts[p];
+                //     var goal = _t.goal;
+
+                //     var pos_goal = goals_arr.indexOf(goal);
+                //     console.log(_t)
+
+                //     for (var x in _t.value_stats) {
+
+                //         if (parseInt(_t.value_stats[x].sum) > 0) {
+                //             var val = _t.value_stats[x].value;
+                //             console.info(_t.value_stats[x])
+                //             var pos = pos_colors.indexOf(val);
+
+                //             colors_obj.data[pos].counts = colors_obj.data[pos].counts + _t.value_stats[x].sum;
+
+                //             goal_stats[pos_goal].count = goal_stats[pos_goal].count + _t.value_stats[x].sum;
+                //         }
+                //     }
+
+                //     // $('.right_container_cards .ul_tables .li_goal_container.class_' + goal_stats[p].goal).find('.card_count').html('<b>' + goal_stats[p].count + ' record</b>');
+                // }
 
 
                 var row_sum = 0;
@@ -2035,7 +2064,7 @@
 
                     if (d.from_id == data.from_id && d.value !== null) {
 
-                        console.warn(d)
+                        //console.warn(d)
                         row_number++;
                         row_sum += d.value;
                         return this;
@@ -2044,7 +2073,7 @@
                 });
 
                 var x_sel_labels = d3v5.selectAll(".xLabels_counter").filter(function (d) {
-                    console.info(d)
+
                     if (d.id == data.from_id) {
 
                         d.sum_rows = row_sum;
@@ -2054,7 +2083,7 @@
                 });
 
                 x_sel_labels.classed('with_data', true);
-                console.info(x_sel_labels)
+
 
                 x_sel_labels.text(row_sum);
 
@@ -2087,7 +2116,6 @@
                 y_sel_labels.classed('with_data', true);
                 y_sel_labels.text(sum_col);
 
-                console.info(colors_obj.total_records)
 
                 function check_hidden($element) {
                     if ($(element).css('display') == 'none' || $(element).css("visibility") == "hidden")
@@ -2097,77 +2125,36 @@
                 }
 
                 colors_obj.data.forEach(function (d, i) {
+                    d.percent_val = parseInt((d.counts / colors_obj.total_records) * 100) || 0;
 
-                    if (parseInt(d.legend_val) == parseInt(data.value)) {
-                        if (action == 'add') {
-                            d.counts = d.counts + 1;
-                        }
+                    // row progress_test card-panel
+                    var container = $('.progress_test div.progress[data-val=' + d.legend_val + ']'); //.parent();
+                    console.log(container)
+                    //container.find('div:first').css('width',d.percent_val+'%');
 
-                        if (action == 'remove') {
-                            if (d.counts !== 0)
-                                d.counts = d.counts - 1;
-                        }
+                    container.find('div:first').animate({
+                        width: d.percent_val + '%'
+                    }, 2000)
 
-                        if (action == 'update') {
-                            console.log('do not sum up or delete from here!')
-                        }
+                    container.parent().find('.progress_num_rec').html('<span>' + d.counts + '/' + colors_obj.total_records + '</span>');
 
-                        d.percent_val = parseInt((d.counts / colors_obj.total_records) * 100) || 0;
+                    console.info('EQUAL data ' + d.percent_val + ' for ' + d.legend_val + ' with coiunts ' + d.counts)
 
-                        var container = $('.progress_test div.progress[data-val=' + d.legend_val + ']'); //.parent();
-
-                        //container.find('div:first').css('width',d.percent_val+'%');
-
-                        container.find('div:first').animate({
-                            width: d.percent_val + '%'
-                        }, 2000)
-
-                        container.parent().find('.progress_num_rec').html('<span>' + d.counts + '/' + colors_obj.total_records + '</span>');
-
-                        console.info('EQUAL data ' + d.percent_val + ' for ' + d.legend_val + ' with coiunts ' + d.counts)
-
-                        console.log(container.parent())
-                        if (d.counts == 0) {
-                            container.parent().hide();
-                            console.info('container with ZERO data')
-                            container.parent().removeClass('active');
-                        } else {
-                            container.parent().show();
-
-                            if (!container.parent().hasClass('active'))
-                                container.parent().addClass('active');
-                        }
+                    console.log(d)
+                    if (d.counts == 0) {
+                        container.parent().hide();
+                        console.info('container with ZERO data')
+                        container.parent().removeClass('active');
                     } else {
-                        //not the same color than selected
-                        d.percent_val = parseInt((d.counts / colors_obj.total_records) * 100) || 0;
-
-                        var container = $('.progress_test div.progress[data-val=' + d.legend_val + ']');
-                        container.parent().find('.progress_num_rec').html('<span>' + d.counts + '/' + colors_obj.total_records + '</span>');
-                        container.find('div:first').animate({
-                            width: d.percent_val + '%'
-                        }, 2000)
-
-                        if (d.percent_val == 0) {
-                            container.parent().hide();
-                        } else {
-                            container.parent().show();
-
-                        }
-
-                        if (d.counts == 0) {
-                            container.parent().hide();
-                            console.info('container with ZERO data')
-                            container.parent().removeClass('active');
-                        } else {
-                            container.parent().show();
-
-                            if (!container.parent().hasClass('active'))
-                                container.parent().addClass('active');
-                        }
+                        container.parent().show();
+                        console.warn('show')
+                        if (!container.parent().hasClass('active'))
+                            container.parent().addClass('active');
                     }
-                });
-
+                })
+                $('.collapsible.ul_stats .goal_stats_container').show();
                 //direct children
+                $('.collapsible.ul_stats').find('.collapsible-body').slideDown();
 
                 if ($('.progress_test').children('div.active').length == 0) //$('.progress_test').children('div').length)
                 {
@@ -2181,18 +2168,7 @@
                     $('.goal_stats_container .collapsible-body').find('h5').remove();
                 }
 
-                var color;
 
-                colors_obj.data.forEach(function (d, i) {
-
-                    if (parseInt(d.legend_val) == parseInt(data.value) && d.counts == 0) {
-
-                        d.value = null;
-
-                        color = app.sel_color(d).color;
-                    }
-                })
-                return color;
 
             }
 
@@ -2228,13 +2204,11 @@
 
                 if ($goal_container.length == 0) {
                     if (action == 'add') {
-                        goal_stats.push({
-                            'goal': goal,
-                            'count': 0
-                        });
+                        // goal_stats.push({
+                        //     'goal': goal,
+                        //     'count': 0
+                        // });
 
-
-                        console.info(dynamic_data.from_ids_counts)
                         var right_container_cards_html = '<li class="li_goal_container class_' + goal + '"><div class="collapsible-header nav_bar_' + goal + '"><div class="card horizontal"><div class="card-image"> <img class="responsive-img" style="width:70px" src="./img/sdg' + goal + '.png"></div><div class="card-stacked"><div class="card-content"><div class="card-sdg-goal card-goal-' + goal + '"> Goal ' + goal + '</div><div class="goal_stats"><span class="card_count"></span><div class="stats_by_value"></div></div></div></div></div></div><div class="collapsible-body"><ul></ul> </div></li>';
                         $('#right_container > div.right_container_cards > .ul_tables div.collapsible-body ul').append(right_container_cards_html)
                         app.update_progress_bars('add', data, null);
@@ -2248,11 +2222,11 @@
 
 
                 } else {
-                    //not the first data on this group
+                    console.warn('not the first data on this group')
 
                     if (action == 'add') {
 
-                        //  app.update_progress_bars('add', data, null);
+                        app.update_progress_bars('add', data, null);
                     }
                     if (action == 'remove') {
                         var goal = data.goal;
@@ -2261,7 +2235,7 @@
                     }
                 }
 
-                console.log(dynamic_data.from_ids_counts)
+
 
                 var $goal_li = $('.li_goal_container.class_' + goal + ' > div.collapsible-body > ul >  li.li_' + this_from_id);
 
@@ -2466,8 +2440,7 @@
                                     container.find('tbody tr.extra_tr').attr('style', '');
                                     container.find('tbody tr.extra_tr').css('position', 'relative!important');
                                     container.removeClass('active')
-                                }
-                                else {
+                                } else {
                                     container.find('tbody tr').not('.extra_tr').show();
                                     container.find('tbody tr.extra_tr').css('position', 'absolute!important');
                                     container.addClass('active')
@@ -2553,7 +2526,7 @@
                 console.info(data)
                 //var selected_labels=data.targets;
                 /*
- 0:
+0:
 description: "<span class='toast_target'>Target 1.1 </span></span>By 2030, eradicate extreme poverty for all people everywhere, currently measured as people living on less than $15 a day. "
 id: "1.1"
 sdgnum: 1
@@ -2686,6 +2659,8 @@ value: 2
                 var selected_labels = _data.targets;
                 var selected_links = _data.links;
 
+                console.log(selected_links)
+
                 chart.gridSize = Math.floor(width / selected_labels.length);
 
                 //links not used now to plot??
@@ -2700,17 +2675,6 @@ value: 2
                     .range(colors);
 
                 if (options.config.from_csv == true) {
-                    //var colors_obj={total_records:0,data:[{legend_val:-3,counts:0,percent_val:0,color:"#d73027",legend_text:"Strongly restricting"}
-                    // colors_obj.total_records = 0;
-                    // colors_obj.data.forEach(function(d) {
-                    //     d.counts = 0;
-                    //     d.percent_val = 0;
-                    // })
-                    console.log(colors_obj)
-                    // new_params.colors_obj = colors_obj;
-
-
-
 
                 } else {
                     var arr = [];
@@ -2746,35 +2710,41 @@ value: 2
                         var from_id_pos = arr.indexOf(d.from_id);
                         var to_id = d.data.split('-')[1];
 
-                        if (d.value == null) var this_val = 0;
-                        else
+                        if (d.value == null) {
+                            var this_val = 0;
+                        } else {
                             var this_val = d.value;
-
-                        var _from_ids_counts = dynamic_data.from_ids_counts[from_id_pos];
-
-                        console.warn(_from_ids_counts)
-
-                        if (d.value !== null) {
-                            var pos = val_range.indexOf(d.value);
-
-                            _from_ids_counts.value_stats[pos].sum++;
-
-                            _from_ids_counts.sum_rows += this_val;
-
-                            var to_id_pos = arr.indexOf(to_id);
-                            dynamic_data.from_ids_counts[to_id_pos].sum_cols += this_val;
                         }
 
-                        //if (d.from_id == obj.from_id) {
+
+                        // var _from_ids_counts = dynamic_data.from_ids_counts[from_id_pos];
+
+                        // console.warn(_from_ids_counts)
+
+                        // if (d.value !== null) {
+                        //     var pos = val_range.indexOf(d.value);
+
+                        //     _from_ids_counts.value_stats[pos].sum++;
+
+                        //     _from_ids_counts.sum_rows += this_val;
+
+                        //     var to_id_pos = arr.indexOf(to_id);
+                        //     dynamic_data.from_ids_counts[to_id_pos].sum_cols += this_val;
+                        // }
+
+                        // if (d.from_id == obj.from_id) {
                         //     obj.sum_col = d.sum_col;
 
-                        // row_col_data[from_id_pos].values.push({
-                        //     data: d.data,
-                        //     value: parseInt(d.value),
-                        //     to_id: to_id
-                        // })
+                        //     row_col_data[from_id_pos].values.push({
+                        //         data: d.data,
+                        //         value: parseInt(d.value),
+                        //         to_id: to_id
+                        //     })
+                        // }
                     });
-                    console.info(dynamic_data.from_ids_counts)
+                    console.info(dynamic_data.from_ids_counts);
+                    //   debugger;
+
                     // update_vis_labels_counts(selected_labels)
                 }
 
@@ -2785,13 +2755,8 @@ value: 2
                     //console.log(info)
                     return info.visualized == true;
                 });
-                console.log(chart.sel_true_links)
 
-                console.info(selected_labels)
-
-                console.warn(gridSize)
                 var x_width = (chart.buckets * chart.gridSize);
-
 
                 chart.gridSize = (width / selected_labels.length);
                 console.warn(chart.gridSize)
@@ -2806,7 +2771,7 @@ value: 2
                 var from_keys = d3v5.map(app_data.to_plot_heatmap, function (d) {
                     return d.from_id;
                 }).keys();
-                console.info(from_keys)
+
                 var to_keys = d3v5.map(app_data.to_plot_heatmap, function (d) {
                     return d.to_id;
                 }).keys();
@@ -2822,19 +2787,15 @@ value: 2
                     .domain(to_keys)
                     .padding(0.05);
 
-                $('.text_just_updated').removeClass('text_just_updated')
-
-
+                $('.text_just_updated').removeClass('text_just_updated');
                 //xLabels follow the row, x=increases, y stays 0
                 var xLabels_group = svg.selectAll(".xLabels")
                     .data(selected_labels, function (d) {
-
                         return d.id;
                     });
 
                 //  debugger;
                 xLabels_group.exit().remove();
-
                 //.classed('should_exit', true).transition().duration(1000).style('opacity', 0)
 
                 var xLabelsEnter = xLabels_group
@@ -3207,23 +3168,15 @@ value: 2
                     })
                     // .attr("transform", "translate(-7," + (Math.floor(gridSize / 2) + 4) + ")") // + gridSize / 1.5 + ")")                      
                     .attr("class", "news_labels yLabels mono axis axis-y");
+                console.warn('finished labels')
 
 
                 // 1. Make new data join
                 var my_group = svg.selectAll(".g_matrix .link")
                     .data(app_data.to_plot_heatmap, function (d) {
-                        return d.data
+                        return d.data;
                     });
-                //  console.info(JSON.stringify(app_data.to_plot_heatmap))
-
-
-                function rect_mouseover(d) {
-                    console.info(event)
-                    console.log(d)
-
-                }
-                //  console.info(my_group)
-
+                my_group.classed('just_entered', false);
 
 
                 // 3. Enter new elements
@@ -3231,11 +3184,10 @@ value: 2
                     .enter()
                     .append("rect")
                     //.classed('just_entered', true)
-                    .attr("y", function (d) {
-                        // console.log(d.data)
-                        //index2.html:3113 1.2-1.5  y 1.5960099750623726 x 33.51620947630926
-                        //index2.html:3113 1.2-1.4  y 95.31914893617021 x 276.87943262411346
-                        //console.warn(d.data + '  y ' + y(d.from_id), 'x ' + x(d.to_id))
+                    .attr("y", function (d, i) {
+                        console.info(d)
+                        console.log(d.data + '---' + i + ' rectEnter')
+
                         return y(d.from_id) //+ 4
                     })
                     .attr("x", function (d) {
@@ -3253,21 +3205,16 @@ value: 2
                         }
 
                     })
-                    .attr("width", chart.gridSize)
-                    .attr("height", chart.gridSize)
-                    .attr('opacity', function (d) {
-                        if (d.visualized == true) {
-                            return 1;
-                        } else {
-                            return 0.8;
-                        }
-                    })
+                    // .attr("width", chart.gridSize)
+                    // .attr("height", chart.gridSize)
+                    // .attr('opacity', function(d) {
+                    //     if (d.visualized == true) {
+                    //         return 1;
+                    //     } else {
+                    //         return 0.8;
+                    //     }
+                    // })
                     .style("fill", function (d) {
-
-                        // return '#a8a7a7';
-
-
-
                         if (d.same_targets == true) {
                             //  console.log(d)
 
@@ -3284,6 +3231,7 @@ value: 2
                                 return '#ffffff';
                             } else {
                                 return app.sel_color_update(d).color;
+                                //return d.color;
                             }
 
                             //return sel_color(d).color;
@@ -3295,59 +3243,30 @@ value: 2
                     .each(function (d) {
 
 
-                        if (d.from_id == d.to_id)
-                            return false;
+                        // if (d.from_id == d.to_id)
+                        //     return false;
 
-                        var pos = from_keys.indexOf(d.from_id);
-
-
-                        if (pos !== -1) {
-                            var _this_from_id = d.from_id.replace('.', '_');
-                            var li_from = $('.ul_tables .li_goal_container.class_' + d.goal + ' .collapsible-body .li_' + _this_from_id);
-                            if (li_from.is(':visible') == true)
-                                return false;
+                        // var pos = from_keys.indexOf(d.from_id);
 
 
-
-                            if (li_from.length > 0) {
-                                li_from.fadeIn('slow');
-                                //        return false;
-                            }
-                        }
-
-                        app_data.entered_data.ids.forEach(function (val, i) {
-                            //  console.log('tr[data_val="' + val + '"]')
-                            $('.ul_tables').find('tr[data_val="' + val + '"]').show();
-                        })
-
-                        // $('.ul_tables .li_goal_container').each(function() {
-                        //     $(this).find('.collapsible-body ul li table.sel_table_goal tbody tr').each(function(i, tr) {
-
-                        //         console.warn($(tr).attr('data_val'))
-                        //         console.warn(d.data)
-                        //         if ($(tr).attr('data_val') == d.data)
-
-                        //         {
-                        //             console.warn('fade in ' + d.data)
-                        //             $(tr).fadeIn('slow');
-                        //         }
-                        //     })
-                        // });
+                        // if (pos !== -1) {
+                        //     var _this_from_id = d.from_id.replace('.', '_');
+                        //     var li_from = $('.ul_tables .li_goal_container.class_' + d.goal + ' .collapsible-body .li_' + _this_from_id);
+                        //     if (li_from.is(':visible') == true)
+                        //         return false;
 
 
-                        // else {
-                        //     var pos = to_keys.indexOf(d.to_id);
-                        //     console.log(to_keys)
-                        //     console.info(pos)
-                        //     var _this_to_id = d.to_id.replace('.', '_');
-                        //     var all_to_id = $('.ul_tables .li_goal_container.class_' + d.goal + ' .collapsible-body table tbody tr');
-                        //     all_to_id.each(function() {
-                        //         console.log($(this).attr('data_val'))
-                        //         if ($(this).attr('data_val') == d.data) {
-                        //             $(this).fadeIn('slow');
-                        //         }
-                        //     })
+
+                        //     if (li_from.length > 0) {
+                        //         li_from.show();
+                        //         //        return false;
+                        //     }
                         // }
+
+                        // app_data.entered_data.ids.forEach(function(val, i) {
+                        //     //  console.log('tr[data_val="' + val + '"]')
+                        //     $('.ul_tables').find('tr[data_val="' + val + '"]').show();
+                        // })
                     })
                     .on('click', //tip.show)
                         function (d) {
@@ -3569,14 +3488,6 @@ value: 2
                                                 'fill', '#dc3d84'
                                             );
 
-                                        // console.info(with_data)
-                                        // t.on('end', function() {
-                                        //     d3v5.select(this).classed('no_data_hovered', true)
-                                        //         .style('fill', function(d) {
-                                        //             return app.sel_color(d).color;
-                                        //         })
-                                        // })
-
                                         var $toastContent = $("<a href='#close' class='close_tooltip'>x</a><div><span class='target_toast_direction_title'>How is target " + this_data.row + " affecting " + this_data.column + "?</span><div class='flow-text-test'>" + d.title + '</div><div><div class="val_title center" style="display:block!important;"><div class="card_val_title">No value assigned</div><div class="row toast_actions"><i style="display:none" class="delete_card_icon material-icons right">delete_forever</i></div></div><div class="card_legend_tooltip_container"><div class="on toast_slide_color">Hide score colors</div>' + $('#dropdown_legend #legend_tooltip')[0].outerHTML + "</div><div class=' toast_slide_text'>Show text form</div><div class='row card_text_form'> <form class='col s12'> <div class='row'> <div class='input-field col s12'> <textarea id='textarea1' class='materialize-textarea'></textarea> <label for='textarea1'>If necessary, add some remarks</label> </div> </div> </form> </div></div></div>");
 
                                     } else {
@@ -3666,6 +3577,7 @@ value: 2
                             }
                         }
                     });
+                console.log(structural_data)
 
                 update_vis_labels_counts(selected_labels);
 
@@ -3674,41 +3586,43 @@ value: 2
                 var copy_id_keys = to_keys;
 
                 // 2. Get rid of old elements
-                my_group.exit().classed('should_exit', true).transition().duration(1000).style('opacity', 0).each(function (d) {
-                    console.info(d);
+                // my_group.exit().classed('should_exit', true).transition().duration(1000).style('opacity', 0).each(function (d) {
+                //     console.info(d);
 
-                    var pos = from_keys.indexOf(d.from_id);
-                    if (pos == -1) {
-                        var _this_from_id = d.from_id.replace('.', '_');
-                        var li_from = $('.ul_tables .li_goal_container.class_' + d.goal + ' .collapsible-body .li_' + _this_from_id);
-                        if (li_from.is(':visible') == false)
-                            return false;
+                //     var pos = from_keys.indexOf(d.from_id);
+                //     if (pos == -1) {
+                //         var _this_from_id = d.from_id.replace('.', '_');
+                //         var li_from = $('.ul_tables .li_goal_container.class_' + d.goal + ' .collapsible-body .li_' + _this_from_id);
+                //         if (li_from.is(':visible') == false)
+                //             return false;
 
-                        console.info('.ul_tables .li_goal_container.class_' + d.goal + ' .collapsible-body .li_' + _this_from_id);
+                //         console.info('.ul_tables .li_goal_container.class_' + d.goal + ' .collapsible-body .li_' + _this_from_id);
 
-                        if (li_from.length > 0) {
-                            li_from.fadeOut('slow');
-                            return false;
-                        }
-                    } else {
-                        var _this_to_id = d.to_id.replace('.', '_');
-                        var all_to_id = $('.ul_tables .li_goal_container.class_' + d.goal + ' .collapsible-body table tbody tr');
-                        all_to_id.each(function () {
-                            if ($(this).attr('data_val') == d.data) {
-                                $(this).fadeOut('slow');
-                            }
-                        })
-                    }
+                //         if (li_from.length > 0) {
+                //             li_from.fadeOut('slow');
+                //             return false;
+                //         }
+                //     } else {
+                //         var _this_to_id = d.to_id.replace('.', '_');
+                //         var all_to_id = $('.ul_tables .li_goal_container.class_' + d.goal + ' .collapsible-body table tbody tr');
+                //         all_to_id.each(function () {
+                //             if ($(this).attr('data_val') == d.data) {
+                //                 $(this).fadeOut('slow');
+                //             }
+                //         })
+                //     }
 
-                }).remove();
-                // my_group.exit().remove();
+                // }).remove();
+                my_group.exit().remove();
+
+                console.info(my_group)
 
                 // 5. Update new selection
                 //the ones we don't remove??
                 my_group
                     .merge(recEnter)
-                    .transition()
-                    .duration(2400)
+                    // .transition()
+                    // .duration(2400)
                     .attr("y", function (d) {
                         return y(d.from_id)
                     })
@@ -3719,26 +3633,24 @@ value: 2
 
                         return chart.gridSize
                     })
+                    .attr("height", function (d) {
+
+                        return chart.gridSize
+                    })
                     .attr("class", "just_updated_old link bordered")
                     .attr("height", chart.gridSize)
 
                     .style("fill", function (d) {
-
-                        // if (d.data == '1.2-1.5') {
-                        //     console.log(d)
-                        //     console.info(app.sel_color_update(d).color)
-                        // }
-
-
-
-
+                        console.log(d)
                         if (d.same_targets == true) {
                             //  console.log(d)
 
                             return '#edf7f3';
                         } else {
 
+                            // return d.color;
                             return app.sel_color_update(d).color;
+
                             //return sel_color(d).color;
                         }
                     });
@@ -3758,6 +3670,7 @@ value: 2
 
 
             function update_vis_labels_counts(selected_labels) {
+                return false;
                 console.warn(selected_labels)
 
                 var gridSize = chart.gridSize;
@@ -4114,9 +4027,9 @@ value: 2
 
 
             // $('.index').click();
-            //$('.goal_table_container').click();
+            // //$('.goal_table_container').click();
             // $('.card-action:first a').trigger('click')
-            //        $('.sidenav_trigger').trigger('click');
+            // $('.sidenav_trigger').trigger('click');
 
 
             var showChar = 30; // How many characters are shown by default
@@ -4160,13 +4073,28 @@ value: 2
 
         $('#satellite_selects_opt .btn').on('click', function (e) {
 
-            var data_id = $('.satellite_options select').find('option:selected')[0].value;
+            if ($(this).hasClass('on')) {
 
 
-            var _type = $('#satellite_selects_opt form').find('input:checked').attr('id');
-            if (data_id !== 'empty') {
-                create_satellite(data_id, _type, e)
+                var cards = d3v5.selectAll('.link');
+                console.log('de-actuive')
+                cards.classed('blacked', false).classed('satellite_selected', false);
+                cards.classed('low_opacity', false)
+                //.style('opacity',1);
+                options.config.satellites = false;
+                $('#vis-container').empty();
+
+                $('#satellite_selects_opt .btn').removeClass('on').addClass('off')//.text('Apply');
+                $('.print_div').hide();
             }
+
+            // var data_id = $('.satellite_options select').find('option:selected')[0].value;
+
+
+            // var _type = $('#satellite_selects_opt form').find('input:checked').attr('id');
+            // if (data_id !== 'empty') {
+            //     create_satellite(data_id, _type, e)
+            // }
         })
 
         $('.print').click(function (e) {
@@ -4208,58 +4136,34 @@ value: 2
         })
 
 
-
-        function create_satellite(data_id, _type, e) {
+        function create_satellite(data_id, _type) {
             console.trace()
-            console.log($(e.target).is('select'))
+
             var cards = d3v5.selectAll('.link');
             $('.fixed_col_row').removeClass('fixed_col_row');
 
-            if ($('#satellite_selects_opt .btn').hasClass('off')) {
-                console.log('activatiiiiing')
+            // if ($('#satellite_selects_opt .btn').hasClass('off')) {
+            console.log('activatiiiiing')
 
-                options.config.satellites = true;
+            options.config.satellites = true;
 
-                $('#vis-container').trigger('mouseenter');
-                $('.print_div').show();
+            $('#vis-container').trigger('mouseenter');
+            $('.print_div').show();
 
-                if ((!$(e.target).is('select') && !$(e.target).is('input')) || $('#satellite_selects_opt .btn').hasClass('initial_off')) {
-
-
-                    $('#satellite_selects_opt .btn').removeClass('off initial_off').addClass('on').text('Reset');
-
-                }
-
-            } else {
-                var cards = d3v5.selectAll('.link');
-                console.log('de-actuive')
-                cards.classed('blacked', false).classed('satellite_selected', false);
-                cards.classed('low_opacity', false)
-                //.style('opacity',1);
-                options.config.satellites = false;
-                $('#vis-container').empty();
-
-                $('#satellite_selects_opt .btn').removeClass('on').addClass('off').text('Apply');
-                $('.print_div').hide();
-
-                return false
+            // if ((!$(e.target).is('select') && !$(e.target).is('input')) || $('#satellite_selects_opt .btn').hasClass('initial_off')) {
 
 
+            //  $('#satellite_selects_opt .btn').removeClass('off initial_off').addClass('on').text('Reset');
 
+            //  }
 
-
-
-            }
+            // } 
             //initially, 'off'
-            /*    if ($('#satellite_selects_opt .btn').hasClass('on'))
-                {
-                  $('#satellite_selects_opt .btn').removeClass('on').addClass('off').text('Apply'); 
-                }
-                else
-                {
-                  $('#satellite_selects_opt .btn').removeClass('off').addClass('on').text('Reset');
-                }
-                */
+            if ($('#satellite_selects_opt .btn').hasClass('off')) {
+
+                $('#satellite_selects_opt .btn').removeClass('off').addClass('on').text('Reset');
+            }
+
             //options.config.satellites=true;
             $('.fixed_col_row').removeClass('fixed_col_row');
 
@@ -4286,6 +4190,7 @@ value: 2
 
             var objects = new_params.objects;
             structural_data.colors_obj.data.forEach(function (d) {
+                console.log(d)
                 t_obj.satellites.push({
                     value: d.legend_val,
                     label: d.legend_val,
@@ -4333,11 +4238,13 @@ value: 2
             });
 
             row_cards = cards.filter(function (d) {
-                if (d.from_id == data_id && d.value !== null) {
+
+                if (d.from_id == data_id && d.value !== null && d.data !== data_id + '-' + data_id) {
 
                     t_obj.satellites.forEach(function (this_obj) {
                         //sdg_obj refers to the DATA
                         //obj refers to the new obj created on pushing the DATA
+
                         if (parseInt(this_obj.value) == parseInt(d.value)) {
                             // Array.prototype.push.apply(these_targets_data,d2);
 

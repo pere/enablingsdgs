@@ -81,7 +81,7 @@ function attach_events_initial_dom() {
 
             options.config.from_csv = true;
             $.ajax({
-                url: './data/matrix.csv',
+                url: './data/matrix2.csv',
                 dataType: 'text',
             }).done(successFunction);
         }
@@ -116,7 +116,7 @@ function attach_events_initial_dom() {
 
             clicked_card_data = d;
 
-            $('.card_val_title').css('color', function () {
+            $('.:visible').css('color', function () {
 
 
                 return "#c6c4c4";
@@ -172,22 +172,10 @@ function attach_events_initial_dom() {
 
                 d.value = null;
                 d.comments = 'No comments';
-                console.info(d)
+                d.color = '#c6c4c4'
                 $('.edit-icon').show();
 
-                var filtered = d3v5.selectAll('rect.link').filter(function (d) {
 
-                    if (d.data == clicked_card_data.data) {
-                        return this;
-                    }
-                });
-                filtered.style("fill", function (d) {
-                    console.info(d)
-                    return app.sel_color({
-                        value: val
-                    }).color;
-
-                })
                 if (structural_data.colors_obj.total_records > 0) {
                     $('.goal_stats_container,.goal_table_container').fadeIn();
                 } else {
@@ -201,6 +189,24 @@ function attach_events_initial_dom() {
     } // END fx delete_card_info
 
     app.update_assoc_rect = function (params) {
+
+        params.filtered.style("fill", function (d) {
+
+            //we apply later, have to keep in memory the value to be removed
+            //d.value=null;
+
+            clicked_card_data = d;
+
+            $('.card_val_title:visible').css('color', function () {
+
+                return d.color;
+            }).text(function () {
+                return app.sel_color(d).legend_text;
+            });
+
+            return d.color;
+        })
+
 
         console.log(dynamic_data.update_params)
 
@@ -375,7 +381,7 @@ function attach_events_initial_dom() {
 
                         'fill',
                         function (d) {
-                            return app.sel_color(d).color
+                            return d.color
                         }
                     );
 
@@ -392,8 +398,6 @@ function attach_events_initial_dom() {
                 var filtered = d3v5.selectAll('.link').filter(function (d) {
 
                     if (d.data == clicked_card_data.data) {
-
-
                         return this;
                     }
 
@@ -414,6 +418,7 @@ function attach_events_initial_dom() {
                     $('#right_container').show();
                     params.prev_card_val = d.value;
                     d.value = val;
+                    d.color = app.sel_color(d).color;
 
                     params.value = d.value;
                     params.data = d;
@@ -440,19 +445,16 @@ function attach_events_initial_dom() {
                         // app_data.entered_data.values.push(d.value);
                         //tabulate_clicked already include update_progress_bar
                         app.tabulate_clicked(d, 'add');
+
                         //app.update_progress_bars('add', d);
 
 
                         //app.check_update(val, prev_card_val, clicked_card_data, d, goal);
 
-                        console.info('rect first enter from table to ' + app.sel_color(d).color)
+                        //console.info('rect first enter from table to ' + app.sel_color(d).color)
                     } else {
                         params.new = false;
                         app.update_progress_bars('update', d, params);
-
-
-                        // app_data.entered_data.values[pos] = d.value;
-                        // console.info('update RECT  to ' + app.sel_color(d).color)
 
                     }
                     //here we trigger a click on the select!
@@ -495,45 +497,48 @@ function tabulate_from_csv() {
     var satellites_sel_html = '<option value="empty" disabled selected>Select target</option>';
     for (var p in objects) {
         var sdg_obj = objects[p];
-
-
         satellites_sel_html += '<option value="' + sdg_obj.from_id + '">Target ' + sdg_obj.from_id + '</option>';
 
     }
-
+    console.log(satellites_sel_html)
     $('.ul_satellite').show();
 
     $('.satellite_options select').append(satellites_sel_html);
 
-    $('.satellite_options select').material_select();
-    $('.satellite_options select').change(function (e) {
 
-        var data_id = $(this).find('option:selected')[0].value;
+    setTimeout(function () {
+
+        $('.satellite_options select').material_select();
+
+        // $('.satellite_options select').bind('change', function (e) {
+        //     alert('sateelite')
+        //     var data_id = $(this).find('option:selected')[0].value;
+        //     console.warn(data_id)
+
+        //     if (data_id == 'empty') return false;
+
+        //     var _type = $('#satellite_selects_opt form input:checked').attr('id')
+        //     create_satellite(data_id, _type, e);
+
+        // })
+
+        // //RADIO BUTTONS
+        // $('#satellite_selects_opt form').change(function (e) {
+        //     var data_id = $('.satellite_options select').find('option:selected')[0].value;
+        //     if (data_id !== 'empty') {
 
 
-        if (data_id == 'empty') return false;
 
-        var _type = $('#satellite_selects_opt form input:checked').attr('id')
-        create_satellite(data_id, _type, e);
+        //         var _type = $(this).find('input:checked').attr('id');
 
-    })
+        //         // if (data_id=='empty') return false;
 
-    //RADIO BUTTONS
-    $('#satellite_selects_opt form').change(function (e) {
-        var data_id = $('.satellite_options select').find('option:selected')[0].value;
-        if (data_id !== 'empty') {
+        //         create_satellite(data_id, _type, e);
 
+        //     }
 
-
-            var _type = $(this).find('input:checked').attr('id');
-
-            // if (data_id=='empty') return false;
-
-            create_satellite(data_id, _type, e);
-
-        }
-
-    })
+        // })
+    }, 1000)
 
     var goals_keys = d3v5.map(new_params.objects, function (d) {
         return d.goal;
@@ -797,85 +802,12 @@ function attach_fx_sel_csv(container) {
         var prev_sel_val = parseInt(mat_sel.find('option:selected')[0].value);
 
         mat_sel.material_select();
-        // mat_sel.on('click', function() {
-
-        // })
-        // mat_sel.on('change', function(e) {
-        //     //previous value, as new, is null
-
-        //     app.associate_ev_mat_select(null, e, data, mat_sel, mat_sel)
-        // });
-
 
         for (var p in dynamic_data.from_ids_counts) {
             if (dynamic_data.from_ids_counts[p].id == data.from_id)
                 app.circles_stats(dynamic_data.from_ids_counts[p])
         }
 
-
-
-        // mat_sel.on('change', function(e) {
-        //     //select_triggered = true;
-
-        //     app.associate_ev_mat_select(prev_sel_val, e, data, mat_sel, mat_sel);
-        //     //select_triggered = false;
-        // })
-
-
-        // container_tr.find('select').change(function() {
-
-        //     var val = parseInt($(this).find('option:selected')[0].value);
-
-
-        //     var cards = svg.selectAll(".link")
-        //     var visible_cards = cards.filter(function(d) {
-        //         return d.visualized == true;
-        //     })
-        //     visible_cards.style('opacity', 0.2)
-
-        //     var prev_card_val;
-
-        //     var sel = visible_cards.filter(function(card) {
-        //         if (_id == card.data) {
-        //             prev_card_val = card.value;
-        //             return this
-        //         }
-
-        //     });
-
-        //     sel.style('opacity', 1).classed('just_changed');
-
-
-
-        //     sel.style('fill', function(d) {
-        //         //necessary?
-        //         d.visualized = true;
-        //         console.log(val)
-        //         d.value = val;
-        //         var new_d = d;
-
-        //         //function check_update (new_card_val,prev_card_val,data,filtered_data,goal)
-        //         app.check_update(val, prev_card_val, clicked_card_data, d, sel.goal);
-        //         container_tr.find('.sel_table_value').css("background-color", app.sel_color({
-        //             value: val
-        //         }).color)
-
-        //         //background-color:'+sel_color(d).color+'"
-
-        //         container_tr.find('.sel_table_value').text(app.sel_color({
-        //             value: val
-        //         }).legend_text);
-        //         //do_updates(new_d,prev_card_val)
-
-
-
-        //         return app.sel_color({
-        //             value: val
-        //         }).color;
-        //     });
-
-
-        // sel.classed('hovered_class_from_table',true);
     })
 
 
@@ -919,8 +851,6 @@ function successFunction(data) {
         } else {
             //  console.info(all_to_ids)
             if (typeof objects[i - 1] !== undefined)
-
-
                 //each data on the ROW, is a value
                 //{from_id:'1.1',sum_rows:3,values:[{},{}]}
                 var s;
@@ -948,11 +878,6 @@ function successFunction(data) {
                     all_to_ids_obj[pos].sum_cols = all_to_ids_obj[pos].sum_cols + parseInt(d2)
                     //   console.warn(all_to_ids_obj[pos])
                     s = all_to_ids_obj[pos].sum_cols;
-
-                    //console.log(o)
-
-                    //o.sum_col=all_to_ids_obj[pos].sum_col;
-
                     app_data.entered_data.ids.push(o.from_id + '-' + all_to_ids[i2 - 1]);
                     app_data.entered_data.values.push(parseInt(d2))
 
@@ -961,6 +886,9 @@ function successFunction(data) {
                         from_id: o.from_id,
                         to_id: to_id,
                         value: parseInt(d2),
+                        color: app.sel_color({
+                            value: parseInt(d2)
+                        }).color,
                         comments: 'No comments'
 
                     });
@@ -1048,7 +976,7 @@ function successFunction(data) {
 
 
         var _this = objects[p];
-        console.log(_this.values)
+
         var range_obj = val_range.map(function (d) {
             return { value: d, sum: 0 }
         });
@@ -1123,11 +1051,9 @@ function successFunction(data) {
             if (container.is(':visible')) {
                 container.hide();
             } else {
-                if (container.find('select.initialized').length == 0)
-                    setTimeout(function () {
 
+                //  if (container.find('select.initialized').length == 0)
 
-                    }, 30)
                 container.show();
 
 
@@ -1191,13 +1117,11 @@ function get_individual_target(goal, target_id) {
                 obj_all.push(values[y])
             }
         }
-        console.info(obj_all.length);
-        console.dir(obj_all)
 
         var keys = d3v5.map(obj_all, function (d) {
             return d.data;
         }).keys();
-        console.log(keys)
+
 
 
         app_data.entered_data.ids = keys;
@@ -1212,8 +1136,9 @@ function get_individual_target(goal, target_id) {
                 var obj = obj_all[pos];
                 pt.visualized = true;
                 pt.value = obj.value;
+                pt.color + obj.color;
 
-                app_data.entered_data.values.push(obj.value);
+                //  app_data.entered_data.values.push(obj.value);
 
                 only_data_links.push(pt);
                 plot_links.push(pt);
@@ -1232,7 +1157,7 @@ function get_individual_target(goal, target_id) {
             //if (d.value!==null)
             return d.data;
         }).keys();
-        console.log(keys)
+        console.log(app_data.entered_data.values)
 
         for (var x in sel_info['links']) {
 
@@ -1247,10 +1172,12 @@ function get_individual_target(goal, target_id) {
                 //var obj=obj_all[pos];
                 pt.visualized = true;
                 pt.value = null
+                pt.color = '#c6c4c4';
 
             } else {
                 pt.visualized = true;
-                pt.value = app_data.entered_data.values[pos];;
+                pt.value = app_data.entered_data.values[pos];
+                pt.color = app.sel_color({ value: app_data.entered_data.values[pos] }).color;
             }
 
             only_data_links.push(pt);
