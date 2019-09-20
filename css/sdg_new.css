@@ -28,7 +28,14 @@ i.icon-hidden {
     font-weight: 400;
     src: url(./roboto.woff2) format('woff2');
 }
-
+.btn.off
+{
+    display: none;
+}
+.btn.on
+{
+    display: block;
+}
 .btn-floating {
     background-color: #0fafe0!important;
 }
