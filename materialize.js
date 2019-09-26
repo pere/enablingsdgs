@@ -5741,16 +5741,9 @@ if (Vel) {
 
             var uniqueID = Materialize.guid();
             $select.attr('data-select-id', uniqueID);
+
             var wrapper = $('<div class="select-wrapper"></div>');
-            if ($select.hasClass('satellite_select')) {
-                wrapper.addClass('satellite_select');
-            }
-            else {
-                wrapper.addClass($select.attr('class'));
-            }
-
-
-
+            wrapper.addClass($select.attr('class'));
             if ($select.is(':disabled')) wrapper.addClass('disabled');
             var options = $('<ul id="select-options-' + uniqueID + '" class="dropdown-content select-dropdown ' + (multiple ? 'multiple-select-dropdown' : '') + '"></ul>'),
                 selectChildren = $select.children('option, optgroup'),
@@ -5829,7 +5822,8 @@ if (Vel) {
 
                             appendOptionWithIcon($select, $(this), 'multiple');
                         } else {
-
+                            console.info($(this))
+                            console.warn($(this).attr('value'))
                             appendOptionWithIcon($select, $(this));
 
 
@@ -5855,9 +5849,6 @@ if (Vel) {
 
             options.find('li:not(.optgroup)').each(function (i) {
                 $(this).click(function (e) {
-                    console.log(this)
-                    console.warn('clicking??')
-                    console.log(wrapper)
 
                     // Check if option element is disabled
                     if (!$(this).hasClass('disabled') && !$(this).hasClass('optgroup')) {
@@ -5919,7 +5910,7 @@ if (Vel) {
                         // Trigger onchange() event
 
                         if (window.options.config.from_csv == false && wrapper.hasClass('rect_select')) {
-
+                            console.trace();
                             var data_selector = $newSelect.parents().closest('.input-field');
                             var data = data_selector.attr('data_val');
 
@@ -5978,8 +5969,6 @@ if (Vel) {
 
 
                             } else {
-
-
                                 app_data.entered_data.values[pos] = _sel.legend_val;
                                 console.info('from select we updated app_data.entered_data')
 
@@ -6046,44 +6035,37 @@ if (Vel) {
 
 
                         } else {
-
-                            //when CSV is true
-                            // alert('sdfsdf')
-                            // for (var p in dynamic_data.from_ids_counts) {
-                            //     if (dynamic_data.from_ids_counts[p].id == current_data.from_id) {
-                            //         console.warn(current_data)
-                            //         app.circles_stats(dynamic_data.from_ids_counts[p])
-                            //     }
-                            // }
-                            //  alert('trigger??')
-                            /*    setTimeout(function()
-                                {
- 
-                                  var new_p=window.options.config.get_params()
-                                  console.warn(new_p)
-                                  console.info(new_p.objects)
-                                  new_p['goals_obj'].forEach(function(d,i)
-                                  {
-                                    console.log(d)
-                                  })
- 
-                                },1000)*/
                             if (wrapper.hasClass('satellite_select')) {
+                                //when CSV is true
+                                // alert('sdfsdf')
+                                // for (var p in dynamic_data.from_ids_counts) {
+                                //     if (dynamic_data.from_ids_counts[p].id == current_data.from_id) {
+                                //         console.warn(current_data)
+                                //         app.circles_stats(dynamic_data.from_ids_counts[p])
+                                //     }
+                                // }
+                                //  alert('trigger??')
+                                /*    setTimeout(function()
+                                    {
+                 
+                                      var new_p=window.options.config.get_params()
+                                      console.warn(new_p)
+                                      console.info(new_p.objects)
+                                      new_p['goals_obj'].forEach(function(d,i)
+                                      {
+                                        console.log(d)
+                                      })
+                 
+                                    },1000)*/
 
-                                if ($('#satellite_selects_opt .btn').hasClass('off')) {
+                                var t = $(this) //.text();
+                                console.log(t)
+                                var data_id = t[0].innerText.split('Target ')[1]
 
+                                //if (data_id == 'empty') return false;
 
-                                    var t = $(this) //.text();
-                                    console.log(t)
-                                    var data_id = t[0].innerText.split('Target ')[1]
-
-                                    //if (data_id == 'empty') return false;
-
-                                    var _type = $('#satellite_selects_opt form input:checked').attr('id');
-                                    // if ($('#satellite_selects_opt .btn.off'))
-                                    //     $('#satellite_selects_opt .btn.off').removeClass('off').addClass('on').text('Reset')
-                                    create_satellite(data_id, _type);
-                                }
+                                var _type = $('#satellite_selects_opt form input:checked').attr('id')
+                                create_satellite(data_id, _type);
                                 //{legend_val:-3,counts:0,percent_val:0,color:"#d73027",legend_text:"Strongly restricting"},
 
                                 //     var data_id = $(this).find('option:selected')[0].value;

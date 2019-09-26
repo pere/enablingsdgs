@@ -81,7 +81,7 @@ function attach_events_initial_dom() {
 
             options.config.from_csv = true;
             $.ajax({
-                url: './data/matrix.csv',
+                url: './data/matrix2.csv',
                 dataType: 'text',
             }).done(successFunction);
         }
@@ -116,9 +116,7 @@ function attach_events_initial_dom() {
 
             clicked_card_data = d;
 
-            $('.:visible').css('color', function () {
-
-
+            $('.card_val_title:visible').css('color', function () {
                 return "#c6c4c4";
             }).text(function () {
                 return 'No value assigned';
@@ -174,13 +172,22 @@ function attach_events_initial_dom() {
                 d.comments = 'No comments';
                 d.color = '#c6c4c4'
                 $('.edit-icon').show();
+                var params = {};
+
+                params.prev_card_val = prev_card_val;
+                params.data = clicked_card_data;
+                var filtered = d3v5.selectAll('.link').filter(function (d) {
+                    if (d.data == clicked_card_data.data) {
+                        return this;
+                    }
+                })
+
+                params.filtered = filtered;
+
+                app.update_progress_bars('remove', clicked_card_data, params);
 
 
-                if (structural_data.colors_obj.total_records > 0) {
-                    $('.goal_stats_container,.goal_table_container').fadeIn();
-                } else {
-                    $('.goal_stats_container,.goal_table_container').fadeOut();
-                }
+
 
 
             })
@@ -444,6 +451,7 @@ function attach_events_initial_dom() {
                         // app_data.entered_data.ids.push(d.data)
                         // app_data.entered_data.values.push(d.value);
                         //tabulate_clicked already include update_progress_bar
+                        app.update_progress_bars('add', d, null);
                         app.tabulate_clicked(d, 'add');
 
                         //app.update_progress_bars('add', d);
@@ -484,7 +492,7 @@ function tabulate_from_csv() {
     // var columns = ['From', 'to', 'value'];
     var columns = ['Data', 'value'];
 
-    var present_in_csv_goals = goal_stats.map(function (d) {
+    var present_in_csv_goals = dynamic_data.goal_stats.map(function (d) {
         console.warn('to fix')
         //$('.side-nav .input-field select').eq(d.goal-1).trigger('click')
         return d.goal;
@@ -510,34 +518,34 @@ function tabulate_from_csv() {
 
         $('.satellite_options select').material_select();
 
-        // $('.satellite_options select').bind('change', function (e) {
-        //     alert('sateelite')
-        //     var data_id = $(this).find('option:selected')[0].value;
-        //     console.warn(data_id)
+        $('.satellite_options select').bind('change', function (e) {
+            alert('sateelite')
+            var data_id = $(this).find('option:selected')[0].value;
+            console.warn(data_id)
 
-        //     if (data_id == 'empty') return false;
+            if (data_id == 'empty') return false;
 
-        //     var _type = $('#satellite_selects_opt form input:checked').attr('id')
-        //     create_satellite(data_id, _type, e);
+            var _type = $('#satellite_selects_opt form input:checked').attr('id')
+            create_satellite(data_id, _type, e);
 
-        // })
+        })
 
-        // //RADIO BUTTONS
-        // $('#satellite_selects_opt form').change(function (e) {
-        //     var data_id = $('.satellite_options select').find('option:selected')[0].value;
-        //     if (data_id !== 'empty') {
+        //RADIO BUTTONS
+        $('#satellite_selects_opt form').change(function (e) {
+            var data_id = $('.satellite_options select').find('option:selected')[0].value;
+            if (data_id !== 'empty') {
 
 
 
-        //         var _type = $(this).find('input:checked').attr('id');
+                var _type = $(this).find('input:checked').attr('id');
 
-        //         // if (data_id=='empty') return false;
+                // if (data_id=='empty') return false;
 
-        //         create_satellite(data_id, _type, e);
+                create_satellite(data_id, _type, e);
 
-        //     }
+            }
 
-        // })
+        })
     }, 1000)
 
     var goals_keys = d3v5.map(new_params.objects, function (d) {

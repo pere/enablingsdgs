@@ -378,6 +378,7 @@
         var dynamic_data = {
             //all goals that contain at least a target active (lateral checkbox)
             selected_goals_arr: [],
+            goal_stats: [],
             pushed_vis_targets: [],
             from_ids_counts: null,
             update_params: {
@@ -417,7 +418,7 @@
         var clicked_card_data = null;
 
         var selected_targets_arr = [];
-        var goal_stats = [];
+
         var unique_id_arr = {
             ids: [],
             values: []
@@ -750,6 +751,7 @@
                     // these_targets.push(d.targets)
                 })
 
+                // debugger;
 
                 //ALL combinations of targets from the selected groups
                 console.log(these_targets)
@@ -1440,7 +1442,7 @@
                         }
 
                         app.all_goals_vis_fx(target);
-
+                        //  debugger
                     }
                 }
                 //<i class="material-icons all_goals_vis_icon off">visibility_off</i>
@@ -1814,6 +1816,7 @@
                 var pos_colors = colors_obj.data.map(function (d) {
                     return d.legend_val;
                 })
+                var goal_stats = dynamic_data.goal_stats;
 
                 for (var p in dynamic_data.from_ids_counts) {
                     var _t = dynamic_data.from_ids_counts[p];
@@ -1894,18 +1897,16 @@
             }
 
             app.update_progress_bars = function (action, data, params) {
-
-                //NOT WORKING
-
+                console.info(arguments)
                 /* data
                 from_id: "1.1"
                 value: -3
                 */
-                var goals_arr = [];
-                console.trace();
-                console.warn(arguments)
+                var goals_arr = d3v5.map(dynamic_data.goal_stats, function (d) {
+                    return d.goal;
+                }).keys()
+                console.log(goals_arr)
 
-                console.log(action)
                 var colors_obj = structural_data.colors_obj;
 
                 var pos_colors = colors_obj.data.map(function (d) {
@@ -1916,145 +1917,117 @@
                 var li_container = $('.right_container_cards .ul_tables .li_goal_container.class_' + goal);
                 if (action === 'add') {
 
-                    // var dynamic_data2 = {}
-                    // var xx = dynamic_data.from_ids_counts;
 
-                    // var index = {}
-                    // xx.forEach(function (d, i) {
-                    //     if (d.id == data.from_id) {
-                    //         console.warn(d)
-                    //         index.first = i;
-                    //         for (var p in d.value_stats) {
-                    //             if (d.value_stats[p].value == data.value) {
-                    //                 index.second = parseInt(p);
-                    //                 console.log('equal val ' + data.value + ' for ' + data.from_id)
-                    //                 //   d.value_stats[p].sum++;
-                    //             } else {
-                    //                 return false
-                    //             }
-                    //         }
-                    //     }
-                    // });
-                    // console.log(index)
-                    // console.log(dynamic_data.from_ids_counts[index.first].value_stats[index.second].length)
-                    // dynamic_data.from_ids_counts[index.first].value_stats[index.second].sum = dynamic_data.from_ids_counts[index.first].value_stats[index.second].sum + 1;
-                    // console.warn(dynamic_data)
+                    dynamic_data.from_ids_counts.filter(function (d) {
+                        if (d.id == data.from_id) {
+                            console.warn(d)
+                            for (var p in d.value_stats) {
+                                if (d.value_stats[p].value == data.value) {
+                                    d.value_stats[p].sum++
 
-                    // dynamic_data.from_ids_counts.forEach(function (d, i) {
-                    //     var _this = d;
-                    //     if (_this.id == data.from_id) {
-                    //         console.info(_this)
-                    //         console.log(data)
-                    //         // for (var p in dynamic_data.from_ids_counts[i].value_stats) {
-                    //         for (var p = 0; p < dynamic_data.from_ids_counts[i].value_stats.length; p++) {
-                    //             if (dynamic_data.from_ids_counts[i].value_stats[p].value == data.value) {
-                    //                 console.warn(dynamic_data.from_ids_counts[i].value_stats[p])
-                    //                 dynamic_data.from_ids_counts[i].value_stats[p] = { test: 400 };
-                    //             }
-                    //             //  dynamic_data.from_ids_counts[i].value_stats[p].sum = dynamic_data.from_ids_counts[i].value_stats[p].sum + 1;
-                    //             //   }
-                    //         }
-                    //         console.log(JSON.stringify(dynamic_data.from_ids_counts))
-                    //     }
-                    //     else {
-                    //         console.warn('not selected ' + _this.from_id);
-                    //         return false;
-                    //     }
-                    // });
-
-
-
-                    // $('.right_container_cards .ul_tables .li_goal_container.class_' + goal_stats[p].goal).find('.card_count').html('<b>' + goal_stats[p].count + ' record</b>');
-
-
+                                }
+                            }
+                        }
+                    });
                 }
-                // if (action == 'remove') {
+                if (action == 'remove') {
 
-                //     dynamic_data.from_ids_counts.filter(function (d) {
-                //         if (d.id == data.from_id) {
-                //             for (var p in d.value_stats) {
-                //                 if (d.value_stats[p].value == data.value) {
-                //                     if (d.value_stats[p].sum == 1)
-                //                         d.value_stats[p].sum = 0
-                //                     else
-                //                         d.value_stats[p].sum--;
+                    var prev_value = parseInt(params.prev_card_val);
+                    dynamic_data.from_ids_counts.filter(function (d) {
+                        if (d.from_id == data.from_id) {
+                            for (var p in d.value_stats) {
+                                console.info(d.value_stats[p])
+                                if (d.value_stats[p].value == params.prev_card_val) {
+                                    console.info(d.value_stats[p].sum)
+                                    if (d.value_stats[p].sum = 1)
+                                        d.value_stats[p].sum = 0
+                                    else
+                                        d.value_stats[p].sum--;
+                                }
+                            }
+                        }
+                    });
+                }
 
-                //                 }
-                //             }
-                //         }
-                //     });
-                // }
+                if (action == 'update') {
 
-                // if (action == 'update') {
+                    var prev_value = parseInt(params.prev_card_val);
+                    dynamic_data.from_ids_counts.filter(function (d) {
+                        if (d.from_id == data.from_id) {
+                            for (var p in d.value_stats) {
+                                if (d.value_stats[p].value == data.value) {
+                                    d.value_stats[p].sum++;
+                                }
 
-                //     var prev_value = parseInt(params.prev_card_val);
-                //     console.info('updating prev value ' + prev_value + ' to value ' + data.value)
+                                if (d.value_stats[p].value == parseInt(prev_value)) {
 
-                //     dynamic_data.from_ids_counts.filter(function (d) {
-                //         if (d.id == data.from_id) {
-                //             for (var p in d.value_stats) {
-                //                 if (d.value_stats[p].value == data.value) {
-                //                     d.value_stats[p].sum++;
-                //                 }
+                                    if (d.value_stats[p].sum == 1)
+                                        d.value_stats[p].sum = 0
+                                    else
+                                        d.value_stats[p].sum--;
+                                    console.warn('minus ' + prev_value + ' new val ' + d.value_stats[p].sum)
+                                }
+                            }
+                        }
+                    });
+                }
 
-                //                 if (d.value_stats[p].value == parseInt(prev_value)) {
-
-                //                     if (d.value_stats[p].sum == 1)
-                //                         d.value_stats[p].sum = 0
-                //                     else
-                //                         d.value_stats[p].sum--;
-                //                     console.warn('minus ' + prev_value + ' new val ' + d.value_stats[p].sum)
-                //                 }
-                //             }
-                //         }
-                //     });
-                // }
-
+                colors_obj.total_records = 0;
                 for (var x in colors_obj.data) {
 
                     colors_obj.data[x].counts = 0;
                 }
 
-                // for (var p in dynamic_data.from_ids_counts) {
-                //     var _t = dynamic_data.from_ids_counts[p];
-                //     var goal = _t.goal;
+                for (var p in dynamic_data.from_ids_counts) {
+                    var _t = dynamic_data.from_ids_counts[p];
+                    var goal = _t.goal;
 
-                //     var pos_goal = goals_arr.indexOf(goal);
-                //     if (pos_goal == -1) {
-                //         goals_arr.push(goal);
-                //         goal_stats.push({
-                //             'goal': goal,
-                //             'count': 0
-                //         });
-                //     }
-                //     else {
+                    var pos_goal = goals_arr.indexOf(goal);
+                    if (pos_goal == -1) {
+                        goals_arr.push(goal);
+                        console.log('not present??')
+                        dynamic_data.goal_stats.push({
+                            'goal': goal,
+                            'count': 0
+                        });
+                    }
+                    else {
+                        dynamic_data.goal_stats[pos_goal].count = 0;
+                        console.log('present ' + goal)
+                    }
 
-                //         console.log('present ' + goal)
-                //     }
+                }
+                for (var p in dynamic_data.from_ids_counts) {
+                    var _t = dynamic_data.from_ids_counts[p];
+                    var goal = _t.goal;
 
-                // }
-                // for (var p in dynamic_data.from_ids_counts) {
-                //     var _t = dynamic_data.from_ids_counts[p];
-                //     var goal = _t.goal;
+                    var pos_goal = goals_arr.indexOf(goal);
+                    console.log(_t)
 
-                //     var pos_goal = goals_arr.indexOf(goal);
-                //     console.log(_t)
+                    for (var x in _t.value_stats) {
 
-                //     for (var x in _t.value_stats) {
+                        if (parseInt(_t.value_stats[x].sum) > 0) {
 
-                //         if (parseInt(_t.value_stats[x].sum) > 0) {
-                //             var val = _t.value_stats[x].value;
-                //             console.info(_t.value_stats[x])
-                //             var pos = pos_colors.indexOf(val);
+                            console.warn(_t.value_stats[x])
+                            var val = _t.value_stats[x].value;
 
-                //             colors_obj.data[pos].counts = colors_obj.data[pos].counts + _t.value_stats[x].sum;
+                            var pos = pos_colors.indexOf(val);
 
-                //             goal_stats[pos_goal].count = goal_stats[pos_goal].count + _t.value_stats[x].sum;
-                //         }
-                //     }
+                            colors_obj.data[pos].counts = colors_obj.data[pos].counts + _t.value_stats[x].sum;
+                            colors_obj.total_records++;
 
-                //     // $('.right_container_cards .ul_tables .li_goal_container.class_' + goal_stats[p].goal).find('.card_count').html('<b>' + goal_stats[p].count + ' record</b>');
-                // }
+                            dynamic_data.goal_stats[pos_goal].count++;// = goal_stats[pos_goal].count + _t.value_stats[x].sum;
+                        }
+                    }
+
+                    // $('.right_container_cards .ul_tables .li_goal_container.class_' + goal_stats[p].goal).find('.card_count').html('<b>' + goal_stats[p].count + ' record</b>');
+                }
+
+                if (structural_data.colors_obj.total_records > 0) {
+                    $('.goal_stats_container,.goal_table_container').fadeIn();
+                } else {
+                    $('.goal_stats_container,.goal_table_container').fadeOut();
+                }
 
 
                 var row_sum = 0;
@@ -2116,6 +2089,7 @@
                 y_sel_labels.classed('with_data', true);
                 y_sel_labels.text(sum_col);
 
+                console.info(colors_obj)
 
                 function check_hidden($element) {
                     if ($(element).css('display') == 'none' || $(element).css("visibility") == "hidden")
@@ -2211,12 +2185,12 @@
 
                         var right_container_cards_html = '<li class="li_goal_container class_' + goal + '"><div class="collapsible-header nav_bar_' + goal + '"><div class="card horizontal"><div class="card-image"> <img class="responsive-img" style="width:70px" src="./img/sdg' + goal + '.png"></div><div class="card-stacked"><div class="card-content"><div class="card-sdg-goal card-goal-' + goal + '"> Goal ' + goal + '</div><div class="goal_stats"><span class="card_count"></span><div class="stats_by_value"></div></div></div></div></div></div><div class="collapsible-body"><ul></ul> </div></li>';
                         $('#right_container > div.right_container_cards > .ul_tables div.collapsible-body ul').append(right_container_cards_html)
-                        app.update_progress_bars('add', data, null);
+
 
                     } else {
                         alert('remove??')
 
-                        app.update_progress_bars('remove', data, null);
+                        //  app.update_progress_bars('remove', data, null);
                     }
                     //<i class="material-icons transform-icon">transform</i>
 
@@ -2226,12 +2200,12 @@
 
                     if (action == 'add') {
 
-                        app.update_progress_bars('add', data, null);
+                        //   app.update_progress_bars('add', data, null);
                     }
                     if (action == 'remove') {
                         var goal = data.goal;
 
-                        app.update_progress_bars('remove', data, null);
+                        //   app.update_progress_bars('remove', data, null);
                     }
                 }
 
@@ -2679,28 +2653,32 @@ value: 2
                 } else {
                     var arr = [];
 
-
+                    dynamic_data.from_ids_counts = [];
                     var val_range = [-3, -2, -1, 0, 1, 2, 3];
-                    var range_obj = val_range.map(function (d) {
-                        return {
-                            value: d,
-                            sum: 0
-                        }
-                    });
-
-                    dynamic_data.from_ids_counts = selected_labels.map(function (d) {
+                    for (var p in selected_labels) {
+                        var range_obj = val_range.map(function (d) {
+                            return {
+                                value: d,
+                                sum: 0
+                            }
+                        });
+                        var d = selected_labels[p];
+                        console.log(d)
                         arr.push(d.id)
-                        return {
-                            id: d.id,
-                            goal: d.id.split('.')[0],
-                            from_id: d.id,
-                            sum_rows: 0,
-                            sum_cols: 0,
-                            value_stats: range_obj
 
-                        }
 
-                    });
+                        dynamic_data.from_ids_counts.push(
+                            {
+                                id: d.id,
+                                goal: d.id.split('.')[0],
+                                from_id: d.id,
+                                sum_rows: 0,
+                                sum_cols: 0,
+                                value_stats: range_obj
+                            }
+                        )
+
+                    }
 
 
                     selected_links.map(function (d) {
@@ -2742,7 +2720,9 @@ value: 2
                         //     })
                         // }
                     });
-                    console.info(dynamic_data.from_ids_counts);
+
+
+
                     //   debugger;
 
                     // update_vis_labels_counts(selected_labels)
@@ -3670,7 +3650,7 @@ value: 2
 
 
             function update_vis_labels_counts(selected_labels) {
-                return false;
+
                 console.warn(selected_labels)
 
                 var gridSize = chart.gridSize;
@@ -4030,6 +4010,7 @@ value: 2
             // //$('.goal_table_container').click();
             // $('.card-action:first a').trigger('click')
             // $('.sidenav_trigger').trigger('click');
+            // $('.li_goal_container:first .checkbox_all_goal').trigger('click')
 
 
             var showChar = 30; // How many characters are shown by default
@@ -4073,28 +4054,15 @@ value: 2
 
         $('#satellite_selects_opt .btn').on('click', function (e) {
 
-            if ($(this).hasClass('on')) {
+
+            var data_id = $('.satellite_options .select-dropdown').find('li.selected').attr('value');
 
 
-                var cards = d3v5.selectAll('.link');
-                console.log('de-actuive')
-                cards.classed('blacked', false).classed('satellite_selected', false);
-                cards.classed('low_opacity', false)
-                //.style('opacity',1);
-                options.config.satellites = false;
-                $('#vis-container').empty();
-
-                $('#satellite_selects_opt .btn').removeClass('on').addClass('off')//.text('Apply');
-                $('.print_div').hide();
+            var _type = $('#satellite_selects_opt form').find('input:checked').attr('id');
+            if (data_id !== 'empty') {
+                create_satellite(data_id, _type, e)
             }
-
-            // var data_id = $('.satellite_options select').find('option:selected')[0].value;
-
-
-            // var _type = $('#satellite_selects_opt form').find('input:checked').attr('id');
-            // if (data_id !== 'empty') {
-            //     create_satellite(data_id, _type, e)
-            // }
+            //   }
         })
 
         $('.print').click(function (e) {
@@ -4136,34 +4104,58 @@ value: 2
         })
 
 
+
         function create_satellite(data_id, _type) {
             console.trace()
 
             var cards = d3v5.selectAll('.link');
             $('.fixed_col_row').removeClass('fixed_col_row');
 
-            // if ($('#satellite_selects_opt .btn').hasClass('off')) {
-            console.log('activatiiiiing')
-
-            options.config.satellites = true;
-
-            $('#vis-container').trigger('mouseenter');
-            $('.print_div').show();
-
-            // if ((!$(e.target).is('select') && !$(e.target).is('input')) || $('#satellite_selects_opt .btn').hasClass('initial_off')) {
-
-
-            //  $('#satellite_selects_opt .btn').removeClass('off initial_off').addClass('on').text('Reset');
-
-            //  }
-
-            // } 
-            //initially, 'off'
             if ($('#satellite_selects_opt .btn').hasClass('off')) {
+                console.log('activatiiiiing')
 
-                $('#satellite_selects_opt .btn').removeClass('off').addClass('on').text('Reset');
+                options.config.satellites = true;
+
+                $('#vis-container').trigger('mouseenter');
+                $('.print_div').show();
+
+                // if ((!$(e.target).is('select') && !$(e.target).is('input')) || $('#satellite_selects_opt .btn').hasClass('initial_off')) {
+
+
+                $('#satellite_selects_opt .btn').removeClass('off initial_off').addClass('on').text('Reset');
+
+                //  }
+
+            } else {
+                var cards = d3v5.selectAll('.link');
+                console.log('de-actuive')
+                cards.classed('blacked', false).classed('satellite_selected', false);
+                cards.classed('low_opacity', false)
+                //.style('opacity',1);
+                options.config.satellites = false;
+                $('#vis-container').empty();
+
+                $('#satellite_selects_opt .btn').removeClass('on').addClass('off').text('Apply');
+                $('.print_div').hide();
+
+                return false
+
+
+
+
+
+
             }
-
+            //initially, 'off'
+            /*    if ($('#satellite_selects_opt .btn').hasClass('on'))
+                {
+                  $('#satellite_selects_opt .btn').removeClass('on').addClass('off').text('Apply'); 
+                }
+                else
+                {
+                  $('#satellite_selects_opt .btn').removeClass('off').addClass('on').text('Reset');
+                }
+                */
             //options.config.satellites=true;
             $('.fixed_col_row').removeClass('fixed_col_row');
 
@@ -4190,7 +4182,6 @@ value: 2
 
             var objects = new_params.objects;
             structural_data.colors_obj.data.forEach(function (d) {
-                console.log(d)
                 t_obj.satellites.push({
                     value: d.legend_val,
                     label: d.legend_val,
@@ -4238,13 +4229,11 @@ value: 2
             });
 
             row_cards = cards.filter(function (d) {
-
-                if (d.from_id == data_id && d.value !== null && d.data !== data_id + '-' + data_id) {
+                if (d.from_id == data_id && d.value !== null) {
 
                     t_obj.satellites.forEach(function (this_obj) {
                         //sdg_obj refers to the DATA
                         //obj refers to the new obj created on pushing the DATA
-
                         if (parseInt(this_obj.value) == parseInt(d.value)) {
                             // Array.prototype.push.apply(these_targets_data,d2);
 
