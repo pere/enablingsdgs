@@ -238,7 +238,7 @@ html {
     background-color: #788f9c!important;
 }
 li.li_goal_container .collapsible-body ul li {
-    max-height: 700px;
+    max-height: 450px;
     overflow: auto;
     border-bottom: 1px solid #c14a24;
     
@@ -322,6 +322,10 @@ body>div.sdg_container>nav>div>a span {
 .goal_stats_container .collapsible-body,
 .ul_tables .collapsible-body {
     padding: 10px!important;
+}
+.collapsible.ul_tables
+{
+    max-height: 700px;
 }
 .progress_num_rec {
     font-weight: bold;
