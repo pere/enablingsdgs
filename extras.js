@@ -1027,6 +1027,15 @@ function successFunction(data) {
 
     tabulate_from_csv();
 
+    dynamic_data.goal_stats.forEach(function (val, i) {
+
+        var goal = val.goal.toString();
+        console.log(val)
+        console.log(goal)
+        console.warn($('.right_container_cards .ul_tables .li_goal_container.class_' + goal).length)
+        $('.right_container_cards .ul_tables .li_goal_container.class_' + goal).find('.card_count').html('<b>' + val.count + ' records</b>');
+    })
+
     // setTimeout(function() {
     //     console.log(dynamic_data)
     //     for (var p in dynamic_data.from_ids_counts) {

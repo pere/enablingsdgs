@@ -1837,7 +1837,7 @@
 
                         if (parseInt(_t.value_stats[x].sum) > 0) {
                             var val = _t.value_stats[x].value;
-                            console.info(_t.value_stats[x])
+                            //  console.info(_t.value_stats[x])
                             var pos = pos_colors.indexOf(val);
 
                             colors_obj.data[pos].counts = colors_obj.data[pos].counts + _t.value_stats[x].sum;
@@ -1849,14 +1849,12 @@
                     // $('.right_container_cards .ul_tables .li_goal_container.class_' + goal_stats[p].goal).find('.card_count').html('<b>' + goal_stats[p].count + ' record</b>');
                 }
 
+
                 var x_sel_labels = d3v5.selectAll(".xLabels_counter")
                 x_sel_labels.classed('with_data', true);
 
                 var y_sel_labels = d3v5.selectAll(".yLabels_counter");
                 y_sel_labels.classed('with_data', true);
-
-
-
 
                 for (var p in goal_stats) {
                     colors_obj.total_records += goal_stats[p].count;
@@ -1869,9 +1867,6 @@
                     console.info(d.percent_val)
                     // row progress_test card-panel
                     var container = $('.progress_test div.progress[data-val=' + d.legend_val + ']'); //.parent();
-
-                    //container.find('div:first').css('width',d.percent_val+'%');
-
                     container.find('div:first').animate({
                         width: d.percent_val + '%'
                     }, 2000)
@@ -1880,14 +1875,13 @@
 
                     console.info('EQUAL data ' + d.percent_val + ' for ' + d.legend_val + ' with coiunts ' + d.counts)
 
-                    console.log(d)
                     if (d.counts == 0) {
                         container.parent().hide();
-                        console.info('container with ZERO data')
+
                         container.parent().removeClass('active');
                     } else {
                         container.parent().show();
-                        console.warn('show')
+
                         if (!container.parent().hasClass('active'))
                             container.parent().addClass('active');
                     }
@@ -1905,7 +1899,7 @@
                 var goals_arr = d3v5.map(dynamic_data.goal_stats, function (d) {
                     return d.goal;
                 }).keys()
-                console.log(goals_arr)
+
 
                 var colors_obj = structural_data.colors_obj;
 
@@ -1950,12 +1944,14 @@
                 }
 
                 if (action == 'update') {
-
+                    console.warn('update on progressbar')
                     var prev_value = parseInt(params.prev_card_val);
                     dynamic_data.from_ids_counts.filter(function (d) {
                         if (d.from_id == data.from_id) {
+                            console.log(d);
                             for (var p in d.value_stats) {
                                 if (d.value_stats[p].value == data.value) {
+                                    console.log('summing on progressbar to ' + data.valuee)
                                     d.value_stats[p].sum++;
                                 }
 
@@ -1974,7 +1970,6 @@
 
                 colors_obj.total_records = 0;
                 for (var x in colors_obj.data) {
-
                     colors_obj.data[x].counts = 0;
                 }
 
@@ -2005,7 +2000,6 @@
                     console.log(_t)
 
                     for (var x in _t.value_stats) {
-
                         if (parseInt(_t.value_stats[x].sum) > 0) {
 
                             console.warn(_t.value_stats[x])
@@ -2014,14 +2008,22 @@
                             var pos = pos_colors.indexOf(val);
 
                             colors_obj.data[pos].counts = colors_obj.data[pos].counts + _t.value_stats[x].sum;
-                            colors_obj.total_records++;
-
-                            dynamic_data.goal_stats[pos_goal].count++;// = goal_stats[pos_goal].count + _t.value_stats[x].sum;
+                            colors_obj.total_records += _t.value_stats[x].sum;
+                            // dynamic_data.goal_stats[pos_goal].count+=
+                            dynamic_data.goal_stats[pos_goal].count = dynamic_data.goal_stats[pos_goal].count + _t.value_stats[x].sum;// = goal_stats[pos_goal].count + _t.value_stats[x].sum;
                         }
                     }
 
                     // $('.right_container_cards .ul_tables .li_goal_container.class_' + goal_stats[p].goal).find('.card_count').html('<b>' + goal_stats[p].count + ' record</b>');
                 }
+                var goal = data.goal.toString();
+
+                var pos_goal = goals_arr.indexOf(goal);
+
+
+                console.info(goals_arr)
+                console.log(pos_goal)
+                $('.right_container_cards .ul_tables .li_goal_container.class_' + goal).find('.card_count').html('<b>' + dynamic_data.goal_stats[pos_goal].count + ' records</b>');
 
                 if (structural_data.colors_obj.total_records > 0) {
                     $('.goal_stats_container,.goal_table_container').fadeIn();
@@ -2089,7 +2091,7 @@
                 y_sel_labels.classed('with_data', true);
                 y_sel_labels.text(sum_col);
 
-                console.info(colors_obj)
+                console.warn(colors_obj)
 
                 function check_hidden($element) {
                     if ($(element).css('display') == 'none' || $(element).css("visibility") == "hidden")
@@ -2178,10 +2180,6 @@
 
                 if ($goal_container.length == 0) {
                     if (action == 'add') {
-                        // goal_stats.push({
-                        //     'goal': goal,
-                        //     'count': 0
-                        // });
 
                         var right_container_cards_html = '<li class="li_goal_container class_' + goal + '"><div class="collapsible-header nav_bar_' + goal + '"><div class="card horizontal"><div class="card-image"> <img class="responsive-img" style="width:70px" src="./img/sdg' + goal + '.png"></div><div class="card-stacked"><div class="card-content"><div class="card-sdg-goal card-goal-' + goal + '"> Goal ' + goal + '</div><div class="goal_stats"><span class="card_count"></span><div class="stats_by_value"></div></div></div></div></div></div><div class="collapsible-body"><ul></ul> </div></li>';
                         $('#right_container > div.right_container_cards > .ul_tables div.collapsible-body ul').append(right_container_cards_html)
@@ -3148,7 +3146,7 @@ value: 2
                     })
                     // .attr("transform", "translate(-7," + (Math.floor(gridSize / 2) + 4) + ")") // + gridSize / 1.5 + ")")                      
                     .attr("class", "news_labels yLabels mono axis axis-y");
-                console.warn('finished labels')
+                console.warn('finished YY labels')
 
 
                 // 1. Make new data join
@@ -3165,7 +3163,7 @@ value: 2
                     .append("rect")
                     //.classed('just_entered', true)
                     .attr("y", function (d, i) {
-                        console.info(d)
+
                         console.log(d.data + '---' + i + ' rectEnter')
 
                         return y(d.from_id) //+ 4
@@ -3536,7 +3534,7 @@ value: 2
                             $('.card_toast.blues').not('.editing_card_toast').remove();
                             //console.log($('.card_toast.blues').length)
                             if ($('.editing_card_toast').length == 0) {
-                                console.info($('.hovered_class').length)
+                                //  console.info($('.hovered_class').length)
                                 filtered
                                     .transition()
                                     .duration(500)
@@ -3621,7 +3619,7 @@ value: 2
                     .attr("height", chart.gridSize)
 
                     .style("fill", function (d) {
-                        console.log(d)
+                        // console.log(d)
                         if (d.same_targets == true) {
                             //  console.log(d)
 
@@ -3641,7 +3639,7 @@ value: 2
 
             $(window).on('resize', function () {
                 width_px = $(window).height() + $('.nav-wrapper').height();
-                console.log(width_px)
+                //    console.log(width_px)
                 $('.svg-container').height(width_px);
                 $('.svg-container').width(width_px);
             });
@@ -3796,44 +3794,23 @@ value: 2
                             last_y = y(d.id) + chart.gridSize + 10
                         }
 
-                        /*
-                        0:
-                        id: "2.3"
-                        sum_col: 24
-                        sum_rows: 8
-                        values: []
-                        */
+                        for (var p in dynamic_data.from_ids_counts) {
+                            var t = dynamic_data.from_ids_counts[p];
 
-                        var sum_col = 0;
-                        var col_number = 0;
-
-                        var col_filtered = d3v5.selectAll('rect.link').filter(function (card) {
-                            console.info()
-                            if (card.to_id == d.to_id && card.value !== null) {
-
-                                col_number++;
-                                sum_col += card.value;
-                                return this;
+                            if (t.id == d.id) {
+                                d.sum_rows = t.sum_rows;
+                                d.sum_cols = t.sum_cols;
                             }
 
-                        });
-                        console.info(sum_col)
-                        // for (var p in dynamic_data.from_ids_counts) {
-                        //     var t = dynamic_data.from_ids_counts[p];
+                        }
 
-                        //     if (t.id == d.id) {
-                        //         console.warn(t)
-                        //         d.sum_rows = t.sum_rows;
-                        //         d.sum_col = t.sum_col;
-                        //     }
-
-                        // }
-
-                        return sum_col;
+                        return d.id;
                     });
+                yLabels_counter.exit().remove();
 
+                yLab_count_enter = yLabels_counter
+                    .enter().append("text")
 
-                yLabels_counter.enter().append("text")
                     //   .merge(xLabels)
                     .text(function (d) {
 
@@ -3865,7 +3842,7 @@ value: 2
                         console.log('new data ' + x_width + ' for ' + d.id)
                         return last_y + 5;; //+ (gridSize / 2)
                     });
-                yLabels_counter.exit().remove();
+                //yLabels_counter.exit().remove();
 
 
 

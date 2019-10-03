@@ -5705,7 +5705,7 @@ if (Vel) {
 
         $(this).each(function () {
             var $select = $(this);
-            console.info($select.attr('class'))
+            
             //if ($select.parents().closest('.sel_table_goal').length > 0) 
             if ($select.hasClass('rect_select')) {
                 var target_select = true;
@@ -5769,8 +5769,7 @@ if (Vel) {
                     var classString = '';
                     if (!!classes) classString = ' class="' + classes + '"';
 
-                    console.log(option.value)
-                    console.warn($select.attr('class'))
+                  
                     // Check for multiple type.
                     if ($select.hasClass('rect_select')) {
                         options.append($('<li value="' + option.value + '" class="' + disabledClass + optgroupClass + '"><img alt="" src="' + icon_url + '"' + classString + '><span>Rect' + multipleCheckbox + option.html() + '</span></li>'));
@@ -5822,8 +5821,7 @@ if (Vel) {
 
                             appendOptionWithIcon($select, $(this), 'multiple');
                         } else {
-                            console.info($(this))
-                            console.warn($(this).attr('value'))
+                            
                             appendOptionWithIcon($select, $(this));
 
 
@@ -5855,11 +5853,11 @@ if (Vel) {
                         var selected = true;
 
                         if (wrapper.hasClass('rect_select')) {
-                            console.log($(this))
+                            
                             var container = $newSelect.parents().closest('.input-field');
                             if ($('.last_changed_sel_val').length > 0) {
                                 var t = container.find('ul.select-dropdown li.last_changed_sel_val').text();
-                                console.log(structural_data.colors_obj.data)
+                                
                                 //{legend_val:-3,counts:0,percent_val:0,color:"#d73027",legend_text:"Strongly restricting"},
                                 prev_sel = structural_data.colors_obj.data.filter(function (info) {
 
@@ -6022,9 +6020,9 @@ if (Vel) {
                                 //  app.update_progress_bars('update', current_data, params);
 
                                 for (var p in dynamic_data.from_ids_counts) {
-                                    console.log(dynamic_data.from_ids_counts[p].id)
+                                    
                                     if (dynamic_data.from_ids_counts[p].id == current_data.data.from_id) {
-                                        console.warn(current_data)
+                                        
                                         app.circles_stats(dynamic_data.from_ids_counts[p])
                                     }
                                 }
